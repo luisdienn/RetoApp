@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+# OCULTAR DESPUES EN UN ENV
+
+development:
+  <<: *default
+  url: postgresql://admin:07KwDTEOuxMVY88rbaRgjF787vYeJlj5@dpg-d1gnet6mcj7s73d13uj0-a.oregon-postgres.render.com/retoapp_t7t7
+
+test:
+  <<: *default
+  url: postgresql://admin:07KwDTEOuxMVY88rbaRgjF787vYeJlj5@dpg-d1gnet6mcj7s73d13uj0-a.oregon-postgres.render.com/retoapp_t7t7
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
