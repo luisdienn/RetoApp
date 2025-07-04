@@ -28,7 +28,7 @@ class Users::SessionsController < Devise::SessionsController
 
   protected
   def after_sign_in_path_for(resource)
-    "/users/password/new" # Redirect to the unlock page after sign in
+    "/dashboard" # Redirect to the unlock page after sign in
   end
 
   # If you have extra params to permit, append them to the sanitizer.

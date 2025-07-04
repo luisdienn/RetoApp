@@ -17,7 +17,12 @@
     "@babel/preset-env": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
     "@babel/runtime": "^7.27.6",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@fortawesome/fontawesome-free": "^6.7.2",
+    "@mui/icons-material": "^7.2.0",
+    "@mui/material": "^7.2.0",
+    "@mui/x-date-pickers": "^8.7.0",
     "@types/babel__core": "^7.20.5",
     "@types/webpack": "^5.28.5",
     "axios": "^1.10.0",
@@ -28,6 +33,7 @@
     "compression-webpack-plugin": "^9.2.0",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.2",
+    "material-react-table": "^3.2.1",
     "mini-css-extract-plugin": "^2.9.2",
     "prop-types": "^15.8.1",
     "react": "^19.1.0",
@@ -45,8 +51,10 @@
     "webpack-merge": "^5.10.0"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.27.1",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.6.1",
     "react-refresh": "^0.17.0",
+    "typescript": "^5.8.3",
     "webpack-dev-server": "^4.15.2"
   }
 }

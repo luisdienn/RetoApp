@@ -10,6 +10,8 @@ import {
   layouts,
 } from "chart.js";
 import { Radar } from "react-chartjs-2";
+import React from "react";
+
 
 ChartJS.register(
   RadialLinearScale,
@@ -76,13 +78,13 @@ export default function Performance() {
       {/* Stats */}
       <div className="flex flex-col pr-10">
         <h2 className="text-2xl font-bold text-white">Performance</h2>
-        <p className="text-gold-side">2025</p>
+        <p className="text-[#f9e7b8]">2025</p>
         {/* Compact stats */}
         <div className="pt-14 grid grid-cols-3 gap-y-8 gap-x-8">
           {stats.map((stat) => (
             <div key={stat.label} className="flex flex-col items-center">
               <span className="text-4xl font-bold">{stat.value}</span>
-              <span className="text-sm text-gold-side">{stat.label}</span>
+              <span className="text-sm text-[#f9e7b8]">{stat.label}</span>
             </div>
           ))}
         </div>

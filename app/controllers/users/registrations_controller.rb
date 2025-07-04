@@ -3,6 +3,17 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
+
+  #Hay que arreglarlo
+  #validates :name, presence: true
+  # validates :email, presence: true, uniqueness: true
+  # validates :password, presence: true,
+  #   format: { 
+  #     with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).+\z/, 
+  #     message: "debe tener al menos una mayúscula, una minúscula y un signo" 
+  #   }
+
+
   respond_to :html, :json
 
   # GET /resource/sign_up

@@ -46,6 +46,7 @@ export async function postRequest<T>(
       toast.error(error.response.data.error);
       return { success: false, errors: [error.response.data.error] };
     } else {
+      console.error("Unexpected error:", error);
       toast.error("An unexpected error occurred.");
       return { success: false, errors: ["An unexpected error occurred."] };
     }
