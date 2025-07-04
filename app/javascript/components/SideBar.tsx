@@ -18,10 +18,10 @@ type SidebarProps = {
 };
 
 const navItems: NavItem[] = [
-  { icon: <FaHome />, label: "Dashboard", href: "#" },
-  { icon: <FaUserFriends />, label: "Friends", href: "#" },
-  { icon: <GiTrophy />, label: "World Cup", href: "#" },
-  { icon: <FaListUl />, label: "Matches", href: "#" },
+  { icon: <FaHome />, label: "Dashboard", href: "/dashboard" },
+  { icon: <FaUserFriends />, label: "Friends", href: "/friends" },
+  { icon: <GiTrophy />, label: "World Cup", href: "/world_cup" },
+  { icon: <FaListUl />, label: "Matches", href: "/matches" },
 ];
 
 export default function Sidebar({ Name, Favicon, RetoLogo ,isOpen, toggleSidebar }: SidebarProps) {
@@ -48,8 +48,8 @@ export default function Sidebar({ Name, Favicon, RetoLogo ,isOpen, toggleSidebar
         </div>
 
         {/* Perfil */}
-        <div className={`flex flex-col items-center transition-all duration-300 py-16 ${isOpen ? "opacity-100" : "opacity-0 h-0 overflow-hidden"}`}>
-          <div className="w-14 h-14 bg-gray-700 rounded-full mb-2"></div>
+        <div  className={`flex flex-col items-center transition-all duration-300 py-16  ${isOpen ? "opacity-100" : "opacity-0 h-0 overflow-hidden"}`}>
+          <div onClick={() => { window.location.href = "/users/sign_out"; }}  className="w-14 h-14 bg-gray-700 rounded-full mb-2 hover:cursor-pointer"></div>
           <p className="font-medium">{Name}</p>
         </div>
 

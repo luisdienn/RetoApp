@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+ 
 
   root to: 'home#index'
 
@@ -7,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :matches, only: [:index]
   resources :dashboard, only: [:index]
+  resources :world_cup, only: [:index]
   devise_for :users, controllers: {
   sessions: 'users/sessions',
   registrations: 'users/registrations',
