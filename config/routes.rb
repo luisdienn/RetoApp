@@ -2,6 +2,14 @@ Rails.application.routes.draw do
   root to: 'home#index'
   get "home/index"
   get 'hello_world', to: 'hello_world#index'
+  resources :dashboard, only: [:index]
+  devise_for :users, controllers: {
+  sessions: 'users/sessions',
+  registrations: 'users/registrations',
+  passwords: 'users/passwords',
+  confirmations: 'users/confirmations',
+  unlocks: 'users/unlocks'
+}
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

@@ -13,3 +13,18 @@
 //
 // const images = require.context('./images', true)
 // const imagePath = (name) => images(name, true)
+import ReactOnRails from 'react-on-rails';
+
+import Login from "../components/Login/Login";
+import Dashboard from "../components/Dashboard/Dashboard";
+
+
+
+
+// This is how react_on_rails can see the HelloWorld in the browser.
+ReactOnRails.register({
+  Login,
+  Dashboard,
+
+  
+});
