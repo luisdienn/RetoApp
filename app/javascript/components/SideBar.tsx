@@ -49,7 +49,7 @@ export default function Sidebar({ Name, Favicon, RetoLogo ,isOpen, toggleSidebar
 
         {/* Perfil */}
         <div  className={`flex flex-col items-center transition-all duration-300 py-16  ${isOpen ? "opacity-100" : "opacity-0 h-0 overflow-hidden"}`}>
-          <div onClick={() => { window.location.href = "/users/sign_out"; }}  className="w-14 h-14 bg-gray-700 rounded-full mb-2 hover:cursor-pointer"></div>
+          <div onClick={() => { window.location.href = "/profile"; }}  className="w-14 h-14 bg-gray-700 rounded-full mb-2 hover:cursor-pointer"></div>
           <p className="font-medium">{Name}</p>
         </div>
 

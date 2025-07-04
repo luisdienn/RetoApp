@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :matches, only: [:index]
   resources :dashboard, only: [:index]
   resources :world_cup, only: [:index]
+  resources :profile, only: [:index]
   devise_for :users, controllers: {
   sessions: 'users/sessions',
   registrations: 'users/registrations',

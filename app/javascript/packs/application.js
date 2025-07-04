@@ -19,6 +19,7 @@ import Login from "../components/Login/Login";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Matches from "../components/Matches/Matches";
 import WorldCup from "../components/WorldCup/WorldCup";
+import Profile from "../components/Profile/Profile";
 
 
 
@@ -29,7 +30,8 @@ ReactOnRails.register({
   Dashboard,
   Matches,
   WorldCup,
-  
+  Profile
+
 
   
 });
