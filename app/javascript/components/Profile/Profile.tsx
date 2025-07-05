@@ -3,7 +3,8 @@ import React from "react";
 import { useState } from "react";
 import SideBar from "../SideBar";
 
-export default function Profile({ Name, Favicon, RetoLogo }) {
+export default function Profile({ Name, Email, Favicon, RetoLogo }) {
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
@@ -17,7 +18,7 @@ export default function Profile({ Name, Favicon, RetoLogo }) {
       />
       <div className="flex-1">
         <div className="min-h-screen bg-gray-100 p-12">
-          <ProfileCard />
+          <ProfileCard Name={Name} Email={Email}/>
         </div>
       </div>
     </div>

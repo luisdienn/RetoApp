@@ -1,6 +1,11 @@
 import React from "react";
 
-export default function ProfileCard() {
+  type ProfileProps = {
+  Name: string;
+  Email: string;
+  }
+
+export default function ProfileCard( {Name, Email}: ProfileProps) {
   return (
     <div className="p-6 sm:p-8 bg-black shadow-lg rounded-lg max-w-5xl mx-auto">
 
@@ -45,8 +50,8 @@ export default function ProfileCard() {
 
       {/* Name and Info */}
       <div className="mt-16 text-center border-b border-gray-700 pb-8 px-4">
-        <h1 className="text-3xl sm:text-4xl font-semibold text-white">Jessica Jones</h1>
-        <p className="text-[#f9e7b8] mt-2">Bucharest, Romania</p>
+        <h1 className="text-3xl sm:text-4xl font-semibold text-white">{Name}</h1>
+        <p className="text-[#f9e7b8] mt-2">{Email}</p>
         <p className="mt-4 text-gray-400">Solution Manager - Creative Tim Officer</p>
         <p className="text-gray-400">University of Computer Science</p>
       </div>
