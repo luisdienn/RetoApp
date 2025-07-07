@@ -10,9 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_01_182009) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_07_000832) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "friendships", force: :cascade do |t|
+    t.integer "requester_id", null: false
+    t.integer "receiver_id", null: false
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "goals"
+    t.string "result"
+    t.string "score"
+    t.string "details"
+    t.date "date"
+    t.bigint "world_cup_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "fouls"
+    t.integer "assists"
+    t.integer "blocks"
+    t.integer "passes"
+    t.string "opponent"
+    t.index ["user_id"], name: "index_matches_on_user_id"
+    t.index ["world_cup_id"], name: "index_matches_on_world_cup_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -32,9 +59,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_01_182009) do
     t.string "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active", default: true, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
+
+  create_table "world_cups", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "current_stage"
+    t.integer "matches_won"
+    t.integer "matches_lost"
+    t.boolean "was_won"
+    t.boolean "is_active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_world_cups_on_user_id"
+  end
+
+  add_foreign_key "friendships", "users", column: "receiver_id"
+  add_foreign_key "friendships", "users", column: "requester_id"
+  add_foreign_key "matches", "users"
+  add_foreign_key "matches", "world_cups"
+  add_foreign_key "world_cups", "users"
 end

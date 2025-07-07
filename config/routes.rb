@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "home/index"
   get 'hello_world', to: 'hello_world#index'
 
-  resources :matches, only: [:index]
+  resources :matches, only: [:index, :create] 
   resources :dashboard, only: [:index]
   resources :world_cup, only: [:index]
   resources :profile, only: [:index]

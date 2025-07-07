@@ -1,5 +1,3 @@
-
-
 import Performance from "./Performance";
 import RecentGame from "./RecentGame";
 import TotalGoals from "./TotalGoals";
@@ -10,9 +8,11 @@ import AddButton from "../AddButton";
 import React from "react";
 import { useState } from "react";
 import SideBar from "../SideBar";
+import AddMatchModal from "../AddMatchModal";
 
-export default function Dashboard({Name, Favicon, RetoLogo}) {
+export default function Dashboard({ Name, Favicon, RetoLogo }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="flex ">
@@ -30,7 +30,7 @@ export default function Dashboard({Name, Favicon, RetoLogo}) {
             <h1 className="text-4xl font-bold text-gray-800">
               Welcome back, {Name}!
             </h1>
-            <AddButton />
+            <AddButton onClick={() => setIsModalOpen(true)} />
           </div>
           <p className="mb-8 text-gray-600">Take a look at your performance</p>
 
@@ -55,6 +55,10 @@ export default function Dashboard({Name, Favicon, RetoLogo}) {
               <TotalWC />
             </div>
           </div>
+          <AddMatchModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
         </div>
       </div>
     </div>

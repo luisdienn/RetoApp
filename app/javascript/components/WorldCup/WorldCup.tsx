@@ -9,9 +9,14 @@ import AddButton from "../AddButton";
 import React from "react";
 import { useState } from "react";
 import SideBar from "../SideBar";
+import AddMatchModal from "../AddMatchModal";
 
 export default function WorldCup({ Name, Favicon, RetoLogo }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+
   return (
     <div className="flex ">
       <SideBar
@@ -25,7 +30,7 @@ export default function WorldCup({ Name, Favicon, RetoLogo }) {
         <div className="min-h-screen bg-gray-100 p-12">
           <div className="flex items-center justify-between mb-2">
             <h1 className="text-4xl font-bold text-gray-800">World Cup</h1>
-            <AddButton />
+            <AddButton onClick={() => setIsModalOpen(true)} />
           </div>
           <p className=" text-gray-600">
             Take a look at where you are at your personal World Cup
@@ -62,6 +67,11 @@ export default function WorldCup({ Name, Favicon, RetoLogo }) {
               <WCStreak />
             </div>
           </div>
+
+          <AddMatchModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
         </div>
       </div>
     </div>
