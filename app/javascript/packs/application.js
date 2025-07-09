@@ -20,6 +20,10 @@ import Dashboard from "../components/Dashboard/Dashboard";
 import Matches from "../components/Matches/Matches";
 import WorldCup from "../components/WorldCup/WorldCup";
 import Profile from "../components/Profile/Profile";
+import Friendships from "../components/Friendships/Friendships";
+import FriendshipProfile from "../components/Friendships/FriendshipProfile";
+
+
 
 
 
@@ -30,7 +34,9 @@ ReactOnRails.register({
   Dashboard,
   Matches,
   WorldCup,
-  Profile
+  Profile,
+  Friendships,
+  FriendshipProfile
 
 
   

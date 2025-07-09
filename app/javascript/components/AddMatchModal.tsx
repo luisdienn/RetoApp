@@ -6,10 +6,7 @@ type AddMatchModalProps = {
   onClose: () => void;
 };
 
-export default function AddMatchModal({
-  isOpen,
-  onClose,
-}: AddMatchModalProps) {
+export default function AddMatchModal({ isOpen, onClose }: AddMatchModalProps) {
   const [goals, setGoals] = useState("");
   const [result, setResult] = useState("");
   const [score1, setScore1] = useState(""); // Primer número del score
@@ -49,6 +46,21 @@ export default function AddMatchModal({
   };
 
   if (!isOpen) return null;
+
+  // Hoy en local timezone
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, "0"); // Mes empieza en 0
+  const dd = String(today.getDate()).padStart(2, "0");
+  const todayStr = `${yyyy}-${mm}-${dd}`;
+
+  // Ayer en local timezone
+  const yesterdayDate = new Date();
+  yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+  const yyyyY = yesterdayDate.getFullYear();
+  const mmY = String(yesterdayDate.getMonth() + 1).padStart(2, "0");
+  const ddY = String(yesterdayDate.getDate()).padStart(2, "0");
+  const yesterdayStr = `${yyyyY}-${mmY}-${ddY}`;
 
   return (
     <div
@@ -190,6 +202,8 @@ export default function AddMatchModal({
               onChange={(e) => setDate(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded"
               required
+              min={yesterdayStr}
+              max={todayStr}
             />
           </div>
 

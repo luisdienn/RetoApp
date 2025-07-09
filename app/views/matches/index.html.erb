@@ -1,7 +1,8 @@
 <%= react_component(
   "Matches",
   props: {
-    Name: @user.name,
+    user: @user.as_json(),
+    matches: @matches.as_json(),
     Favicon: "/assets/LogoO2.png",
     RetoLogo: "/assets/RetoLogo2.png"
   },

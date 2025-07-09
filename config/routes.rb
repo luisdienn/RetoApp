@@ -10,6 +10,11 @@ Rails.application.routes.draw do
   resources :dashboard, only: [:index]
   resources :world_cup, only: [:index]
   resources :profile, only: [:index]
+  resources :friendships, only: [:index, :create]
+  get 'friendships/profile/:id', to: 'friendships#profile', as: 'friend_profile'
+
+  
+
   devise_for :users, controllers: {
   sessions: 'users/sessions',
   registrations: 'users/registrations',

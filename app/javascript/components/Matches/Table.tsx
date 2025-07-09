@@ -1,10 +1,9 @@
-import React from "react";
-import { useMemo } from 'react';
+import React, { useMemo } from "react";
 import {
   MaterialReactTable,
   useMaterialReactTable,
   type MRT_ColumnDef,
-} from 'material-react-table';
+} from "material-react-table";
 
 type Match = {
   date: string;
@@ -14,92 +13,44 @@ type Match = {
   description: string;
 };
 
-const data: Match[] = [
-  {
-    date: '2023-10-01',
-    score: '3 - 1',
-    result: 'Win',
-    oponent: 'Team B',
-    description: 'Great performance, strong defense.',
-  },
-  {
-    date: '2023-09-25',
-    score: '1 - 2',
-    result: 'Loss',
-    oponent: 'Team C',
-    description: 'Close match, unlucky finish.',
-  },
-  {
-    date: '2023-09-18',
-    score: '2 - 2',
-    result: 'Draw',
-    oponent: 'Team D',
-    description: 'Evenly matched teams.',
-  },
-  {
-    date: '2023-09-10',
-    score: '4 - 0',
-    result: 'Win',
-    oponent: 'Team E',
-    description: 'Dominant win, excellent attack.',
-  },
-  {
-    date: '2023-09-03',
-    score: '0 - 1',
-    result: 'Loss',
-    oponent: 'Team F',
-    description: 'Tough loss, missed chances.',
-  },
-    {
-    date: '2023-09-03',
-    score: '0 - 1',
-    result: 'Loss',
-    oponent: 'Team F',
-    description: 'Tough loss, missed chances.',
-  },
-];
+type TableProps = {
+  matches: any;
+};
 
-export default function Table() {
+export default function Table({ matches }: TableProps) {
   const columns = useMemo<MRT_ColumnDef<Match>[]>(
     () => [
-      {
-        accessorKey: 'date',
-        header: 'Date',
-        size: 120,
-      },
-      {
-        accessorKey: 'oponent',
-        header: 'Opponent',
-        size: 150,
-      },
-      {
-        accessorKey: 'score',
-        header: 'Score',
-        size: 100,
-      },
-      {
-        accessorKey: 'result',
-        header: 'Result',
-        size: 100,
-      },
-      {
-        accessorKey: 'description',
-        header: 'Description',
-        size: 250,
-      },
+      { accessorKey: "date", header: "Date" },
+      { accessorKey: "oponent", header: "Opponent" },
+      { accessorKey: "score", header: "Score" },
+      { accessorKey: "result", header: "Result" },
+      { accessorKey: "description", header: "Description" },
     ],
-    [],
+    []
   );
+
+const transformedData = useMemo(() => {
+  return Array.isArray(matches)
+    ? matches
+        .map((match: any) => ({
+          date: match.date,
+          score: match.score,
+          result: match.result,
+          oponent: match.opponent,
+          description: match.details,
+        }))
+        .sort(
+          (a, b) =>
+            new Date(b.date).getTime() - new Date(a.date).getTime()
+        )
+    : [];
+}, [matches]);
+
 
   const table = useMaterialReactTable({
     columns,
-    data,
-
+    data: transformedData,
   });
 
-  return (
-    <div>
-      <MaterialReactTable table={table} />
-    </div>
-  );
+  return <MaterialReactTable table={table} />;
 }

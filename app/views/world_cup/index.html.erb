@@ -1,7 +1,13 @@
 <%= react_component(
   "WorldCup",
   props: {
-    Name: @user.name,
+    user: @user.as_json(),
+    currentwc: @currentwc.as_json(),
+    matches: @matches.as_json(),
+    goals: @goals,
+    winstreak: @winstreak,
+    world_cups: @world_cups,
+    totalwc: @totalwc,
     Favicon: "/assets/LogoO2.png",
     RetoLogo: "/assets/RetoLogo2.png"
   },

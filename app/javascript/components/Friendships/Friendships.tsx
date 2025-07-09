@@ -1,14 +1,15 @@
-import Table from "./Table";
-
 import AddButton from "../AddButton";
 import React from "react";
 import { useState } from "react";
 import SideBar from "../SideBar";
 import AddMatchModal from "../AddMatchModal";
+import SearchBar from "./SearchBar";
+import StatsTable from "./StatsTable";
 
-export default function Matches({ user, matches, Favicon, RetoLogo }) {
+export default function Friendships({ user, Favicon, RetoLogo }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <div className="flex overflow-hidden h-screen">
@@ -20,16 +21,23 @@ export default function Matches({ user, matches, Favicon, RetoLogo }) {
         toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
       />
       <div className="flex-1 overflow-y-auto">
-        <div className="min-h-screen bg-gray-100 p-12 ">
+        <div className="min-h-screen bg-gray-100 p-12">
           <div className="flex items-center justify-between mb-2">
-            <h1 className="text-4xl font-bold text-gray-800">Matches</h1>
+            <h1 className="text-4xl font-bold text-gray-800">Friends</h1>
             <AddButton onClick={() => setIsModalOpen(true)} />
           </div>
-          <p className=" text-gray-600">This is your history</p>
+          <p className=" text-gray-600">Time to check where are you standing</p>
 
-          <div className="pt-10 ">
-            <Table matches={matches} />
+          <div className="mt-6 mb-4 pb-5">
+            <SearchBar
+              value={searchTerm}
+              placeholder="Search friends..."
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
+
+            <StatsTable />
+
           <AddMatchModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}

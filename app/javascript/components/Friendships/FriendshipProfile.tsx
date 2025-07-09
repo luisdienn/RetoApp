@@ -1,10 +1,12 @@
-import ProfileCard from "./ProfileCard";
+import AddButton from "../AddButton";
 import React from "react";
 import { useState } from "react";
 import SideBar from "../SideBar";
+import FriendshipProfileCard from "./FriendshipProfileCard";
 
-export default function Profile({ user, Favicon, RetoLogo }) {
 
+
+export default function FriendshipProfile({ user,frienduser, isfriend, Favicon, RetoLogo }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
@@ -18,7 +20,7 @@ export default function Profile({ user, Favicon, RetoLogo }) {
       />
       <div className="flex-1 overflow-y-auto">
         <div className="min-h-screen bg-gray-100 p-12">
-          <ProfileCard user={user}/>
+          <FriendshipProfileCard frienduser={frienduser} isfriend={isfriend} />
         </div>
       </div>
     </div>

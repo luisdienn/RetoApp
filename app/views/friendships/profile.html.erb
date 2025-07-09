@@ -1,7 +1,9 @@
 <%= react_component(
-  "Profile",
+  "FriendshipProfile",
   props: {
     user: @user.as_json(),
+    frienduser: @frienduser.as_json(),
+    isfriend: @isfriend.as_json(),
     Favicon: "/assets/LogoO2.png",
     RetoLogo: "/assets/RetoLogo2.png"
   },

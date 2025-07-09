@@ -10,25 +10,39 @@ import { useState } from "react";
 import SideBar from "../SideBar";
 import AddMatchModal from "../AddMatchModal";
 
-export default function Dashboard({ Name, Favicon, RetoLogo }) {
+export default function Dashboard({
+  user,
+  matchesyear,
+  goalsyear,
+  foulsyear,
+  assistsyear,
+  blockyear,
+  passesyear,
+  lastmatch,
+  totalmatches,
+  totalgoals,
+  world_cups,
+  Favicon,
+  RetoLogo,
+}) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="flex ">
+    <div className="flex overflow-hidden h-screen">
       <SideBar
-        Name={Name}
+        user={user}
         Favicon={Favicon}
         RetoLogo={RetoLogo}
         isOpen={isSidebarOpen}
         toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
       />
-      <div className="flex-1">
+      <div className="flex-1 overflow-y-auto">
         <div className="min-h-screen bg-gray-100 p-12">
           {/* Contenedor flex para h1 y botón */}
           <div className="flex items-center justify-between mb-2">
             <h1 className="text-4xl font-bold text-gray-800">
-              Welcome back, {Name}!
+              Welcome back, {user.name}!
             </h1>
             <AddButton onClick={() => setIsModalOpen(true)} />
           </div>
@@ -36,23 +50,30 @@ export default function Dashboard({ Name, Favicon, RetoLogo }) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             <div className="sm:col-span-2 lg:col-span-2 row-span-1 bg-black rounded-xl  p-6">
-              <Performance />
+              <Performance
+                matchesyear={matchesyear}
+                goalsyear={goalsyear}
+                foulsyear={foulsyear}
+                assistsyear={assistsyear}
+                blockyear={blockyear}
+                passesyear={passesyear}
+              />
             </div>
 
             <div className="bg-black rounded-xl  p-6">
-              <RecentGame />
+              <RecentGame lastmatch = {lastmatch} />
             </div>
 
             <div className="bg-black rounded-xl  p-6 flex items-center justify-center">
-              <TotalGoals />
+              <TotalGoals totalgoals ={totalgoals} />
             </div>
 
             <div className="bg-black rounded-xl  p-6 flex items-center justify-center">
-              <TotalMatches />
+              <TotalMatches totalmatches= {totalmatches} />
             </div>
 
             <div className="bg-black rounded-xl p-6 flex items-center justify-center">
-              <TotalWC />
+              <TotalWC world_cups={world_cups}/>
             </div>
           </div>
           <AddMatchModal

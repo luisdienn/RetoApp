@@ -1,11 +1,7 @@
 import React from 'react';
 
-export default function WCGames() {
-  const games = [
-    { date: "2022-11-21", score: "2 - 1", result: "Win" },
-    { date: "2022-11-25", score: "1 - 1", result: "Draw" },
-    { date: "2022-11-29", score: "0 - 2", result: "Loss" },
-  ];
+export default function WCGames({matches}:any) {
+
 
   return (
     <>
@@ -20,18 +16,18 @@ export default function WCGames() {
             </tr>
           </thead>
           <tbody>
-            {games.map((game, idx) => (
+            {matches.map((match, idx) => (
               <tr key={idx} className="border-b border-gray-700 last:border-0">
-                <td className="px-2 py-1 text-white">{game.date}</td>
-                <td className="px-2 py-1 text-white">{game.score}</td>
+                <td className="px-2 py-1 text-white">{match.date}</td>
+                <td className="px-2 py-1 text-white">{match.score}</td>
                 <td className={`px-2 py-1 font-semibold ${
-                  game.result === "Win"
+                  match.result === "Win"
                     ? "text-green-400"
-                    : game.result === "Draw"
+                    : match.result === "Draw"
                     ? "text-yellow-400"
                     : "text-red-400"
                 }`}>
-                  {game.result}
+                  {match.result}
                 </td>
               </tr>
             ))}

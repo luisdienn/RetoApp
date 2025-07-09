@@ -10,7 +10,7 @@ type NavItem = {
 };
 
 type SidebarProps = {
-  Name: string;
+  user: any;
   Favicon: any;
   RetoLogo: any;
   isOpen: boolean;
@@ -19,15 +19,15 @@ type SidebarProps = {
 
 const navItems: NavItem[] = [
   { icon: <FaHome />, label: "Dashboard", href: "/dashboard" },
-  { icon: <FaUserFriends />, label: "Friends", href: "/friends" },
+  { icon: <FaUserFriends />, label: "Friends", href: "/friendships" },
   { icon: <GiTrophy />, label: "World Cup", href: "/world_cup" },
   { icon: <FaListUl />, label: "Matches", href: "/matches" },
 ];
 
-export default function Sidebar({ Name, Favicon, RetoLogo ,isOpen, toggleSidebar }: SidebarProps) {
+export default function Sidebar({ user, Favicon, RetoLogo ,isOpen, toggleSidebar }: SidebarProps) {
   return (
 <div
-  className={`h-auto bg-black text-white flex flex-col justify-between py-6 px-4 transition-all duration-300
+  className={`h-dvh bg-black text-white flex flex-col justify-between py-6 px-4 transition-all duration-300
   fixed top-0 left-0 z-50 md:static translate-x-0
   ${isOpen ? "w-64" : "w-20"}`}
 >
@@ -50,7 +50,7 @@ export default function Sidebar({ Name, Favicon, RetoLogo ,isOpen, toggleSidebar
         {/* Perfil */}
         <div  className={`flex flex-col items-center transition-all duration-300 py-16  ${isOpen ? "opacity-100" : "opacity-0 h-0 overflow-hidden"}`}>
           <div onClick={() => { window.location.href = "/profile"; }}  className="w-14 h-14 bg-gray-700 rounded-full mb-2 hover:cursor-pointer"></div>
-          <p className="font-medium">{Name}</p>
+          <p className="font-medium">{user.name}</p>
         </div>
 
         {/* Menú */}

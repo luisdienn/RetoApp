@@ -19,15 +19,31 @@ ChartJS.register(
   Legend
 );
 
-export default function Performance() {
-  const allStats = [
-    { label: "Matches", value: 50 },
-    { label: "Goals", value: 60 },
-    { label: "Fouls", value: 3 },
-    { label: "Assists", value: 0 },
-    { label: "Blocks", value: 10 },
-    { label: "Passes", value: 98 },
-  ];
+type Stat = {
+  matchesyear: number;
+  goalsyear: number;
+  foulsyear: number;
+  assistsyear: number;
+  blockyear: number;
+  passesyear: number;
+};
+
+export default function Performance({
+  matchesyear,
+  goalsyear,
+  foulsyear,
+  assistsyear,
+  blockyear,
+  passesyear,
+}: Stat) {
+const allStats = [
+  { label: "Matches", value: matchesyear ?? 0 },
+  { label: "Goals", value: goalsyear ?? 0 },
+  { label: "Fouls", value: foulsyear ?? 0 },
+  { label: "Assists", value: assistsyear ?? 0 },
+  { label: "Blocks", value: blockyear ?? 0 },
+  { label: "Passes", value: passesyear ?? 0 },
+];
 
   const [selectedStats, setSelectedStats] = useState(
     allStats.map((stat) => ({ ...stat, selected: true }))
@@ -51,9 +67,9 @@ export default function Performance() {
       {
         label: "Player Stats",
         data: dataValues,
-        backgroundColor: "#b48a5a", 
-        borderColor: "#b48a5a", 
-        pointBackgroundColor: "#000000", 
+        backgroundColor: "#b48a5a",
+        borderColor: "#b48a5a",
+        pointBackgroundColor: "#000000",
       },
     ],
   };
@@ -62,26 +78,26 @@ export default function Performance() {
     scales: {
       r: {
         angleLines: {
-          color: "#444", 
+          color: "#444",
         },
         grid: {
-          color: "#444", 
+          color: "#444",
         },
         pointLabels: {
-          color: "#f9e7b8", 
+          color: "#f9e7b8",
           font: {
-            size: 12, 
+            size: 12,
           },
         },
         ticks: {
-          display: false, 
-          stepSize: 20, 
+          display: false,
+          stepSize: 20,
         },
       },
     },
     plugins: {
       legend: {
-        display: false, 
+        display: false,
       },
     },
   };

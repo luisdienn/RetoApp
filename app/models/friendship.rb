@@ -3,7 +3,7 @@ class Friendship < ApplicationRecord
   belongs_to :receiver, class_name: "User"
 
   # Ejemplo: puedes definir un enum si quieres manejar el estado de la amistad
-  enum status: { pending: "pending", accepted: "accepted", declined: "declined" }
+  #enum status: { pending: "pending", accepted: "accepted", declined: "declined" }
 
   # Validación opcional
   validates :status, presence: true
