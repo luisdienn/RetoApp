@@ -1,12 +1,14 @@
 import React from "react";
-import { postRequest } from "../../api";
+import { postRequest, deleteRequest } from "../../api";
 
 export default function FriendshipProfileCard({
   frienduser,
   isfriend,
 }: any) {
-  const buttonText =
-    isfriend.status === "accepted"
+  const buttonText = 
+    !isfriend || isfriend.status === undefined
+      ? "Follow"
+      : isfriend.status === "accepted"
       ? "Unfollow"
       : isfriend.status === "pending"
       ? "Pending"
@@ -15,15 +17,28 @@ export default function FriendshipProfileCard({
   const onClick = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const result = await postRequest("/friendships", {
-      friendship: {
-        receiver_id: frienduser.id,
-        status: "pending",
-      },
-    });
+    // Accion dependiendo del boton
+    if (buttonText === "Follow") {
+      // Crear amistad
+      const result = await postRequest("/friendships", {
+        friendship: {
+          receiver_id: frienduser.id,
+          status: "pending",
+        },
+      });
 
-    if (result.success && result.redirect_url) {
-      window.location.href = result.redirect_url;
+      if (result.success && result.redirect_url) {
+        window.location.href = result.redirect_url;
+      }
+    } else if (buttonText === "Unfollow" || buttonText === "Pending") {
+      // Cancelar amistad
+      const result = await deleteRequest(`/friendships/${isfriend.id}`, {
+        
+      });
+
+      if (result.success && result.redirect_url) {
+        window.location.href = result.redirect_url;
+      }
     }
   };
 
@@ -72,7 +87,7 @@ export default function FriendshipProfileCard({
             onClick={onClick}
             className=" hover:cursor-pointer w-full sm:w-auto py-2 px-6 rounded bg-[#f9e7b8] text-black font-bold uppercase hover:brightness-110 transition shadow-md"
           >
-            {buttonText}
+            { buttonText}
           </button>
         </div>
       </div>

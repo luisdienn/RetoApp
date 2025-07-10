@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :dashboard, only: [:index]
   resources :world_cup, only: [:index]
   resources :profile, only: [:index]
-  resources :friendships, only: [:index, :create]
+  resources :friendships, only: [:index, :create, :destroy] 
   get 'friendships/profile/:id', to: 'friendships#profile', as: 'friend_profile'
 
   

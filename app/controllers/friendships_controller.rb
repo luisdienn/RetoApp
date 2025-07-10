@@ -31,6 +31,23 @@ def create
 end
 
 
+def destroy
+  @friendship = Friendship.find(params[:id])
+
+  if @friendship.requester_id == current_user.id 
+    if @friendship.destroy
+      render json: { success: true, redirect_url: request.referer }
+    else
+      render json: { success: false, errors: @friendship.errors.full_messages }
+    end
+  else
+    render json: { success: false, errors: ["You can only delete friendships you initiated."] }
+  end
+  
+
+end
+
+
 
 
 
