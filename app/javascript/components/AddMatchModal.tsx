@@ -6,7 +6,10 @@ type AddMatchModalProps = {
   onClose: () => void;
 };
 
-export default function AddMatchModal({ isOpen, onClose }: AddMatchModalProps) {
+export default function NotificationsModal({
+  isOpen,
+  onClose,
+}: AddMatchModalProps) {
   const [goals, setGoals] = useState("");
   const [result, setResult] = useState("");
   const [score1, setScore1] = useState(""); // Primer número del score
@@ -64,13 +67,13 @@ export default function AddMatchModal({ isOpen, onClose }: AddMatchModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center"
+      className="fixed inset-0 z-50 flex items-start justify-center pt-8 pb-8"
       onClick={onClose}
     >
       <div className="absolute inset-0 bg-black/70"></div>
 
       <div
-        className="relative bg-white p-6 z-10 rounded-lg shadow-lg w-full max-w-md"
+        className="relative bg-white p-6 z-10 rounded-lg shadow-lg w-full max-w-md max-h-screen overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button

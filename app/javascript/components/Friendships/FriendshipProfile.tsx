@@ -6,7 +6,7 @@ import FriendshipProfileCard from "./FriendshipProfileCard";
 
 
 
-export default function FriendshipProfile({ user,frienduser, isfriend, Favicon, RetoLogo }) {
+export default function FriendshipProfile({ user,frienduser, isfriend, totalmatches, world_cups,friendships, Favicon, RetoLogo }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
@@ -20,7 +20,7 @@ export default function FriendshipProfile({ user,frienduser, isfriend, Favicon, 
       />
       <div className="flex-1 overflow-y-auto">
         <div className="min-h-screen bg-gray-100 p-12">
-          <FriendshipProfileCard frienduser={frienduser} isfriend={isfriend} />
+          <FriendshipProfileCard frienduser={frienduser} isfriend={isfriend} totalmatches={totalmatches} world_cups={world_cups} friendships={friendships}/>
         </div>
       </div>
     </div>

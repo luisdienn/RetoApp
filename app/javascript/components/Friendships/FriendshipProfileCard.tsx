@@ -4,6 +4,9 @@ import { postRequest, deleteRequest } from "../../api";
 export default function FriendshipProfileCard({
   frienduser,
   isfriend,
+  world_cups,
+  totalmatches,
+  friendships,
 }: any) {
   const buttonText = 
     !isfriend || isfriend.status === undefined
@@ -68,15 +71,15 @@ export default function FriendshipProfileCard({
         {/* Stats */}
         <div className="order-2 md:order-1 grid grid-cols-3 text-[#f9e7b8] items-center mt-8 md:mt-0">
           <div>
-            <p className="text-xl font-bold sm:text-2xl">99</p>
+            <p className="text-xl font-bold sm:text-2xl">{world_cups||0}</p>
             <p className="text-sm sm:text-base">WC</p>
           </div>
           <div>
-            <p className="text-xl font-bold sm:text-2xl">10</p>
+            <p className="text-xl font-bold sm:text-2xl">{totalmatches||0}</p>
             <p className="text-sm sm:text-base">Matches</p>
           </div>
           <div>
-            <p className="text-xl font-bold sm:text-2xl">10</p>
+            <p className="text-xl font-bold sm:text-2xl">{friendships||0}</p>
             <p className="text-sm sm:text-base">Friends</p>
           </div>
         </div>

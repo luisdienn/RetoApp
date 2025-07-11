@@ -14,7 +14,13 @@ class DashboardController < ApplicationController
     @blocksyear = @user.matches.where("date >= ?", Date.today.beginning_of_year).sum(:blocks)
     @passesyear = @user.matches.where("date >= ?", Date.today.beginning_of_year).sum(:passes)
 
-    @lastmatch = @user.matches.last
+     
+    @lastmatchaux = @user.matches.last
+    if @lastmatchaux != nil
+      @lastmatch = @lastmatchaux
+    else
+      @lastmatch = ""
+    end
 
     @totalmatches = @user.matches.count
     @totalgoals = @user.matches.sum(:goals)
