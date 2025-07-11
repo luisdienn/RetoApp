@@ -4,7 +4,11 @@ class FriendshipsController < ApplicationController
   def index
     #agrega
         @user = current_user
+        @usermatches = @user.matches
+        @userwc = @user.world_cups.where(was_won: true).count
         @friendships = @user.received_friendships.where(status: "accepted")
+        @friendships_matches = @friendships.matches
+        @friendships_wc =  @friendships.world_cups.where(was_won: true).count
         @allusers= User.all
         
 

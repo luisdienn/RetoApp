@@ -48,7 +48,7 @@ const buttons = [
   { label: "Assists", key: "assists" },
 ];
 
-export default function RankingTable() {
+export default function RankingTable({user, friendships}) {
   const [selectedStat, setSelectedStat] =
     useState<keyof PlayerStats>("matches");
 

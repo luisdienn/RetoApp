@@ -21,8 +21,8 @@ export default function NotificationsModal({
       status: "accepted",
     });
 
-    if (result.success) {
-      console.log("Solicitud aceptada");
+    if (result.success && result.redirect_url) {
+      window.location.href = result.redirect_url;
     }
   };
 
@@ -32,8 +32,8 @@ export default function NotificationsModal({
       status: "rejected",
     });
 
-    if (result.success) {
-      console.log("Solicitud rechazada");
+    if (result.success && result.redirect_url) {
+      window.location.href = result.redirect_url;
     }
   };
 
@@ -52,7 +52,7 @@ export default function NotificationsModal({
       >
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl"
+          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl hover:cursor-pointer"
           aria-label="Close"
         >
           &times;
@@ -61,24 +61,24 @@ export default function NotificationsModal({
         <h2 className="text-xl font-semibold mb-4">Notifications</h2>
 
         <table className="min-w-full table-auto border-collapse">
-
           <tbody>
             {(notifications ?? []).map((notification, index) => (
               <tr key={index}>
                 <td className="px-4 py-2 border-b ">
-                    <a href={`/friendships/profile/${notification.requester_id}`} className="hover:cursor-pointer">
-                  {
-                    requesters?.find((r) => r.id === notification.requester_id)
-                      ?.email.split("@")[0]
-                      
-                  }
-                    </a>
-
+                  <a
+                    href={`/friendships/profile/${notification.requester_id}`}
+                    className="hover:cursor-pointer"
+                  >
+                    {
+                      requesters
+                        ?.find((r) => r.id === notification.requester_id)
+                        ?.email.split("@")[0]
+                    }
+                  </a>
                 </td>
                 <td className="px-4 py-2 border-b flex gap-2 justify-start">
                   {/* Botón de aceptar con icono de check */}
                   <button
-
                     onClick={() => handleAccept(notification.id)}
                     className="hover:cursor-pointer w-8 h-8 rounded-full border border-[#d9b46d] text-[#d9b46d] flex items-center justify-center hover:bg-[#d9b46d] hover:text-black transition shadow-md"
                   >

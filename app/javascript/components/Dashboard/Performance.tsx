@@ -36,14 +36,14 @@ export default function Performance({
   blockyear,
   passesyear,
 }: Stat) {
-const allStats = [
-  { label: "Matches", value: matchesyear ?? 0 },
-  { label: "Goals", value: goalsyear ?? 0 },
-  { label: "Fouls", value: foulsyear ?? 0 },
-  { label: "Assists", value: assistsyear ?? 0 },
-  { label: "Blocks", value: blockyear ?? 0 },
-  { label: "Passes", value: passesyear ?? 0 },
-];
+  const allStats = [
+    { label: "Matches", value: matchesyear ?? 0 },
+    { label: "Goals", value: goalsyear ?? 0 },
+    { label: "Fouls", value: foulsyear ?? 0 },
+    { label: "Assists", value: assistsyear ?? 0 },
+    { label: "Blocks", value: blockyear ?? 0 },
+    { label: "Passes", value: passesyear ?? 0 },
+  ];
 
   const [selectedStats, setSelectedStats] = useState(
     allStats.map((stat) => ({ ...stat, selected: true }))
@@ -107,7 +107,7 @@ const allStats = [
       {/* Stats */}
       <div className="flex flex-col pr-10">
         <h2 className="text-2xl font-bold text-white">Performance</h2>
-        <p className="text-[#f9e7b8]">2025</p>
+        <p className="text-[#f9e7b8]">{new Date().getFullYear()}</p>
         {/* Compact stats */}
         <div className="pt-14 grid grid-cols-3 gap-y-8 gap-x-8">
           {allStats.map((stat) => (

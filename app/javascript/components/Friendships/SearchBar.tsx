@@ -5,9 +5,10 @@ type SearchBarProps = {
   placeholder?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSearchClick?: () => void;
 };
 
-export default function SearchBar({ placeholder, value, onChange }: SearchBarProps) {
+export default function SearchBar({ placeholder, value, onChange, onSearchClick }: SearchBarProps) {
 
 
   return (
@@ -18,6 +19,7 @@ export default function SearchBar({ placeholder, value, onChange }: SearchBarPro
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        onClick={onSearchClick}
         className="flex-1 bg-transparent focus:outline-none text-black placeholder-gray-400 pl-2"
       />
     </div>

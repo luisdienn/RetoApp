@@ -75,7 +75,7 @@ export default function ProfileCard({
   {/* Badge rojo (siempre presente) */}
   <span
     className={`absolute -top-1 -right-1 bg-red-600 text-white rounded-full text-xs min-w-[1.25rem] h-5 flex items-center justify-center px-1 transition 
-      ${notifications.length > 0 ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+      ${(notifications?.length ?? 0) > 0 ? "opacity-100" : "opacity-0 pointer-events-none"}`}
   >
     {notifications?.length || 0}
   </span>
