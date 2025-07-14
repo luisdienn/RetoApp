@@ -4,7 +4,7 @@ import SideBar from "../SideBar";
 import SearchBar from "./SearchBar";
 import StatsTable from "./StatsTable";
 
-export default function Friendships({ user, allusers,friendships, Favicon, RetoLogo }) {
+export default function Friendships({ user,usermatches,userwc, allusers,friends_matches,friends_wc, friends,Favicon, RetoLogo }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [showResults, setShowResults] = useState(false);
@@ -95,7 +95,7 @@ export default function Friendships({ user, allusers,friendships, Favicon, RetoL
             )}
           </div>
 
-          <StatsTable user={user} friendships={friendships}/>
+          <StatsTable user={user} friends={friends} usermatches={usermatches} userwc={userwc}  friends_matches={friends_matches} friends_wc={friends_wc} />
         </div>
       </div>
     </div>

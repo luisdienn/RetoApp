@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 type PlayerStats = {
   id: number;
-  profileImage: string;
-  name: string;
+  profileImage?: string;
+  name?: string;
   matches: number;
   goals: number;
   worldCups: number;
@@ -11,35 +11,6 @@ type PlayerStats = {
 };
 
 // Ejemplo de datos de varios jugadores
-const players: PlayerStats[] = [
-  {
-    id: 1,
-    profileImage: "https://via.placeholder.com/60",
-    name: "Diogo",
-    matches: 230,
-    goals: 330,
-    worldCups: 2,
-    assists: 85,
-  },
-  {
-    id: 2,
-    profileImage: "https://via.placeholder.com/60",
-    name: "Lucas",
-    matches: 210,
-    goals: 295,
-    worldCups: 1,
-    assists: 102,
-  },
-  {
-    id: 3,
-    profileImage: "https://via.placeholder.com/60",
-    name: "Sara",
-    matches: 250,
-    goals: 310,
-    worldCups: 3,
-    assists: 76,
-  },
-];
 
 const buttons = [
   { label: "Matches", key: "matches" },
@@ -48,9 +19,49 @@ const buttons = [
   { label: "Assists", key: "assists" },
 ];
 
-export default function RankingTable({user, friendships}) {
+export default function StatsTable({
+  user,
+  friends,
+  usermatches,
+  userwc,
+  friends_matches,
+  friends_wc,
+}) {
   const [selectedStat, setSelectedStat] =
     useState<keyof PlayerStats>("matches");
+
+  const players: PlayerStats[] = [
+    {
+      id: user.id,
+      profileImage: user.image,
+      name: user.name,
+      matches: usermatches.filter((match) => match.user_id === user.id).length,
+      goals: usermatches
+        .filter((match) => match.user_id === user.id)
+        .reduce((sum, match) => sum + match.goals, 0),
+      worldCups: userwc,
+      assists: usermatches
+        .filter((match) => match.user_id === user.id)
+        .reduce((sum, match) => sum + match.assists, 0),
+    },
+    // Mapear los amigos de manera similar
+    ...friends.map((friend) => ({
+      id: friend.id,
+      profileImage: friend.image,
+      name: friend.name,
+      matches: friends_matches.filter((match) => match.user_id === friend.id)
+        .length,
+      goals: friends_matches
+        .filter((match) => match.user_id === friend.id)
+        .reduce((sum, match) => sum + match.goals, 0),
+      worldCups: friends_wc.filter(
+        (wc) => wc.user_id === friend.id && wc.was_won
+      ).length,
+      assists: friends_matches
+        .filter((match) => match.user_id === friend.id)
+        .reduce((sum, match) => sum + match.assists, 0),
+    })),
+  ];
 
   return (
     <div className="bg-[#ffff] p-6 rounded-xl shadow-md max-w-4xl mx-auto w-full">

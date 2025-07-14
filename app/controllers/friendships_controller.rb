@@ -7,8 +7,31 @@ class FriendshipsController < ApplicationController
         @usermatches = @user.matches
         @userwc = @user.world_cups.where(was_won: true).count
         @friendships = @user.received_friendships.where(status: "accepted")
-        @friendships_matches = @friendships.matches
-        @friendships_wc =  @friendships.world_cups.where(was_won: true).count
+
+
+        #Matches and World Cups Array for friends
+          friends_matches_aux = []
+          friends_wc_aux = []
+          friends_aux =[]
+
+
+
+          if @friendships
+            @friendships.each do |friend|
+                requester = User.find(friend.requester_id)
+                friends_aux.push(requester)
+                friends_matches_aux += requester.matches     
+                friends_wc_aux += requester.world_cups.where(was_won: true)
+            end
+            @friends_matches = friends_matches_aux
+            @friends_wc = friends_wc_aux
+            @friends = friends_aux
+          end
+
+
+
+
+
         @allusers= User.all
         
 
