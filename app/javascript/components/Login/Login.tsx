@@ -1,5 +1,5 @@
-import React from 'react';
-import { ToastContainer } from "react-toastify";
+import React, {useEffect} from 'react';
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
@@ -23,6 +23,15 @@ export default function Login({ CR7, Messi, RetoLogo }) {
       setVideoOpacity("opacity-70");
     }, 600);
   };
+
+    useEffect(() => {
+    const message = sessionStorage.getItem("toastMessage");
+
+    if (message) {
+      toast.success(message);
+      sessionStorage.removeItem("toastMessage");
+    }
+  }, []);
 
   return (
     <div className="relative min-h-screen bg-black overflow-hidden flex items-center justify-center px-2">

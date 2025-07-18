@@ -44,7 +44,6 @@ export default function StatsTable({
         .filter((match) => match.user_id === user.id)
         .reduce((sum, match) => sum + match.assists, 0),
     },
-    // Mapear los amigos de manera similar
     ...friends.map((friend) => ({
       id: friend.id,
       profileImage: friend.image,
@@ -83,7 +82,7 @@ export default function StatsTable({
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto">
+      <div className="">
         <table className="min-w-full bg-white rounded-lg">
           <thead>
             <tr>
@@ -102,7 +101,10 @@ export default function StatsTable({
                   (b[selectedStat] as number) - (a[selectedStat] as number)
               )
               .map((player, index) => (
-                <tr key={player.id} className="border-t">
+                <tr
+                  key={player.id}
+                  className={player.id === user.id ? "bg-gray-100" : ""}
+                >
                   {/* Columna de Rank */}
                   <td className="py-3 px-4 font-bold">{index + 1}</td>
 
@@ -116,16 +118,49 @@ export default function StatsTable({
                           className="w-5 h-5 absolute -top-3"
                         />
                       )}
-                      <img
-                        src={player.profileImage}
-                        alt={player.name}
-                        className="w-10 h-10 rounded-full border border-[#f9e7b8]"
-                      />
+                      {player.profileImage ? (
+                        <img
+                          src={player.profileImage}
+                          alt={player.name}
+                          className="w-10 h-10 rounded-full "
+                        />
+                      ) : (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-20 w-20 sm:h-24 sm:w-24 text-[#ddc68b]"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      )}
                     </div>
                   </td>
 
                   {/* Columna del nombre */}
-                  <td className="py-3 px-4 font-medium">{player.name}</td>
+
+                  <td className="py-3 px-4 font-medium">
+                    {player.id === user.id ? (
+                      <a
+                        href={`/profile`}
+                        className="hover:cursor-pointer flex flex-col "
+                      >
+                        {" "}
+                        {player.name}
+                      </a>
+                    ) : (
+                      <a
+                        href={`/friendships/profile/${player.id}`}
+                        className="hover:cursor-pointer flex flex-col "
+                      >
+                        {player.name}
+                      </a>
+                    )}
+                  </td>
 
                   {/* Columna del número */}
                   <td className="text-right py-3 px-4 font-bold w-32">

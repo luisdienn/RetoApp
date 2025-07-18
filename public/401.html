@@ -1,0 +1,139 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <title>The server cannot process the request due to a client error (401 Unauthorized)</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, width=device-width">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    * {
+      margin: 0;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      background: #000; /* Fondo negro */
+      color: #FFF; /* Texto blanco */
+      display: grid;
+      font-family: 'PT Sans', sans-serif;
+      font-size: clamp(1rem, 2.5vw, 2rem);
+      -webkit-font-smoothing: antialiased;
+      font-style: normal;
+      font-weight: 400;
+      letter-spacing: -0.0025em;
+      line-height: 1.4;
+      min-height: 100vh;
+      place-items: center;
+      text-rendering: optimizeLegibility;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    a {
+      color: #ddc68b; /* Enlace en color dorado #ddc68b */
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 0.0925em;
+    }
+
+    b, strong {
+      font-weight: 700;
+    }
+
+    main {
+      display: grid;
+      gap: 1em;
+      padding: 2em;
+      place-items: center;
+      text-align: center;
+    }
+
+    main header {
+      width: min(100%, 12em);
+    }
+
+    main header svg {
+      height: auto;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    main article {
+      width: min(100%, 30em);
+    }
+
+    main article p {
+      font-size: 75%;
+    }
+
+    main article br {
+      display: none;
+    }
+
+    @media (min-width: 48em) {
+      main article br {
+        display: inline;
+      }
+    }
+
+    .error-container {
+      padding: 20px;
+      border: 1px solid #ddc68b; /* Borde dorado */
+      border-radius: 10px;
+      background-color: #333; /* Fondo gris oscuro */
+      color: #FFF; /* Texto blanco */
+      text-align: center;
+    }
+
+    .error-container h1 {
+      font-size: 3rem;
+      color: #ddc68b; /* Título en color dorado */
+    }
+
+    .error-container p {
+      font-size: 1.25rem;
+      color: #FFF; /* Texto blanco */
+    }
+
+    .error-container a {
+      font-size: 1rem;
+      color: #ddc68b; /* Enlace dorado */
+      text-decoration: none;
+      margin-top: 20px;
+      display: inline-block;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main>
+    <header>
+      <!-- Puedes agregar un ícono o imagen aquí si lo deseas -->
+    </header>
+
+    <article class="error-container">
+      <h1>401 Unauthorized</h1>
+      <p>Your account is locked or you do not have permission to access this resource.</p>
+      <p>Please check your credentials or contact support if you believe this is an error.</p>
+      <a href="/">Go to Login</a> <!-- Cambia el enlace de login según sea necesario -->
+    </article>
+
+  </main>
+
+</body>
+
+</html>

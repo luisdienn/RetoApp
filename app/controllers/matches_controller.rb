@@ -76,6 +76,18 @@ class MatchesController < ApplicationController
   end
 
 
+def update
+  @match = Match.find(params[:id])
+
+
+  if @match.update(match_params)
+    render json: { success: true, redirect_url: request.referer }
+  else
+    render json: { success: false, errors: @match.errors.full_messages }
+  end
+end
+
+
     private
 
   def match_params

@@ -4,14 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
-  #Hay que arreglarlo
-  #validates :name, presence: true
-  # validates :email, presence: true, uniqueness: true
-  # validates :password, presence: true,
-  #   format: { 
-  #     with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).+\z/, 
-  #     message: "debe tener al menos una mayúscula, una minúscula y un signo" 
-  #   }
+
 
 
   respond_to :html, :json
@@ -30,14 +23,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.save
     if resource.persisted?
       if resource.active_for_authentication?
-        render json: { success: true, redirect_url: after_sign_up_path_for(resource) }
+        render json: { success: true, redirect_url: after_sign_up_path_for(resource), message: "Welcome! You have successfully registered." }
       else
         expire_data_after_sign_in!
-        render json: { success: true, redirect_url: after_inactive_sign_up_path_for(resource) }
+        render json: { success: true, redirect_url: after_inactive_sign_up_path_for(resource) , message: "Please verify your email address to activate your account." }
       end
     else
       clean_up_passwords resource
-      set_minimum_password_length
+      
       render json: { success: false, errors: resource.errors.full_messages }, status: :unprocessable_entity
     end
   end

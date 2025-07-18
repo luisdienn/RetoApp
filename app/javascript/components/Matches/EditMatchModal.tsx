@@ -1,19 +1,21 @@
-import React, { useState } from "react";
-import { postRequest } from "../api";
+import React, { useState, useEffect } from "react";
+import { updateRequest } from "../../api";
 
-type AddMatchModalProps = {
+type EditMatchModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  match: any;
 };
 
-export default function AddMatchModal({
+export default function EditMatchModal({
   isOpen,
   onClose,
-}: AddMatchModalProps) {
+  match
+}: EditMatchModalProps) {
   const [goals, setGoals] = useState("");
   const [result, setResult] = useState("");
-  const [score1, setScore1] = useState(""); // Primer número del score
-  const [score2, setScore2] = useState(""); // Segundo número del score
+  const [score1, setScore1] = useState(""); 
+  const [score2, setScore2] = useState(""); 
   const [details, setDetails] = useState("");
   const [date, setDate] = useState("");
   const [assists, setAssists] = useState("");
@@ -22,13 +24,29 @@ export default function AddMatchModal({
   const [blocks, setBlocks] = useState("");
   const [opponent, setOpponent] = useState("");
 
+  useEffect(() => {
+    setGoals(match.goals || "");
+    setResult(match.result || "");
+    setScore1(match.score?.split("-")[0] || "");
+    setScore2(match.score?.split("-")[1] || "");
+    setDetails(match.details || "");
+    setDate(match.date || "");
+    setAssists(match.assists || "");
+    setPasses(match.passes || "");
+    setFouls(match.fouls || "");
+    setBlocks(match.blocks || "");
+    setOpponent(match.opponent || "");
+  }, [match]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Concatenar los dos números del score
     const score = `${score1}-${score2}`;
+  
+    console.log(match)
+    console.log("holahola")
 
-    const resultt = await postRequest("/matches", {
+    const resultt = await updateRequest(`/matches/${match.id}`, {
       match: {
         goals,
         assists,
@@ -50,14 +68,12 @@ export default function AddMatchModal({
 
   if (!isOpen) return null;
 
-  // Hoy en local timezone
   const today = new Date();
   const yyyy = today.getFullYear();
-  const mm = String(today.getMonth() + 1).padStart(2, "0"); // Mes empieza en 0
+  const mm = String(today.getMonth() + 1).padStart(2, "0"); 
   const dd = String(today.getDate()).padStart(2, "0");
   const todayStr = `${yyyy}-${mm}-${dd}`;
 
-  // Ayer en local timezone
   const yesterdayDate = new Date();
   yesterdayDate.setDate(yesterdayDate.getDate() - 1);
   const yyyyY = yesterdayDate.getFullYear();
@@ -84,7 +100,7 @@ export default function AddMatchModal({
           &times;
         </button>
 
-        <h2 className="text-xl font-semibold mb-4">Add Match</h2>
+        <h2 className="text-xl font-semibold mb-4">Edit Match</h2>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
@@ -95,6 +111,7 @@ export default function AddMatchModal({
                 value={goals}
                 onChange={(e) => setGoals(e.target.value)}
                 className="w-full p-2 border border-gray-300 rounded"
+
               />
             </div>
             <div>
@@ -215,7 +232,7 @@ export default function AddMatchModal({
               type="submit"
               className="px-4 py-2 bg-[#ddc68b] text-black font-bold rounded hover:brightness-110 cursor-pointer"
             >
-              Add Match
+              Edit Match
             </button>
           </div>
         </form>

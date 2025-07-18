@@ -22,6 +22,10 @@ import WorldCup from "../components/WorldCup/WorldCup";
 import Profile from "../components/Profile/Profile";
 import Friendships from "../components/Friendships/Friendships";
 import FriendshipProfile from "../components/Friendships/FriendshipProfile";
+import NewPassword from "../components/Password/NewPassword";
+import EditPassword from "../components/Password/EditPassword";
+import Confirmation from "../components/Confirmation/Confirmation";
+import Unlock from "../components/Unlock/Unlock";
 
 
 
@@ -36,7 +40,11 @@ ReactOnRails.register({
   WorldCup,
   Profile,
   Friendships,
-  FriendshipProfile
+  FriendshipProfile,
+  NewPassword,
+  EditPassword,
+  Confirmation,
+  Unlock
 
 
   

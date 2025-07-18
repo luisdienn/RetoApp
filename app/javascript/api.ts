@@ -17,6 +17,7 @@ interface ApiResponse<T = any> {
   data?: T;
   redirect_url?: string;
   errors?: string[];
+  message?:string;
 }
 
 export async function postRequest<T>(
@@ -28,7 +29,15 @@ export async function postRequest<T>(
     
 
     if (response.data.success) {
-      return { success: true, data: response.data, redirect_url: response.data.redirect_url };
+      if (response.data.message) {
+        sessionStorage.setItem("toastMessage", response.data.message);    
+      }
+
+      return { 
+        success: true, 
+        data: response.data, 
+        redirect_url: response.data.redirect_url 
+      };
 
     } else {
       if (response.data.errors) {

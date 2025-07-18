@@ -39,10 +39,10 @@ export default function Performance({
   const allStats = [
     { label: "Matches", value: matchesyear ?? 0 },
     { label: "Goals", value: goalsyear ?? 0 },
-    { label: "Fouls", value: foulsyear ?? 0 },
     { label: "Assists", value: assistsyear ?? 0 },
-    { label: "Blocks", value: blockyear ?? 0 },
     { label: "Passes", value: passesyear ?? 0 },
+    { label: "Fouls", value: foulsyear ?? 0 },
+    { label: "Blocks", value: blockyear ?? 0 },
   ];
 
   const [selectedStats, setSelectedStats] = useState(
@@ -105,14 +105,14 @@ export default function Performance({
   return (
     <div className="text-white flex">
       {/* Stats */}
-      <div className="flex flex-col pr-10">
+      <div className="flex flex-col pr-10 ">
         <h2 className="text-2xl font-bold text-white">Performance</h2>
         <p className="text-[#f9e7b8]">{new Date().getFullYear()}</p>
         {/* Compact stats */}
-        <div className="pt-14 grid grid-cols-3 gap-y-8 gap-x-8">
+        <div className="pl-5 pt-12 grid grid-cols-3 gap-y-8 gap-x-16">
           {allStats.map((stat) => (
             <div key={stat.label} className="flex flex-col items-center">
-              <span className="text-4xl font-bold">{stat.value}</span>
+              <span className="text-3xl font-bold">{stat.value}</span>
               <span className="text-sm text-[#f9e7b8]">{stat.label}</span>
               <input
                 type="checkbox"

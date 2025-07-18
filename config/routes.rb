@@ -6,13 +6,14 @@ Rails.application.routes.draw do
   get "home/index"
   get 'hello_world', to: 'hello_world#index'
 
-  resources :matches, only: [:index, :create] 
+  resources :matches, only: [:index, :create, :update] 
   resources :dashboard, only: [:index]
   resources :world_cup, only: [:index]
   resources :profile, only: [:index]
   resources :friendships, only: [:index, :create, :destroy, :update] 
   get 'friendships/profile/:id', to: 'friendships#profile', as: 'friend_profile'
-
+  resources :current_users, only: [:update]
+  
   
 
   devise_for :users, controllers: {
@@ -22,6 +23,8 @@ Rails.application.routes.draw do
   confirmations: 'users/confirmations',
   unlocks: 'users/unlocks'
 }
+
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

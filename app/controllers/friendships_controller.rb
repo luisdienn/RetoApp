@@ -6,7 +6,7 @@ class FriendshipsController < ApplicationController
         @user = current_user
         @usermatches = @user.matches
         @userwc = @user.world_cups.where(was_won: true).count
-        @friendships = @user.received_friendships.where(status: "accepted")
+        @friendships = @user.requested_friendships.where(status: "accepted")
 
 
         #Matches and World Cups Array for friends
@@ -18,7 +18,7 @@ class FriendshipsController < ApplicationController
 
           if @friendships
             @friendships.each do |friend|
-                requester = User.find(friend.requester_id)
+                requester = User.find(friend.receiver_id)
                 friends_aux.push(requester)
                 friends_matches_aux += requester.matches     
                 friends_wc_aux += requester.world_cups.where(was_won: true)
@@ -32,7 +32,7 @@ class FriendshipsController < ApplicationController
 
 
 
-        @allusers= User.all
+        @allusers= User.where.not(role: "admin")
         
 
   end
@@ -40,12 +40,19 @@ class FriendshipsController < ApplicationController
   def profile
     #tengo que validar que el usuario sea amigo
     @user = current_user
-    @frienduser = User.find(params[:id])
-    @world_cups = @frienduser.world_cups.where(was_won: true).count
-    @totalmatches = @frienduser.matches.count
-    @friendships = @frienduser.received_friendships.where(status: "accepted").count
+    @aux = User.find(params[:id])
+    if @aux.role == "admin"
+      redirect_to "/401"
+    elsif @aux.id == @user.id
+      redirect_to "/profile"
+    else
+      @frienduser = @aux
+      @world_cups = @frienduser.world_cups.where(was_won: true).count
+      @totalmatches = @frienduser.matches.count
+      @friendships = @frienduser.requested_friendships.where(status: "accepted").count
+      @isfriend = Friendship.find_by(requester_id: @user.id, receiver_id: @frienduser.id)
+    end
 
-    @isfriend = Friendship.find_by(requester_id: @user.id, receiver_id: @frienduser.id)
   end
 
 
