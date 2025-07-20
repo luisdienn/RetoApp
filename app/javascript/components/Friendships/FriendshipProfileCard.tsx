@@ -46,7 +46,6 @@ export default function FriendshipProfileCard({
   };
 
   return (
-    console.log(isfriend),
     <div className="p-6 sm:p-8 bg-black shadow-lg rounded-lg max-w-5xl mx-auto">
       {/* Top section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">

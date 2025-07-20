@@ -1,5 +1,6 @@
   class CurrentUsersController < ApplicationController
 
+
     def update
     @user = User.find(params[:id])
 
@@ -13,6 +14,6 @@
 
     protected
     def user_params
-    params.require(:user).permit(:image, :name)
+    params.require(:user).permit(:image, :name, :email, :role, :active)
     end
 end

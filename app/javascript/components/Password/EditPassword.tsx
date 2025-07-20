@@ -3,12 +3,16 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { updateRequest } from "../../api";
 import { CgPassword } from "react-icons/cg";
+import { IoEye, IoEyeOff } from "react-icons/io5";
 
 import { useState } from "react";
 
 export default function EditPassword({ token, RetoLogo }) {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmationPassword, setConfirmationShowPassword] =
+    useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,7 +21,7 @@ export default function EditPassword({ token, RetoLogo }) {
       user: {
         password,
         password_confirmation: passwordConfirmation,
-        reset_password_token: token
+        reset_password_token: token,
       },
     });
 
@@ -25,7 +29,6 @@ export default function EditPassword({ token, RetoLogo }) {
       window.location.href = result.redirect_url;
     }
   };
-
 
   return (
     <div className="relative min-h-screen bg-black overflow-hidden flex items-center justify-center ">
@@ -55,23 +58,43 @@ export default function EditPassword({ token, RetoLogo }) {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block mb-1">New Password</label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-2 bg-white/20 backdrop-blur text-white placeholder-white focus:outline-none rounded border border-transparent focus:border-yellow-500"
-                  placeholder="••••••••"
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className=" w-full pr-10 pl-4 py-2 bg-white/20 backdrop-blur text-white placeholder-white focus:outline-none rounded border border-transparent focus:border-yellow-500"
+                    placeholder="••••••••"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-300 hover:text-white focus:outline-none hover:cursor-pointer"
+                  >
+                    {showPassword ? <IoEyeOff /> : <IoEye />}
+                  </button>
+                </div>
               </div>
               <div>
                 <label className="block mb-1">Confirm New Password</label>
-                <input
-                  type="password"
-                  value={passwordConfirmation}
-                  onChange={(e) => setPasswordConfirmation(e.target.value)}
-                  className="w-full px-4 py-2 bg-white/20 backdrop-blur text-white placeholder-white focus:outline-none rounded border border-transparent focus:border-yellow-500"
-                  placeholder="••••••••"
-                />
+                <div className="relative">
+                  <input
+                    type={showConfirmationPassword ? "text" : "password"}
+                    value={passwordConfirmation}
+                    onChange={(e) => setPasswordConfirmation(e.target.value)}
+                    className="w-full px-4 py-2 bg-white/20 backdrop-blur text-white placeholder-white focus:outline-none rounded border border-transparent focus:border-yellow-500"
+                    placeholder="••••••••"
+                  />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setConfirmationShowPassword(!showConfirmationPassword)
+                    }
+                    className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-300 hover:text-white focus:outline-none hover:cursor-pointer"
+                  >
+                    {showConfirmationPassword ? <IoEyeOff /> : <IoEye />}
+                  </button>
+                </div>
               </div>
 
               <button

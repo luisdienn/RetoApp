@@ -1,6 +1,5 @@
 // src/components/Sidebar.tsx
-import { FaHome, FaUserFriends, FaSignOutAlt, FaListUl } from "react-icons/fa";
-import { GiTrophy } from "react-icons/gi";
+import { FaHome, FaUserFriends, FaSignOutAlt } from "react-icons/fa";
 import React from "react";
 
 type NavItem = {
@@ -10,7 +9,6 @@ type NavItem = {
 };
 
 type SidebarProps = {
-  user: any;
   Favicon: any;
   RetoLogo: any;
   isOpen: boolean;
@@ -18,14 +16,11 @@ type SidebarProps = {
 };
 
 const navItems: NavItem[] = [
-  { icon: <FaHome />, label: "Dashboard", href: "/dashboard" },
-  { icon: <FaUserFriends />, label: "Friends", href: "/friendships" },
-  { icon: <GiTrophy />, label: "World Cup", href: "/world_cup" },
-  { icon: <FaListUl />, label: "Matches", href: "/matches" },
+  { icon: <FaHome />, label: "Dashboard", href: "/admin" },
+  { icon: <FaUserFriends />, label: "Users", href: "/admin/users" },
 ];
 
-export default function Sidebar({
-  user,
+export default function AdminSidebar({
   Favicon,
   RetoLogo,
   isOpen,
@@ -40,7 +35,7 @@ export default function Sidebar({
       {/* Logo */}
       <div>
         <div
-          className="flex flex-col items-center gap-3 pt-8 cursor-pointer"
+          className="flex flex-col items-center gap-3 pt-8 cursor-pointer pb-24"
           onClick={toggleSidebar}
         >
           <img
@@ -52,41 +47,7 @@ export default function Sidebar({
           />
         </div>
 
-        {/* Perfil */}
-        <div
-          className={`flex flex-col items-center transition-all duration-300 py-16  ${
-            isOpen ? "opacity-100" : "opacity-0 h-0 overflow-hidden"
-          }`}
-        >
-          <div
-            onClick={() => {
-              window.location.href = "/profile";
-            }}
-            className="hover:cursor-pointer"
-          >
-            {user.image ? (
-              <img
-                src={user.image}
-                alt={user.name}
-                className="w-18 h-18 object-cover rounded-full"
-              />
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-14 w-14 sm:h-24 sm:w-24 text-[#f9e7b8]"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            )}
-          </div>
-          <p className="font-medium pt-2">{user.name}</p>
-        </div>
+
 
         {/* Menú */}
         <nav

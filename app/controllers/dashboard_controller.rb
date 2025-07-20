@@ -1,11 +1,9 @@
 class DashboardController < ApplicationController
   # Ensure the user is authenticated before accessing the dashboard
   # Funciona pero tengo que hacer que al volver tampoco pueda accesar a la pagina despues de cerrar sesion
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :is_active!
 
   def index
-    puts "Entra"
-    # Trear la info de la base de datos
     @user = current_user
 
     @matchesyear = @user.matches.where("date >= ?", Date.today.beginning_of_year).count

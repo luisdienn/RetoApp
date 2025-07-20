@@ -10,8 +10,7 @@ export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [showConfirmationPassword, setConfirmationShowPassword] =
-    useState(false);
+  const [showConfirmationPassword, setConfirmationShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

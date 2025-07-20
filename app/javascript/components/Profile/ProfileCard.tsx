@@ -31,7 +31,6 @@ export default function ProfileCard({
   const [name, setName] = useState(user.name);
 
   const handleNameChange = async () => {
-    // Lógica para aceptar la solicitud de amistad
     const result = await updateRequest(`/current_users/${user.id}`, {
       user: {
         name: name,
@@ -42,7 +41,6 @@ export default function ProfileCard({
       window.location.href = result.redirect_url;
     }
   };
-console.log(requesters)
   return (
     <div className="p-6 sm:p-8 bg-black shadow-lg rounded-lg max-w-5xl mx-auto">
       {/* Top section */}

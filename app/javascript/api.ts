@@ -29,9 +29,8 @@ export async function postRequest<T>(
     
 
     if (response.data.success) {
-      if (response.data.message) {
-        sessionStorage.setItem("toastMessage", response.data.message);    
-      }
+           if (response.data.message) {
+sessionStorage.setItem("toastMessage", response.data.message);      }
 
       return { 
         success: true, 
@@ -105,7 +104,6 @@ export async function updateRequest<T>(
   try {
     const response = await api.put(url, body);
     
-
     if (response.data.success) {
       return { success: true, data: response.data, redirect_url: response.data.redirect_url };
 

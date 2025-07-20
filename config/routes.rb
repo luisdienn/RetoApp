@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   get 'friendships/profile/:id', to: 'friendships#profile', as: 'friend_profile'
   resources :current_users, only: [:update]
   
-  
+  get 'admin', to: 'admin#index'
+  get 'admin/users', to: 'admin#users'
+
 
   devise_for :users, controllers: {
   sessions: 'users/sessions',

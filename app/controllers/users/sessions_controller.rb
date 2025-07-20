@@ -16,8 +16,16 @@ def create
   self.resource = warden.authenticate(auth_options)
 
   if self.resource
+    
     sign_in(resource_name, resource)
-    render json: { success: true, redirect_url: after_sign_in_path_for(resource) }
+    user = User.find_by(email: params[:user][:email])
+    
+    if user.role == "admin"
+      render json: { success: true, redirect_url: admin_path(resource) }
+    else
+      render json: { success: true, redirect_url: after_sign_in_path_for(resource) }
+    end
+
   else
     user = User.find_by(email: params[:user][:email])
 
@@ -38,13 +46,17 @@ end
 
   protected
   def after_sign_in_path_for(resource)
-    "/dashboard" # Redirect to the unlock page after sign in
+    "/dashboard" 
   end
 
   def set_headers
     response.headers["Expires"] = "#{1.day.from_now.to_formatted_s(:rfc2616)}"
     response.headers["Pragma"] = "no-cache"
     response.headers["Cache-Control"] = "no-cache"
+  end
+
+  def admin_path (resource)
+    "/admin"
   end
 
 

@@ -26,6 +26,8 @@ import NewPassword from "../components/Password/NewPassword";
 import EditPassword from "../components/Password/EditPassword";
 import Confirmation from "../components/Confirmation/Confirmation";
 import Unlock from "../components/Unlock/Unlock";
+import AdminDashboard from "../components/Admin/AdminDashboard";
+import AdminTable from "../components/Admin/AdminTable";
 
 
 
@@ -44,7 +46,9 @@ ReactOnRails.register({
   NewPassword,
   EditPassword,
   Confirmation,
-  Unlock
+  Unlock,
+  AdminDashboard,
+  AdminTable
 
 
   

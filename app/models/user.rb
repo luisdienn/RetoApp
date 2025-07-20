@@ -22,14 +22,29 @@ devise :database_authenticatable, :registerable,
 
   # Validations
   validates :name, presence: { message: "Name can't be blank" }
-    validates :password, format: { 
+  validates :password, format: { 
     with: /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{}|;:,.<>?])/,
     message: "Must contain at least one lowercase letter, one uppercase letter, one number, and one special character."
-  }
+  }, if: :password_present?
+
 validates :email, format: { 
   with: URI::MailTo::EMAIL_REGEXP,
   message: "Follow the format: example@example.com"
 }
+
+def active_for_authentication?
+  super && active
+end
+
+def inactive_message
+  active ? super : :account_blocked
+end
+
+
+private
+def password_present?
+  password.present?
+end
 
 
 end

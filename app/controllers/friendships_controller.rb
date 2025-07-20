@@ -32,7 +32,7 @@ class FriendshipsController < ApplicationController
 
 
 
-        @allusers= User.where.not(role: "admin")
+        @allusers= User.active.where.not(role: "admin")
         
 
   end

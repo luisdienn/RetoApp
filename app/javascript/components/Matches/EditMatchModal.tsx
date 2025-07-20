@@ -43,8 +43,7 @@ export default function EditMatchModal({
 
     const score = `${score1}-${score2}`;
   
-    console.log(match)
-    console.log("holahola")
+   
 
     const resultt = await updateRequest(`/matches/${match.id}`, {
       match: {
