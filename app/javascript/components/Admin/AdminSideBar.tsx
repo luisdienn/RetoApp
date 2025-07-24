@@ -1,4 +1,3 @@
-// src/components/Sidebar.tsx
 import { FaHome, FaUserFriends, FaSignOutAlt } from "react-icons/fa";
 import React from "react";
 
@@ -49,7 +48,7 @@ export default function AdminSidebar({
 
 
 
-        {/* Menú */}
+        {/* Menu */}
         <nav
           className={`flex flex-col ${
             isOpen ? "pl-10" : "items-center"

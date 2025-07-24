@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { updateRequest } from "../../api";
+import { toast, ToastContainer } from "react-toastify";
+
 
 type EditUserModalProps = {
   isOpen: boolean;
@@ -17,7 +19,7 @@ export default function EditUserModal({
   const [role, setRole] = useState("");
   const [active, setActive] = useState<boolean>(false);
 
-  console.log(user)
+  console.log(user);
 
   useEffect(() => {
     setName(user.name || "");
@@ -26,12 +28,9 @@ export default function EditUserModal({
     setActive(Boolean(user.active));
   }, [user]);
 
-  console.log(active)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-
 
     const resultt = await updateRequest(`/current_users/${user.id}`, {
       user: {
@@ -45,6 +44,7 @@ export default function EditUserModal({
     if (resultt.success && resultt.redirect_url) {
       window.location.href = resultt.redirect_url;
     }
+
   };
 
   if (!isOpen) return null;
@@ -54,10 +54,12 @@ export default function EditUserModal({
       className="fixed inset-0 z-50 flex items-start justify-center pt-8 pb-8"
       onClick={onClose}
     >
+            <ToastContainer position="top-right" autoClose={5000} theme="dark"/>
+
       <div className="absolute inset-0 bg-black/70"></div>
 
       <div
-        className="relative bg-white p-6 z-10 rounded-lg shadow-lg w-full max-w-md h-auto overflow-y-auto"
+        className="relative bg-white p-4 sm:p-6 z-10 rounded-lg shadow-lg w-[90%] sm:w-full max-w-md max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button

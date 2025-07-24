@@ -10,8 +10,6 @@ type PlayerStats = {
   assists: number;
 };
 
-// Ejemplo de datos de varios jugadores
-
 const buttons = [
   { label: "Matches", key: "matches" },
   { label: "Goals", key: "goals" },
@@ -82,7 +80,7 @@ export default function StatsTable({
       </div>
 
       {/* Table */}
-      <div className="">
+      <div className="overflow-x-auto">
         <table className="min-w-full bg-white rounded-lg">
           <thead>
             <tr>
@@ -105,10 +103,10 @@ export default function StatsTable({
                   key={player.id}
                   className={player.id === user.id ? "bg-gray-100" : ""}
                 >
-                  {/* Columna de Rank */}
+                  {/*Rank */}
                   <td className="py-3 px-4 font-bold">{index + 1}</td>
 
-                  {/* Columna de la foto con corona si es primer lugar */}
+                  {/* Crown */}
                   <td className="py-3 px-4">
                     <div className="relative flex items-center justify-center w-12 h-12 ">
                       {index === 0 && (
@@ -141,7 +139,7 @@ export default function StatsTable({
                     </div>
                   </td>
 
-                  {/* Columna del nombre */}
+                  {/* Name */}
 
                   <td className="py-3 px-4 font-medium">
                     {player.id === user.id ? (
@@ -162,7 +160,6 @@ export default function StatsTable({
                     )}
                   </td>
 
-                  {/* Columna del número */}
                   <td className="text-right py-3 px-4 font-bold w-32">
                     {player[selectedStat]}
                   </td>

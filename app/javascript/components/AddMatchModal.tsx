@@ -12,8 +12,8 @@ export default function AddMatchModal({
 }: AddMatchModalProps) {
   const [goals, setGoals] = useState("");
   const [result, setResult] = useState("");
-  const [score1, setScore1] = useState(""); // Primer número del score
-  const [score2, setScore2] = useState(""); // Segundo número del score
+  const [score1, setScore1] = useState(""); 
+  const [score2, setScore2] = useState(""); 
   const [details, setDetails] = useState("");
   const [date, setDate] = useState("");
   const [assists, setAssists] = useState("");
@@ -25,7 +25,6 @@ export default function AddMatchModal({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Concatenar los dos números del score
     const score = `${score1}-${score2}`;
 
     const resultt = await postRequest("/matches", {
@@ -50,14 +49,13 @@ export default function AddMatchModal({
 
   if (!isOpen) return null;
 
-  // Hoy en local timezone
+  // Date Validation
   const today = new Date();
   const yyyy = today.getFullYear();
-  const mm = String(today.getMonth() + 1).padStart(2, "0"); // Mes empieza en 0
+  const mm = String(today.getMonth() + 1).padStart(2, "0"); 
   const dd = String(today.getDate()).padStart(2, "0");
   const todayStr = `${yyyy}-${mm}-${dd}`;
 
-  // Ayer en local timezone
   const yesterdayDate = new Date();
   yesterdayDate.setDate(yesterdayDate.getDate() - 1);
   const yyyyY = yesterdayDate.getFullYear();
@@ -73,7 +71,7 @@ export default function AddMatchModal({
       <div className="absolute inset-0 bg-black/70"></div>
 
       <div
-        className="relative bg-white p-6 z-10 rounded-lg shadow-lg w-full max-w-md h-144 overflow-y-auto"
+        className="relative bg-white p-4 sm:p-6 z-10 rounded-lg shadow-lg w-[90%] sm:w-full max-w-md max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button

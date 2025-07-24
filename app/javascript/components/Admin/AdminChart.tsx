@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,7 +12,6 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
-// Registrar componentes necesarios para Chart.js
 ChartJS.register(
   CategoryScale,
   LinearScale,

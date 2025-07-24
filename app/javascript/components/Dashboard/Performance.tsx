@@ -8,7 +8,7 @@ import {
   Legend,
 } from "chart.js";
 import { Radar } from "react-chartjs-2";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 ChartJS.register(
   RadialLinearScale,
@@ -56,6 +56,17 @@ export default function Performance({
       )
     );
   };
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize(); 
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const filteredStats = selectedStats.filter((stat) => stat.selected);
   const labels = filteredStats.map((stat) => stat.label);
@@ -103,7 +114,7 @@ export default function Performance({
   };
 
   return (
-    <div className="text-white flex">
+    <div className={`text-white ${isMobile ? "flex flex-col md:flex-row items-center md:items-start gap-8" : "flex"}`}>
       {/* Stats */}
       <div className="flex flex-col pr-10 ">
         <h2 className="text-2xl font-bold text-white">Performance</h2>
@@ -128,7 +139,7 @@ export default function Performance({
       </div>
 
       {/* Radar chart */}
-      <div className="flex mx-auto items-center justify-center">
+      <div className="flex mx-auto items-left justify-center">
         <Radar data={data} options={options} />
       </div>
     </div>

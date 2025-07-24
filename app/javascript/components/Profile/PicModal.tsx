@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { updateRequest } from "../../api";
-import { FaTimes } from "react-icons/fa"; // Importar los íconos de check y equis
-
+import { FaTimes } from "react-icons/fa";
 type PicModalProps = {
   isPicModalOpen: boolean;
   onClose: () => void;
@@ -25,7 +24,6 @@ export default function PicModal({
   ];
 
   const handlePicChange = async (imgUrl: string) => {
-    // Lógica para aceptar la solicitud de amistad
     const result = await updateRequest(`/current_users/${user.id}`, {
       user: {
         image: imgUrl,
@@ -44,7 +42,7 @@ export default function PicModal({
     >
       <div className="absolute inset-0 bg-black/70"></div>{" "}
       <div
-        className="relative bg-white p-6 z-10 rounded-lg shadow-lg w-full max-w-md max-h-screen overflow-y-auto"
+        className="relative bg-white p-4 sm:p-6 z-10 rounded-lg shadow-lg w-[90%] sm:w-full max-w-md max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -55,12 +53,10 @@ export default function PicModal({
           <FaTimes />
         </button>
 
-        {/* Modal Title */}
         <h2 className="text-xl font-semibold mb-4 text-center">
           Choose Your Player
         </h2>
 
-        {/* Choose Profile Pic*/}
         <div className="grid grid-cols-3 gap-3">
           {profilePics.map((pic) => {
             const imgUrl = `/assets/ProfilePics/${pic}`;

@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function RecentGame({ lastmatch }: any) {
-  // Determinar color según resultado
   const resultColor =
     lastmatch.result === "Win"
       ? "text-green-500"
@@ -9,7 +8,7 @@ export default function RecentGame({ lastmatch }: any) {
       ? "text-red-500"
       : lastmatch.result === "Draw"
       ? "text-orange-500"
-      : "text-gray-400"; // color por defecto si no coincide
+      : "text-gray-400"; 
 
   return (
     <>

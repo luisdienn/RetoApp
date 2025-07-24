@@ -3,7 +3,6 @@ import { postRequest } from "../../api";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 
 export default function RegisterForm() {
-  // Estado de campos
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

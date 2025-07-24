@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
   MaterialReactTable,
   useMaterialReactTable,
@@ -6,6 +6,7 @@ import {
 } from "material-react-table";
 import EditUserModal from "./EditUserModal";
 import AdminSidebar from "./AdminSideBar";
+import AdminNavbarMobile from "./AdminNavbarMobile";
 
 type User = {
   name: string;
@@ -18,6 +19,14 @@ export default function AdminTable({ user, allusers, Favicon, RetoLogo }: any) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const update = () => setIsMobile(window.innerWidth < 768);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const handleEdit = async (row: any) => {
     const user = row.original;
@@ -55,7 +64,7 @@ export default function AdminTable({ user, allusers, Favicon, RetoLogo }: any) {
         Cell: ({ row }) => (
           <button
             type="button"
-            className=" sm:px-4 sm:py-2 text-xs sm:text-sm bg-[#ddc68b] text-black font-bold rounded-lg hover:brightness-110 hover:cursor-pointer transition"
+            className="px-2 py-1 sm:px-4 sm:py-2 text-[10px] sm:text-sm bg-[#ddc68b] text-black font-bold rounded-lg hover:brightness-110 hover:cursor-pointer transition"
             onClick={() => handleEdit(row)}
           >
             Editar
@@ -89,15 +98,20 @@ export default function AdminTable({ user, allusers, Favicon, RetoLogo }: any) {
 
   return (
     <div className="flex overflow-hidden h-screen">
-      <AdminSidebar
-        Favicon={Favicon}
-        RetoLogo={RetoLogo}
-        isOpen={isSidebarOpen}
-        toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
-      />
+      {isMobile ? (
+        <div className="">
+          <AdminNavbarMobile Favicon={Favicon} RetoLogo={RetoLogo} />
+        </div>
+      ) : (
+        <AdminSidebar
+          Favicon={Favicon}
+          RetoLogo={RetoLogo}
+          isOpen={isSidebarOpen}
+          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+        />
+      )}
       <div className="flex-1 overflow-y-auto">
-        <div className="min-h-screen bg-gray-100 p-12">
-          {/* Contenedor flex para h1 y botón */}
+        <div className="min-h-screen bg-gray-100 px-12 py-20">
           <div className="flex items-center justify-between mb-2">
             <h1 className="text-4xl font-bold text-gray-800 mb-8 ">
               All Users

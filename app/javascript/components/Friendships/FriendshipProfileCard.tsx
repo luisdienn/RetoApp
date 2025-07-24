@@ -1,5 +1,6 @@
-import React from "react";
+import React,{useState} from "react";
 import { postRequest, deleteRequest } from "../../api";
+import FriendsModal from "../Profile/FriendsModal";
 
 export default function FriendshipProfileCard({
   frienduser,
@@ -7,7 +8,10 @@ export default function FriendshipProfileCard({
   world_cups,
   totalmatches,
   friendships,
+  friends_of_friends,
 }: any) {
+  const [isFriendsModalOpen, setIsFriendsModalOpen] = useState(false)
+  
   const buttonText = 
     !isfriend || isfriend.status === undefined
       ? "Follow"
@@ -20,9 +24,7 @@ export default function FriendshipProfileCard({
   const onClick = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Accion dependiendo del boton
     if (buttonText === "Follow") {
-      // Crear amistad
       const result = await postRequest("/friendships", {
         friendship: {
           receiver_id: frienduser.id,
@@ -34,7 +36,6 @@ export default function FriendshipProfileCard({
         window.location.href = result.redirect_url;
       }
     } else if (buttonText === "Unfollow" || buttonText === "Pending") {
-      // Cancelar amistad
       const result = await deleteRequest(`/friendships/${isfriend.id}`, {
         
       });
@@ -76,8 +77,8 @@ export default function FriendshipProfileCard({
           <div>
             <p className="text-xl font-bold sm:text-2xl">{totalmatches||0}</p>
             <p className="text-sm sm:text-base">Matches</p>
-          </div>
-          <div>
+          </div>        
+          <div onClick={() => setIsFriendsModalOpen(true)} className="hover:cursor-pointer">
             <p className="text-xl font-bold sm:text-2xl">{friendships||0}</p>
             <p className="text-sm sm:text-base">Friends</p>
           </div>
@@ -108,6 +109,12 @@ export default function FriendshipProfileCard({
           Badges
         </p>
       </div>
+
+              <FriendsModal
+              isFriendsModalOpen={isFriendsModalOpen}
+              onClose={() => setIsFriendsModalOpen(false)}
+              friends={friends_of_friends || []}
+            />
     </div>
   );
 }

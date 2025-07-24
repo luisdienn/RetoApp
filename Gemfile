@@ -58,13 +58,28 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem 'bullet'
+  gem 'yard'
+
+
 end
+
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem 'shoulda-matchers', '~> 5.0'
+
+
 end
+
+group :development, :test do
+  gem "faker"
+  gem "factory_bot_rails"
+  gem 'database_cleaner-active_record', '~> 2.0'
+
+end
+
 
 gem "shakapacker", "= 8.3"
 

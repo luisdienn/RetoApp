@@ -75,7 +75,7 @@ export async function deleteRequest<T>(
 
     } else {
       if (response.data.errors) {
-        response.data.errors.forEach((err: string) => toast.error(err));
+  response.data.errors.forEach((err: string) => toast.error(err));
       } else {
         toast.error("Unknown error.");
       }

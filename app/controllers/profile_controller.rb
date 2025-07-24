@@ -1,21 +1,39 @@
+# Controller responsible for handling the user's profile page.
+#
+# Requires the user to be authenticated before accessing any action.
 class ProfileController < ApplicationController
-  before_action :authenticate_user!
+  # Ensures that a user is logged in before accessing the index action.
+  before_action :authenticate_user!,:is_active!
 
+  # GET /profile
+  #
+  # Loads and assigns user-specific data to be displayed in the profile view:
+  # - Current user data
+  # - Accepted friends
+  # - Pending friend requests
+  # - Total matches played
+  # - World cups won
+  #
+  # @return [void]
   def index
-    # Trear la info de la base de datos
     @user = current_user
-    @friends = User.where(id: @user.requested_friendships.where(status: "accepted").pluck(:receiver_id))
+
+    # Retrieve all accepted friendships for the current user
+    @friends = User.active.where(id: @user.requested_friendships.where(status: "accepted").pluck(:receiver_id))
+
+    # Retrieve all pending friend requests received by the user
     @notifications = @user.received_friendships.where(status: "pending")
 
+    # Get the list of user IDs who sent the pending friend requests
+    @user_ids = @notifications.pluck(:requester_id)
 
-    @user_ids = @notifications.pluck(:requester_id) 
-    @requesters = User.where(id: @user_ids) 
-    
+    # Retrieve the user objects of those who sent requests
+    @requesters = User.where(id: @user_ids)
 
+    # Count total matches played by the user
     @totalmatches = @user.matches.count
+
+    # Count world cups won by the user
     @world_cups = @user.world_cups.where(was_won: true).count
-
-
   end
-
 end

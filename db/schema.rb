@@ -10,9 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_07_000832) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_24_195123) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "badges", force: :cascade do |t|
+    t.string "name"
+    t.string "image_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "friendships", force: :cascade do |t|
     t.integer "requester_id", null: false
@@ -39,6 +46,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_07_000832) do
     t.string "opponent"
     t.index ["user_id"], name: "index_matches_on_user_id"
     t.index ["world_cup_id"], name: "index_matches_on_world_cup_id"
+  end
+
+  create_table "user_badges", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "badge_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badge_id"], name: "index_user_badges_on_badge_id"
+    t.index ["user_id"], name: "index_user_badges_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -82,5 +98,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_07_000832) do
   add_foreign_key "friendships", "users", column: "requester_id"
   add_foreign_key "matches", "users"
   add_foreign_key "matches", "world_cups"
+  add_foreign_key "user_badges", "badges"
+  add_foreign_key "user_badges", "users"
   add_foreign_key "world_cups", "users"
 end

@@ -1,4 +1,3 @@
-// src/components/Sidebar.tsx
 import { FaHome, FaUserFriends, FaSignOutAlt, FaListUl } from "react-icons/fa";
 import { GiTrophy } from "react-icons/gi";
 import React from "react";
@@ -52,7 +51,7 @@ export default function Sidebar({
           />
         </div>
 
-        {/* Perfil */}
+        {/* Profile */}
         <div
           className={`flex flex-col items-center transition-all duration-300 py-16  ${
             isOpen ? "opacity-100" : "opacity-0 h-0 overflow-hidden"
@@ -88,7 +87,7 @@ export default function Sidebar({
           <p className="font-medium pt-2">{user.name}</p>
         </div>
 
-        {/* Menú */}
+        {/* Menu */}
         <nav
           className={`flex flex-col ${
             isOpen ? "pl-10" : "items-center"
@@ -112,12 +111,6 @@ export default function Sidebar({
       {/* Log out */}
       <button
         onClick={() => {
-          document.cookie.split(";").forEach((cookie) => {
-            const cookieName = cookie.split("=")[0];
-            document.cookie = `${cookieName}=; expires=${Date.now}`;
-          });
-          sessionStorage.clear();
-          localStorage.clear();
           window.location.href = "/users/sign_out";
         }}
         className={`flex items-center gap-3 text-sm text-white hover:text-[#f9e7b8] transition-all duration-300 hover:cursor-pointer ${

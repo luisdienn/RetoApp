@@ -69,7 +69,7 @@ export default function ProfileCard({
               </svg>
             )}
 
-            {/* Botón de editar foto */}
+            {/* Edit Photo */}
             <button
               onClick={() => setIsPicModalOpen(true)}
               className="hover:cursor-pointer absolute bottom-0 right-0 transform translate-x-1/64  w-12 h-12 sm:w-10 sm:h-10 rounded-full bg-[#f9e7b8] text-black flex items-center justify-center shadow hover:brightness-110 transition"
@@ -118,7 +118,6 @@ export default function ProfileCard({
           >
             <FaBell size={20} />
 
-            {/* Badge rojo (siempre presente) */}
             <span
               className={`absolute -top-1 -right-1 bg-red-600 text-white rounded-full text-xs min-w-[1.25rem] h-5 flex items-center justify-center px-1 transition 
       ${
@@ -135,26 +134,26 @@ export default function ProfileCard({
 
       {/* Name and Info */}
       <div className="mt-16 relative text-center border-b border-gray-700 pb-8">
-        {/* Input del nombre */}
-        <div className="relative">
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="text-3xl sm:text-4xl font-semibold text-white bg-transparent text-center w-64 h-12 "
-          />
-          <button
-            onClick={handleNameChange}
-            className="px-6 py-2 bg-[#f9e7b8] text-black rounded hover:brightness-110 transition absolute top-1/2 right-0 transform -translate-y-1/2 -translate-x-64 hover:cursor-pointer"
-          >
-            <FaPencilAlt size={16} />
-          </button>
-        </div>
+<div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-0 relative">
+  <input
+    type="text"
+    value={name}
+    onChange={(e) => setName(e.target.value)}
+    className="text-3xl sm:text-4xl font-semibold text-white bg-transparent text-center w-64 h-12"
+  />
+  <button
+    onClick={handleNameChange}
+    className="mt-2 sm:mt-0 sm:ml-4 px-4 py-2 bg-[#f9e7b8] text-black rounded hover:brightness-110 transition hover:cursor-pointer"
+  >
+    <FaPencilAlt size={16} />
+  </button>
+</div>
+
 
         {/* Email */}
         <p className="text-[#f9e7b8] mt-2">{user.email}</p>
       </div>
-      {/* Description */}
+      {/* Badges */}
       <div className="mt-10 text-center px-4 sm:px-8 md:px-16">
         <p className="text-gray-300 text-sm sm:text-base font-light leading-relaxed">
           Badges

@@ -1,6 +1,5 @@
 import React from "react";
 
-
 type FriendsModalProps = {
   isFriendsModalOpen: boolean;
   onClose: () => void;
@@ -22,7 +21,7 @@ export default function FriendsModal({
       <div className="absolute inset-0 bg-black/70"></div>
 
       <div
-        className="relative bg-white p-6 z-10 rounded-lg shadow-lg w-full max-w-md max-h-screen overflow-y-auto"
+        className="relative bg-white p-4 sm:p-6 z-10 rounded-lg shadow-lg w-[90%] sm:w-full max-w-md max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button

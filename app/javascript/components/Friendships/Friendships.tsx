@@ -1,13 +1,31 @@
 import React, { useState, useRef, useEffect } from "react";
-import AddButton from "../AddButton";
 import SideBar from "../SideBar";
 import SearchBar from "./SearchBar";
 import StatsTable from "./StatsTable";
+import NavbarMobile from "../NavBarMobile";
 
-export default function Friendships({ user,usermatches,userwc, allusers,friends_matches,friends_wc, friends,Favicon, RetoLogo }) {
+export default function Friendships({
+  user,
+  usermatches,
+  userwc,
+  allusers,
+  friends_matches,
+  friends_wc,
+  friends,
+  Favicon,
+  RetoLogo,
+}) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [showResults, setShowResults] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const update = () => setIsMobile(window.innerWidth < 768);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
@@ -18,7 +36,6 @@ export default function Friendships({ user,usermatches,userwc, allusers,friends_
         )
       : [];
 
-  // Detect click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -37,19 +54,25 @@ export default function Friendships({ user,usermatches,userwc, allusers,friends_
 
   return (
     <div className="flex overflow-hidden h-screen">
-      <SideBar
-        user={user}
-        Favicon={Favicon}
-        RetoLogo={RetoLogo}
-        isOpen={isSidebarOpen}
-        toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
-      />
+      {isMobile ? (
+        <div className="">
+          <NavbarMobile Favicon={Favicon} RetoLogo={RetoLogo} />
+        </div>
+      ) : (
+        <SideBar
+          user={user}
+          Favicon={Favicon}
+          RetoLogo={RetoLogo}
+          isOpen={isSidebarOpen}
+          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+        />
+      )}
       <div className="flex-1 overflow-y-auto">
-        <div className="min-h-screen bg-gray-100 p-12">
+        <div className="min-h-screen bg-gray-100 px-12 py-20">
           <div className="flex items-center justify-between mb-2">
             <h1 className="text-4xl font-bold text-gray-800">Friends</h1>
           </div>
-          <p className="text-gray-600">Time to check where are you standing</p>
+          <p className="text-gray-600">Check out your friends stats</p>
 
           <div className="mt-6 mb-4 pb-5 relative" ref={searchContainerRef}>
             <SearchBar
@@ -95,7 +118,14 @@ export default function Friendships({ user,usermatches,userwc, allusers,friends_
             )}
           </div>
 
-          <StatsTable user={user} friends={friends} usermatches={usermatches} userwc={userwc}  friends_matches={friends_matches} friends_wc={friends_wc} />
+          <StatsTable
+            user={user}
+            friends={friends}
+            usermatches={usermatches}
+            userwc={userwc}
+            friends_matches={friends_matches}
+            friends_wc={friends_wc}
+          />
         </div>
       </div>
     </div>

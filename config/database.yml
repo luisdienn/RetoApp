@@ -9,7 +9,10 @@ development:
 
 test:
   <<: *default
-  url: <%= ENV['DATABASE_URL_TEST'] %>
+  database: retoapp_test
+  username: postgres
+  password: password
+  host: localhost
 
 production:
   <<: *default
