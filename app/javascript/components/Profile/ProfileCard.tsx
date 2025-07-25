@@ -6,6 +6,7 @@ import PicModal from "./PicModal";
 import FriendsModal from "./FriendsModal";
 import { FaCamera, FaPencilAlt } from "react-icons/fa";
 import { updateRequest } from "../../api";
+import { InfiniteMovingCards } from "../ui/infinite-moving-cards";
 
 type ProfileProps = {
   user: any;
@@ -14,6 +15,7 @@ type ProfileProps = {
   requesters?: any[];
   world_cups?: number;
   totalmatches?: number;
+  badges?: string[];
 };
 
 export default function ProfileCard({
@@ -23,12 +25,15 @@ export default function ProfileCard({
   requesters,
   world_cups,
   totalmatches,
+  badges,
 }: ProfileProps) {
   const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isPicModalOpen, setIsPicModalOpen] = useState(false);
-  const [isFriendsModalOpen, setIsFriendsModalOpen] = useState(false)
+  const [isFriendsModalOpen, setIsFriendsModalOpen] = useState(false);
   const [name, setName] = useState(user.name);
+  
+  console.log(badges);
 
   const handleNameChange = async () => {
     const result = await updateRequest(`/current_users/${user.id}`, {
@@ -41,6 +46,8 @@ export default function ProfileCard({
       window.location.href = result.redirect_url;
     }
   };
+
+
   return (
     <div className="p-6 sm:p-8 bg-black shadow-lg rounded-lg max-w-5xl mx-auto">
       {/* Top section */}
@@ -97,8 +104,13 @@ export default function ProfileCard({
             </div>
           </a>
 
-          <div onClick={() => setIsFriendsModalOpen(true)} className="hover:cursor-pointer">
-            <p className="text-xl font-bold sm:text-2xl">{friends?.length || 0}</p>
+          <div
+            onClick={() => setIsFriendsModalOpen(true)}
+            className="hover:cursor-pointer"
+          >
+            <p className="text-xl font-bold sm:text-2xl">
+              {friends?.length || 0}
+            </p>
             <p className="text-sm sm:text-base">Friends</p>
           </div>
         </div>
@@ -134,30 +146,35 @@ export default function ProfileCard({
 
       {/* Name and Info */}
       <div className="mt-16 relative text-center border-b border-gray-700 pb-8">
-<div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-0 relative">
-  <input
-    type="text"
-    value={name}
-    onChange={(e) => setName(e.target.value)}
-    className="text-3xl sm:text-4xl font-semibold text-white bg-transparent text-center w-64 h-12"
-  />
-  <button
-    onClick={handleNameChange}
-    className="mt-2 sm:mt-0 sm:ml-4 px-4 py-2 bg-[#f9e7b8] text-black rounded hover:brightness-110 transition hover:cursor-pointer"
-  >
-    <FaPencilAlt size={16} />
-  </button>
-</div>
-
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-0 relative">
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="text-3xl sm:text-4xl font-semibold text-white bg-transparent text-center w-64 h-12"
+          />
+          <button
+            onClick={handleNameChange}
+            className="mt-2 sm:mt-0 sm:ml-4 px-4 py-2 bg-[#f9e7b8] text-black rounded hover:brightness-110 transition hover:cursor-pointer"
+          >
+            <FaPencilAlt size={16} />
+          </button>
+        </div>
 
         {/* Email */}
         <p className="text-[#f9e7b8] mt-2">{user.email}</p>
       </div>
       {/* Badges */}
       <div className="mt-10 text-center px-4 sm:px-8 md:px-16">
-        <p className="text-gray-300 text-sm sm:text-base font-light leading-relaxed">
-          Badges
-        </p>
+        <h1 className="text-2xl font-bold text-white">Badges</h1>
+
+        <div className="pt-8 rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
+          <InfiniteMovingCards
+            items={badges}
+            direction="left"
+            speed="slow"
+          />
+        </div>
       </div>
       <NotificationsModal
         isNotificationModalOpen={isNotificationModalOpen}
@@ -166,12 +183,11 @@ export default function ProfileCard({
         requesters={requesters || []}
       />
 
-        <FriendsModal
+      <FriendsModal
         isFriendsModalOpen={isFriendsModalOpen}
         onClose={() => setIsFriendsModalOpen(false)}
         friends={friends || []}
       />
-
 
       <ShareModal
         isShareModalOpen={isShareModalOpen}

@@ -5,7 +5,7 @@ import SideBar from "../SideBar";
 import NavbarMobile from "../NavBarMobile";
 
 
-export default function Profile({ user,friends,notifications,requesters, totalmatches,world_cups, Favicon, RetoLogo }) {
+export default function Profile({ user,friends,notifications,requesters, totalmatches,world_cups,badges, Favicon, RetoLogo }) {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [isMobile, setIsMobile] = useState(false);
@@ -34,8 +34,8 @@ export default function Profile({ user,friends,notifications,requesters, totalma
       )}
       <div className="flex-1 overflow-y-auto">
         
-        <div className="min-h-screen bg-gray-100 px-12 py-48">
-          <ProfileCard user={user} friends={friends} notifications={notifications} requesters={requesters} totalmatches={totalmatches} world_cups={world_cups}/>
+        <div className="min-h-screen bg-gray-100 px-12 py-14">
+          <ProfileCard user={user} friends={friends} notifications={notifications} requesters={requesters} totalmatches={totalmatches} world_cups={world_cups} badges={badges}/>
         </div>
       </div>
     </div>

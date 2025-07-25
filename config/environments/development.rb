@@ -76,6 +76,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = {
+    # CHANGE! --- .ENV
     user_name: 'cddd3a4cd8adfa',
     password: '2675b30e29689f',
     address: 'sandbox.smtp.mailtrap.io',

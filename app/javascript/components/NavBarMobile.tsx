@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaHome, FaUserFriends, FaSignOutAlt, FaListUl, FaUser } from "react-icons/fa";
+import { FaHome, FaUserFriends, FaSignOutAlt, FaListUl, FaUser ,FaMedal } from "react-icons/fa";
 import { GiTrophy } from "react-icons/gi";
 
 const navItems = [
@@ -8,6 +8,8 @@ const navItems = [
   { icon: <FaUserFriends />, label: "Friends", href: "/friendships" },
   { icon: <GiTrophy />, label: "World Cup", href: "/world_cup" },
   { icon: <FaListUl />, label: "Matches", href: "/matches" },
+  { icon: <FaMedal   />, label: "Badges", href: "/badges" },
+  
 ];
 
 export default function NavbarMobile({Favicon, RetoLogo }: any) {

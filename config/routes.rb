@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :matches, only: [:index, :create, :update] 
   resources :dashboard, only: [:index]
   resources :world_cup, only: [:index]
+  resources :badges, only: [:index]
   resources :profile, only: [:index]
   resources :friendships, only: [:index, :create, :destroy, :update] 
   get 'friendships/profile/:id', to: 'friendships#profile', as: 'friend_profile'
