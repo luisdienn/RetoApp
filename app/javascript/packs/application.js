@@ -28,6 +28,7 @@ import Confirmation from "../components/Confirmation/Confirmation";
 import Unlock from "../components/Unlock/Unlock";
 import AdminDashboard from "../components/Admin/AdminDashboard";
 import AdminTable from "../components/Admin/AdminTable";
+import AdminBadges from "../components/Admin/pages/AdminBadges";
 import Badges from "../components/Badges/Badges";
 
 
@@ -50,7 +51,8 @@ ReactOnRails.register({
   Unlock,
   AdminDashboard,
   AdminTable,
-  Badges
+  AdminBadges,
+  Badges,
 
 
   

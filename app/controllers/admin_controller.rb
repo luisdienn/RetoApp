@@ -26,6 +26,11 @@ class AdminController < ApplicationController
     @allusers = User.all
   end
 
+  def badges
+    @user = current_user
+    @badges = Badge.all
+  end
+
   private
 
 end

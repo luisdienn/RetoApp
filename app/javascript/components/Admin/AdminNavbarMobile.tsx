@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { FaHome, FaUserFriends, FaSignOutAlt } from "react-icons/fa";
+import { FaHome, FaUserFriends, FaSignOutAlt , FaMedal} from "react-icons/fa";
 
 const navItems = [
   { icon: <FaHome />, label: "Dashboard", href: "/admin" },
   { icon: <FaUserFriends />, label: "Users", href: "/admin/users" },
+  { icon: <FaMedal   />, label: "Badges", href: "/admin/badges" },
 ];
 
 export default function AdminNavbarMobile({Favicon, RetoLogo }: any) {

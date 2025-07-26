@@ -75,7 +75,7 @@ class ProfileController < ApplicationController
     end
 
     def goals_badge_verification
-      aux_goals = @user.matches.count
+      aux_goals = @user.matches.sum(:goals)
 
       badge_name = case aux_goals
                   when 100..249

@@ -67,7 +67,7 @@ export default function AdminTable({ user, allusers, Favicon, RetoLogo }: any) {
             className="px-2 py-1 sm:px-4 sm:py-2 text-[10px] sm:text-sm bg-[#ddc68b] text-black font-bold rounded-lg hover:brightness-110 hover:cursor-pointer transition"
             onClick={() => handleEdit(row)}
           >
-            Editar
+            Edit
           </button>
         ),
       },

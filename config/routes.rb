@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :matches, only: [:index, :create, :update] 
   resources :dashboard, only: [:index]
   resources :world_cup, only: [:index]
-  resources :badges, only: [:index]
+  resources :badges, only: [:index, :update, :create, :destroy]
   resources :profile, only: [:index]
   resources :friendships, only: [:index, :create, :destroy, :update] 
   get 'friendships/profile/:id', to: 'friendships#profile', as: 'friend_profile'
@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   
   get 'admin', to: 'admin#index'
   get 'admin/users', to: 'admin#users'
+  get 'admin/badges', to: 'admin#badges'
 
 
   devise_for :users, controllers: {

@@ -34,7 +34,7 @@ export default function Profile({ user,friends,notifications,requesters, totalma
       )}
       <div className="flex-1 overflow-y-auto">
         
-        <div className="min-h-screen bg-gray-100 px-12 py-14">
+        <div className={`min-h-screen bg-gray-100 px-12 ${isMobile? `pt-36 pb-12`:`py-14`} `}>
           <ProfileCard user={user} friends={friends} notifications={notifications} requesters={requesters} totalmatches={totalmatches} world_cups={world_cups} badges={badges}/>
         </div>
       </div>
