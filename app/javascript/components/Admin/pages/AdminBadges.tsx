@@ -8,8 +8,8 @@ import EditBadgeModal from "../comps/EditBadgeModal";
 import DeleteBadgeModal from "../comps/DeleteBadgeModal";
 import AddBadgeModal from "../comps/AddBadgeModal";
 import AddBadgeButton from "../comps/AddBadgeButton";
-import AdminSidebar from "../AdminSideBar";
-import AdminNavbarMobile from "../AdminNavbarMobile";
+import AdminSidebar from "../comps/AdminSideBar";
+import AdminNavbarMobile from "../comps/AdminNavbarMobile";
 
 type Badge = {
   name: string;
@@ -48,6 +48,8 @@ export default function AdminBadges({ badges, Favicon, RetoLogo }: any) {
     () => [
       { accessorKey: "name", header: "Name" },
       { accessorKey: "description", header: "Description" },
+      { accessorKey: "type", header: "Condition" },
+      { accessorKey: "value", header: "Value" },
       {
         accessorKey: "edit",
         header: "Actions",
@@ -82,6 +84,8 @@ export default function AdminBadges({ badges, Favicon, RetoLogo }: any) {
             ...badge,
             name: badge.name,
             description: badge.description,
+            type: badge.condition_type,
+            value: badge.condition_value,
           }))
           .sort(
             (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()

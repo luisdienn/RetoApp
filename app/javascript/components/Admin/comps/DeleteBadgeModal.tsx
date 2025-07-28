@@ -50,14 +50,14 @@ export default function DeleteBadgeModal({
         <div className="flex justify-center gap-8 mt-6">
           <button
             onClick={onClose}
-            className="text-red-600 hover:text-red-800 text-4xl hover:cursor-pointer"
+            className="text-red-700 hover:text-red-600 text-4xl hover:cursor-pointer"
             aria-label="Cancel delete"
           >
             <FaTimesCircle />
           </button>
           <button
             onClick={handleDelete}
-            className="text-green-600 hover:text-green-800 text-4xl hover:cursor-pointer"
+            className="text-green-700 hover:text-green-600 text-4xl hover:cursor-pointer"
             aria-label="Confirm delete"
           >
             <FaCheckCircle />

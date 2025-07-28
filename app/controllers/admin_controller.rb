@@ -26,6 +26,10 @@ class AdminController < ApplicationController
     @allusers = User.all
   end
 
+  # GET /admin/badges
+  # Loads the current badges and retrieves all badges.
+  #
+  # @return [void]
   def badges
     @user = current_user
     @badges = Badge.all

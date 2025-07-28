@@ -11,6 +11,8 @@ export default function AddBadgeModal({ isOpen, onClose }: AddMatchModalProps) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState<File | null>(null);
+  const [type, setType] = useState("");
+  const [value, setValue] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,6 +20,8 @@ export default function AddBadgeModal({ isOpen, onClose }: AddMatchModalProps) {
     const formData = new FormData();
     formData.append("badge[name]", name);
     formData.append("badge[description]", description);
+    formData.append("badge[condition_type]", type);
+    formData.append("badge[condition_value]", value);
     if (image instanceof File) {
       formData.append("badge[image]", image);
     }
@@ -99,12 +103,34 @@ export default function AddBadgeModal({ isOpen, onClose }: AddMatchModalProps) {
           </div>
 
           <div className="mb-4">
+            <label className="block text-sm font-medium mb-1">Condition</label>
+            <input
+              name="type"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1">Value</label>
+            <input
+              name="value"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Badge Image
             </label>
 
             <div
-              className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-lg bg-white text-gray-500 hover:border-[#ddc68b] hover:bg-[#fdf9ee] transition cursor-pointer"
+              className="flex flex-col items-center justify-center w-full h-20 border-2 border-dashed border-gray-300 rounded-lg bg-white text-gray-500 hover:border-[#ddc68b] hover:bg-[#fdf9ee] transition cursor-pointer"
               onDragOver={(e) => e.preventDefault()}
               onDrop={(e) => {
                 e.preventDefault();
@@ -123,9 +149,7 @@ export default function AddBadgeModal({ isOpen, onClose }: AddMatchModalProps) {
               }
             >
               <RiImageAddLine className="text-3xl mb-2" />
-              <p className="text-sm text-center">
-                Click or drag & drop image here (JPG/PNG)
-              </p>
+
               {image && (
                 <p className="text-xs mt-2 text-gray-600 truncate max-w-full">
                   Selected: {image.name}

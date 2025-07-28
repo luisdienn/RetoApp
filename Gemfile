@@ -60,6 +60,9 @@ group :development do
   gem 'bullet'
   gem 'yard'
 
+  #yard doc
+  #yard server --reload (port: 8808)
+
 
 end
 
@@ -92,3 +95,11 @@ gem "tailwindcss-rails", "~> 4.2"
 gem 'devise'
 
 gem 'dotenv-rails'
+gem 'sidekiq'
+gem 'sidekiq-scheduler'
+
+gem 'prawn'
+gem 'prawn-table'
+
+
+

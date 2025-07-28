@@ -215,9 +215,16 @@ GEM
     parser (3.3.8.0)
       ast (~> 2.4.1)
       racc
+    pdf-core (0.10.0)
     pg (1.5.9)
     pp (0.6.2)
       prettyprint
+    prawn (2.5.0)
+      matrix (~> 0.4)
+      pdf-core (~> 0.10.0)
+      ttfunk (~> 1.8)
+    prawn-table (0.2.2)
+      prawn (>= 1.3.0, < 3.0.0)
     prettyprint (0.2.0)
     prism (1.4.0)
     propshaft (1.1.0)
@@ -283,6 +290,8 @@ GEM
       execjs (~> 2.5)
       rails (>= 5.2)
       rainbow (~> 3.0)
+    redis-client (0.25.1)
+      connection_pool
     regexp_parser (2.10.0)
     reline (0.6.1)
       io-console (~> 0.5)
@@ -337,6 +346,8 @@ GEM
       rubocop-rails (>= 2.30)
     ruby-progressbar (1.13.0)
     rubyzip (2.4.1)
+    rufus-scheduler (3.9.2)
+      fugit (~> 1.1, >= 1.11.1)
     securerandom (0.4.1)
     selenium-webdriver (4.34.0)
       base64 (~> 0.2)
@@ -353,6 +364,15 @@ GEM
       semantic_range (>= 2.3.0)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
+    sidekiq (8.0.6)
+      connection_pool (>= 2.5.0)
+      json (>= 2.9.0)
+      logger (>= 1.6.2)
+      rack (>= 3.1.0)
+      redis-client (>= 0.23.2)
+    sidekiq-scheduler (6.0.1)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 7.3, < 9)
     solid_cable (3.0.11)
       actioncable (>= 7.2)
       activejob (>= 7.2)
@@ -392,6 +412,8 @@ GEM
     thruster (0.1.14-aarch64-linux)
     thruster (0.1.14-x86_64-linux)
     timeout (0.4.3)
+    ttfunk (1.8.0)
+      bigdecimal (~> 3.1)
     turbo-rails (2.0.16)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
@@ -444,6 +466,8 @@ DEPENDENCIES
   jbuilder
   kamal
   pg (~> 1.1)
+  prawn
+  prawn-table
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.2)
@@ -453,6 +477,8 @@ DEPENDENCIES
   selenium-webdriver
   shakapacker (= 8.3)
   shoulda-matchers (~> 5.0)
+  sidekiq
+  sidekiq-scheduler
   solid_cable
   solid_cache
   solid_queue

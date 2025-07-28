@@ -17,12 +17,16 @@ export default function EditBadgeModal({
   const [description, setDescription] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [currentImageUrl, setCurrentImageUrl] = useState("");
+  const [type, setType] = useState("");
+  const [value, setValue] = useState("");
 
   useEffect(() => {
     setName(badge.name || "");
     setDescription(badge.description || "");
     setCurrentImageUrl(badge.image_url || "");
-    setImage(null); // reset previous selection
+    setImage(null);
+    setType(badge.condition_type || "");
+    setValue(badge.condition_value || "");
   }, [badge]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,6 +35,8 @@ export default function EditBadgeModal({
     const formData = new FormData();
     formData.append("badge[name]", name);
     formData.append("badge[description]", description);
+    formData.append("badge[condition_type]", type);
+    formData.append("badge[condition_value]", value);
     if (image instanceof File) {
       formData.append("badge[image]", image);
     }
@@ -41,7 +47,9 @@ export default function EditBadgeModal({
         body: formData,
         headers: {
           "X-CSRF-Token":
-            document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "",
+            document
+              .querySelector('meta[name="csrf-token"]')
+              ?.getAttribute("content") || "",
         },
       });
 
@@ -97,38 +105,67 @@ export default function EditBadgeModal({
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Description</label>
+            <label className="block text-sm font-medium mb-1">
+              Description
+            </label>
             <textarea
               name="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded"
-              rows={3}
+              rows={2}
               required
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Badge Image</label>
+            <label className="block text-sm font-medium mb-1">Condition</label>
+            <input
+              name="type"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1">Value</label>
+            <input
+              name="value"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Badge Image
+            </label>
 
             <div
-              className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-lg bg-white text-gray-500 hover:border-[#ddc68b] hover:bg-[#fdf9ee] transition cursor-pointer"
+              className="flex flex-col items-center justify-center w-full h-20 border-2 border-dashed border-gray-300 rounded-lg bg-white text-gray-500 hover:border-[#ddc68b] hover:bg-[#fdf9ee] transition cursor-pointer"
               onDragOver={(e) => e.preventDefault()}
               onDrop={(e) => {
                 e.preventDefault();
                 const file = e.dataTransfer.files[0];
-                if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
+                if (
+                  file &&
+                  (file.type === "image/png" || file.type === "image/jpeg")
+                ) {
                   setImage(file);
                 } else {
                   toast.error("Only JPG and PNG files are allowed.");
                 }
               }}
-              onClick={() => document.getElementById("badge-image-edit")?.click()}
+              onClick={() =>
+                document.getElementById("badge-image-edit")?.click()
+              }
             >
               <RiImageAddLine className="text-3xl mb-2" />
-              <p className="text-sm text-center">
-                Click or drag & drop image here (JPG/PNG)
-              </p>
+
               {image ? (
                 <p className="text-xs mt-2 text-gray-600 truncate max-w-full">
                   Selected: {image.name}
@@ -146,7 +183,10 @@ export default function EditBadgeModal({
               accept="image/png, image/jpeg"
               onChange={(e) => {
                 const file = e.target.files?.[0];
-                if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
+                if (
+                  file &&
+                  (file.type === "image/png" || file.type === "image/jpeg")
+                ) {
                   setImage(file);
                 } else {
                   toast.error("Only JPG and PNG files are allowed.");

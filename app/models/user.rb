@@ -43,7 +43,14 @@ class User < ApplicationRecord
   # @return [ActiveRecord::Associations::CollectionProxy]
   has_many :matches, dependent: :destroy
 
+  # Association to user badges (join model).
+  #
+  # @return [ActiveRecord::Associations::CollectionProxy<UserBadge>]
   has_many :user_badges
+
+  # Association to badges through user badges.
+  #
+  # @return [ActiveRecord::Associations::CollectionProxy<Badge>]
   has_many :badges, through: :user_badges
 
   # Friendships the user initiated

@@ -15,21 +15,21 @@
 // const imagePath = (name) => images(name, true)
 import ReactOnRails from 'react-on-rails';
 
-import Login from "../components/Login/Login";
-import Dashboard from "../components/Dashboard/Dashboard";
-import Matches from "../components/Matches/Matches";
-import WorldCup from "../components/WorldCup/WorldCup";
-import Profile from "../components/Profile/Profile";
-import Friendships from "../components/Friendships/Friendships";
-import FriendshipProfile from "../components/Friendships/FriendshipProfile";
+import Login from "../components/Login/pages/Login";
+import Dashboard from "../components/Dashboard/pages/Dashboard";
+import Matches from "../components/Matches/pages/Matches";
+import WorldCup from "../components/WorldCup/pages/WorldCup";
+import Profile from "../components/Profile/pages/Profile";
+import Friendships from "../components/Friendships/pages/Friendships";
+import FriendshipProfile from "../components/Friendships/pages/FriendshipProfile";
 import NewPassword from "../components/Password/NewPassword";
 import EditPassword from "../components/Password/EditPassword";
 import Confirmation from "../components/Confirmation/Confirmation";
 import Unlock from "../components/Unlock/Unlock";
-import AdminDashboard from "../components/Admin/AdminDashboard";
-import AdminTable from "../components/Admin/AdminTable";
+import AdminDashboard from "../components/Admin/pages/AdminDashboard";
+import AdminTable from "../components/Admin/pages/AdminTable";
 import AdminBadges from "../components/Admin/pages/AdminBadges";
-import Badges from "../components/Badges/Badges";
+import Badges from "../components/Badges/pages/Badges";
 
 
 

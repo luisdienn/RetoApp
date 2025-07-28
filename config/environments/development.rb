@@ -75,14 +75,15 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_options = {
+  from: 'retoapp@0e266947da642923.maileroo.org'
+}
   config.action_mailer.smtp_settings = {
-    # CHANGE! --- .ENV
-    user_name: 'cddd3a4cd8adfa',
-    password: '2675b30e29689f',
-    address: 'sandbox.smtp.mailtrap.io',
-    host: 'sandbox.smtp.mailtrap.io',
-    port: '2525',
-    authentication: :plain,
+    address: 'smtp.maileroo.com',
+    port: 587,
+    user_name: ENV['MAILER_USERNAME'],
+    password: ENV['MAILER_PASSWORD'],
+    authentication: 'plain',
     enable_starttls_auto: true
   }
 

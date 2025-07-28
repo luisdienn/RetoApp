@@ -1,0 +1,17 @@
+:schedule:
+  daily_user_report_job:
+    cron: "0 3 * * *"
+    class: "DailyUserReportJob"
+    queue: default
+
+  delete_old_reports_job:
+    cron: "* 5 * * *"
+    class: "DeleteOldReportsJob"
+    queue: default
+
+
+
+# bundle exec sidekiq -C config/sidekiq.yml
+# sudo service redis-server start
+
+
