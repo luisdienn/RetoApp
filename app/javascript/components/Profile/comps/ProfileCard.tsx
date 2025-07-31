@@ -172,7 +172,7 @@ export default function ProfileCard({
           <InfiniteMovingCards
             items={badges}
             direction="left"
-            speed="slow"
+            speed="normal"
           />
         </div>
       </div>

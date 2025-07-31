@@ -99,7 +99,7 @@ export default function AdminChart({ allusers }: any) {
   return (
     <>
       <h2 className="text-2xl font-bold text-white">App Performance</h2>
-      <div className="pt-6">
+      <div className="pt-6 lg:min-h-[500px] sm:min-h-[300px]">
         <Line data={data} options={options} />
       </div>
     </>

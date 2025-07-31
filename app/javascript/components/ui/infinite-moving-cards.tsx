@@ -26,21 +26,29 @@ export const InfiniteMovingCards = ({
   }, []);
   const [start, setStart] = useState(false);
   function addAnimation() {
-    if (containerRef.current && scrollerRef.current) {
-      const scrollerContent = Array.from(scrollerRef.current.children);
+    if (!containerRef.current || !scrollerRef.current) return;
 
+    const containerWidth = containerRef.current.offsetWidth;
+    const scrollerContent = Array.from(scrollerRef.current.children);
+
+    const contentWidth = scrollerContent.reduce((acc, item) => {
+      return acc + (item as HTMLElement).offsetWidth;
+    }, 0);
+
+    const minDuplication = Math.ceil((containerWidth * 2) / contentWidth);
+
+    for (let i = 0; i < minDuplication; i++) {
       scrollerContent.forEach((item) => {
-        const duplicatedItem = item.cloneNode(true);
-        if (scrollerRef.current) {
-          scrollerRef.current.appendChild(duplicatedItem);
-        }
+        const cloned = item.cloneNode(true);
+        scrollerRef.current!.appendChild(cloned);
       });
-
-      getDirection();
-      getSpeed();
-      setStart(true);
     }
+
+    getDirection();
+    getSpeed();
+    setStart(true);
   }
+
   const getDirection = () => {
     if (containerRef.current) {
       if (direction === "left") {
@@ -84,10 +92,7 @@ export const InfiniteMovingCards = ({
         )}
       >
         {items.map((item) => (
-          <li
-            className="relative w-auto shrink-0 py-6 px-4 md:w-auto "
-            key={item.name}
-          >
+          <li className="relative w-auto  py-6 px-4 md:w-auto " key={item.name}>
             <blockquote>
               <img
                 src={`http://localhost:3000/${item.image_url}`}
