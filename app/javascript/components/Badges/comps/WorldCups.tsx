@@ -6,7 +6,7 @@ type WorldCupProps = {
 
 export default function WorldCups({ badges }: WorldCupProps) {
   const wc_badges = badges.filter((badge) =>
-    badge.name.includes("WorldCup")
+    badge.name.condition_type("world_cups")
   );
 
   return (

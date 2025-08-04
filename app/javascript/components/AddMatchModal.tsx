@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { postRequest } from "../api";
+import { CgAsterisk } from "react-icons/cg";
 
 type AddMatchModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-export default function AddMatchModal({
-  isOpen,
-  onClose,
-}: AddMatchModalProps) {
+export default function AddMatchModal({ isOpen, onClose }: AddMatchModalProps) {
   const [goals, setGoals] = useState("");
   const [result, setResult] = useState("");
-  const [score1, setScore1] = useState(""); 
-  const [score2, setScore2] = useState(""); 
+  const [score1, setScore1] = useState("");
+  const [score2, setScore2] = useState("");
   const [details, setDetails] = useState("");
   const [date, setDate] = useState("");
   const [assists, setAssists] = useState("");
@@ -52,7 +50,7 @@ export default function AddMatchModal({
   // Date Validation
   const today = new Date();
   const yyyy = today.getFullYear();
-  const mm = String(today.getMonth() + 1).padStart(2, "0"); 
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
   const dd = String(today.getDate()).padStart(2, "0");
   const todayStr = `${yyyy}-${mm}-${dd}`;
 
@@ -65,13 +63,13 @@ export default function AddMatchModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center pt-8 pb-8"
+      className="fixed inset-0 z-50 flex items-center justify-center  pt-8 pb-8"
       onClick={onClose}
     >
       <div className="absolute inset-0 bg-black/70"></div>
 
       <div
-        className="relative bg-white p-4 sm:p-6 z-10 rounded-lg shadow-lg w-[90%] sm:w-full max-w-md max-h-[90vh] overflow-y-auto"
+        className="relative bg-white p-6 z-10 rounded-lg shadow-lg w-full max-w-6xl max-h-[90vh] overflow-y-auto "
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -82,9 +80,9 @@ export default function AddMatchModal({
           &times;
         </button>
 
-        <h2 className="text-xl font-semibold mb-4">Add Match</h2>
+        <h2 className="text-2xl font-semibold mb-4">Add Match</h2>
         <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mb-6">
             <div>
               <label className="block text-sm font-medium mb-1">Goals</label>
               <input
@@ -137,81 +135,88 @@ export default function AddMatchModal({
             </div>
           </div>
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Score</label>
-            <div className="flex gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1">Score</label>
+              <div className="flex gap-2">
+                <input
+                  type="number"
+                  value={score1}
+                  onChange={(e) => setScore1(e.target.value)}
+                  className="w-1/2 p-2 border border-gray-300 rounded"
+                />
+                <span className="font-bold pt-2">-</span>
+                <input
+                  type="number"
+                  value={score2}
+                  onChange={(e) => setScore2(e.target.value)}
+                  className="w-1/2 p-2 border border-gray-300 rounded"
+                />
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1 flex">
+                Result <CgAsterisk />
+              </label>
+              <select
+                name="result"
+                value={result}
+                onChange={(e) => setResult(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+              >
+                <option value="">Select Result</option>
+                <option value="Win">Win</option>
+                <option value="Loss">Loss</option>
+                <option value="Draw">Draw</option>
+              </select>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1">Opponent</label>
               <input
-                type="number"
-                value={score1}
-                onChange={(e) => setScore1(e.target.value)}
-                className="w-1/2 p-2 border border-gray-300 rounded"
-              />
-              <span className="font-bold pt-2">-</span>
-              <input
-                type="number"
-                value={score2}
-                onChange={(e) => setScore2(e.target.value)}
-                className="w-1/2 p-2 border border-gray-300 rounded"
+                type="text"
+                name="opponent"
+                value={opponent}
+                onChange={(e) => setOpponent(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
               />
             </div>
           </div>
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Result</label>
-            <select
-              name="result"
-              value={result}
-              onChange={(e) => setResult(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-              required
-            >
-              <option value="">Select Result</option>
-              <option value="Win">Win</option>
-              <option value="Loss">Loss</option>
-              <option value="Draw">Draw</option>
-            </select>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 mb-6">
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1 flex">
+                Date <CgAsterisk />
+              </label>
+              <input
+                type="date"
+                name="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+                min={yesterdayStr}
+                max={todayStr}
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1">Details</label>
+              <textarea
+                name="details"
+                value={details}
+                onChange={(e) => setDetails(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+                rows={1} 
+              />
+            </div>
           </div>
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Opponent</label>
-            <input
-              type="text"
-              name="opponent"
-              value={opponent}
-              onChange={(e) => setOpponent(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Date</label>
-            <input
-              type="date"
-              name="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-              required
-              min={yesterdayStr}
-              max={todayStr}
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Details</label>
-            <textarea
-              name="details"
-              value={details}
-              onChange={(e) => setDetails(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-              rows={3}
-            />
-          </div>
-
-          <div className="flex justify-end">
+          <div className="flex justify-center">
             <button
               type="submit"
-              className="px-4 py-2 bg-[#ddc68b] text-black font-bold rounded hover:brightness-110 cursor-pointer"
+              className="px-12 py-2 bg-[#ddc68b] text-black font-bold rounded hover:brightness-110 cursor-pointer"
             >
               Add Match
             </button>

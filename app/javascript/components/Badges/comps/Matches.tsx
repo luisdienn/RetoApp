@@ -6,7 +6,7 @@ type MatchesProps = {
 
 export default function Matches({ badges }: MatchesProps) {
   const matches_badges = badges.filter((badge) =>
-    badge.name.includes("Matches")
+    badge.condition_type.includes("matches")
   );
 
   return (

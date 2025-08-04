@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import SideBar from "../../SideBar";
 import NavbarMobile from "../../NavBarMobile";
 import AddMatchModal from "../../AddMatchModal";
+import Aichat from "../../aichat";
 
 export default function Dashboard({
   user,
@@ -41,10 +42,7 @@ export default function Dashboard({
     <div className="flex overflow-hidden h-screen">
       {isMobile ? (
         <div className="">
-          <NavbarMobile
-            Favicon={Favicon}
-            RetoLogo={RetoLogo}
-          />
+          <NavbarMobile Favicon={Favicon} RetoLogo={RetoLogo} />
         </div>
       ) : (
         <SideBar
@@ -93,6 +91,9 @@ export default function Dashboard({
             <div className="bg-black rounded-xl p-6 flex items-center justify-center">
               <TotalWC world_cups={world_cups} />
             </div>
+
+            {/* <Aichat /> */}
+            
           </div>
           <AddMatchModal
             isOpen={isModalOpen}

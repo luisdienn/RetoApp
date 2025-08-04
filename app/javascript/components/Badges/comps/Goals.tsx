@@ -6,7 +6,7 @@ type GoalsProps = {
 
 export default function Goals({ badges }: GoalsProps) {
   const goals_badges = badges.filter((badge) =>
-    badge.name.includes("Goals")
+    badge.condition_type.includes("goals")
   );
 
   return (

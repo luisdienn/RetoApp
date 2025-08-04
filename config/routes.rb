@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   get 'admin/users', to: 'admin#users'
   get 'admin/badges', to: 'admin#badges'
 
+  post '/aichat', to: 'aichat#create'
+
 
   devise_for :users, controllers: {
   sessions: 'users/sessions',
