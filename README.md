@@ -1,24 +1,48 @@
-# README
+# ⚽ RetoApp
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+RetoApp is a full-stack web application that allows users to track personal football statistics, simulate personal World Cups with automatic stage progression, and compare results with friends. Built with Ruby on Rails and React using Shakapacker, styled with Tailwind CSS.
 
-Things you may want to cover:
+---
 
-* Ruby version
+## 🚀 Features
 
-* System dependencies
+- Register personal matches with detailed stats (goals, assists, passes, etc.)
+- Create and simulate custom World Cups
+- Track your win/loss history and progress
+- Add friends and compare stats
+- AI-powered assistant 
+- Admin panel for badge and notification management
 
-* Configuration
+---
 
-* Database creation
+## 🛠 Tech Stack
 
-* Database initialization
+- **Backend:** Ruby on Rails 7 (`ruby-3.4.4`)
+- **Frontend:** React 18+ (via Shakapacker)
+- **Styling:** Tailwind CSS
+- **Database:** PostgreSQL
+- **Package Manager (JS):** npm
+- **Other tools:**
+  - Dotenv (`.env`) for environment configuration
+  - Mailer support via SMTP
+  - Boxcars + Groq (optional AI integration)
 
-* How to run the test suite
+---
 
-* Services (job queues, cache servers, search engines, etc.)
+## ⚙️ Environment Setup
 
-* Deployment instructions
+### Prerequisites
 
-* ...
+- Ruby `3.4.4`
+- Node.js (LTS recommended)
+- npm
+- PostgreSQL
+- Yarn (optional, but recommended for JS deps)
+- Redis (if using background jobs like Sidekiq)
+- `.env` file
+
+### Clone the Repo
+
+```bash
+git clone https://github.com/luisdienn/RetoApp.git
+cd RetoApp
