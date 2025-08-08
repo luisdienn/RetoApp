@@ -40,9 +40,11 @@ export default function Badges({ user, badges, Favicon, RetoLogo }) {
           </div>
           <p className=" text-gray-600">Try to collect them all!</p>
 
-          <Matches badges={badges} />
-          <Goals badges={badges} />
-          <WorldCups badges={badges}/>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5">
+            <Matches badges={badges} />
+            <Goals badges={badges} />
+            <WorldCups badges={badges} />
+          </div>
         </div>
       </div>
     </div>

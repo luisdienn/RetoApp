@@ -29,8 +29,7 @@ export async function postRequest<T>(
     
 
     if (response.data.success) {
-           if (response.data.message) {
-sessionStorage.setItem("toastMessage", response.data.message);      }
+           if (response.data.message) {sessionStorage.setItem("toastMessage", response.data.message);      }
 
       return { 
         success: true, 
@@ -39,25 +38,12 @@ sessionStorage.setItem("toastMessage", response.data.message);      }
       };
 
     } else {
-      if (response.data.errors) {
-        response.data.errors.forEach((err: string) => toast.error(err));
-      } else {
-        toast.error("Unknown error.");
-      }
+
       return { success: false, errors: response.data.errors || ["Unknown error."] };
     }
   } catch (error: any) {
-    if (error.response?.data?.errors) {
-      error.response.data.errors.forEach((err: string) => toast.error(err));
       return { success: false, errors: error.response.data.errors };
-    } else if (error.response?.data?.error) {
-      toast.error(error.response.data.error);
-      return { success: false, errors: [error.response.data.error] };
-    } else {
-      console.error("Unexpected error:", error);
-      toast.error("An unexpected error occurred.");
-      return { success: false, errors: ["An unexpected error occurred."] };
-    }
+    
   }
 }
 

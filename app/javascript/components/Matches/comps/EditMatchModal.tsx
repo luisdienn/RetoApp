@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { updateRequest } from "../../../api";
+import { CgAsterisk } from "react-icons/cg";
+import { RiLoader4Line } from "react-icons/ri";
+
 
 type EditMatchModalProps = {
   isOpen: boolean;
@@ -23,6 +26,8 @@ export default function EditMatchModal({
   const [fouls, setFouls] = useState("");
   const [blocks, setBlocks] = useState("");
   const [opponent, setOpponent] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [disable, setDisable] = useState(true);
 
   useEffect(() => {
     setGoals(match.goals || "");
@@ -38,11 +43,20 @@ export default function EditMatchModal({
     setOpponent(match.opponent || "");
   }, [match]);
 
+  useEffect(() => {
+    if (result !== "" && date !== "") {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [result, date]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const score = `${score1}-${score2}`;
 
+    setLoading(true);
     const resultt = await updateRequest(`/matches/${match.id}`, {
       match: {
         goals,
@@ -57,6 +71,7 @@ export default function EditMatchModal({
         date,
       },
     });
+    setLoading(false);
 
     if (resultt.success && resultt.redirect_url) {
       window.location.href = resultt.redirect_url;
@@ -80,13 +95,13 @@ export default function EditMatchModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center pt-8 pb-8"
+      className="fixed inset-0 z-50 flex items-center justify-center pt-8 pb-8"
       onClick={onClose}
     >
       <div className="absolute inset-0 bg-black/70"></div>
 
       <div
-        className="relative bg-white p-4 sm:p-6 z-10 rounded-lg shadow-lg w-[90%] sm:w-full max-w-md max-h-[90vh] overflow-y-auto"
+        className="relative bg-white p-6 z-10 rounded-lg shadow-lg w-full max-w-6xl max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -97,9 +112,9 @@ export default function EditMatchModal({
           &times;
         </button>
 
-        <h2 className="text-xl font-semibold mb-4">Edit Match</h2>
+        <h2 className="text-2xl font-semibold mb-4">Edit Match</h2>
         <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mb-6">
             <div>
               <label className="block text-sm font-medium mb-1">Goals</label>
               <input
@@ -152,83 +167,103 @@ export default function EditMatchModal({
             </div>
           </div>
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Score</label>
-            <div className="flex gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1">Score</label>
+              <div className="flex gap-2">
+                <input
+                  type="number"
+                  value={score1}
+                  onChange={(e) => setScore1(e.target.value)}
+                  className="w-1/2 p-2 border border-gray-300 rounded"
+                />
+                <span className="font-bold pt-2">-</span>
+                <input
+                  type="number"
+                  value={score2}
+                  onChange={(e) => setScore2(e.target.value)}
+                  className="w-1/2 p-2 border border-gray-300 rounded"
+                />
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1 flex">
+                Result <CgAsterisk />
+              </label>
+              <select
+                name="result"
+                value={result}
+                onChange={(e) => setResult(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+              >
+                <option value="">Select Result</option>
+                <option value="Win">Win</option>
+                <option value="Loss">Loss</option>
+                <option value="Draw">Draw</option>
+              </select>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1">Opponent</label>
               <input
-                type="number"
-                value={score1}
-                onChange={(e) => setScore1(e.target.value)}
-                className="w-1/2 p-2 border border-gray-300 rounded"
-              />
-              <span className="font-bold pt-2">-</span>
-              <input
-                type="number"
-                value={score2}
-                onChange={(e) => setScore2(e.target.value)}
-                className="w-1/2 p-2 border border-gray-300 rounded"
+                type="text"
+                name="opponent"
+                value={opponent}
+                onChange={(e) => setOpponent(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
               />
             </div>
           </div>
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Result</label>
-            <select
-              name="result"
-              value={result}
-              onChange={(e) => setResult(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-              required
-            >
-              <option value="">Select Result</option>
-              <option value="Win">Win</option>
-              <option value="Loss">Loss</option>
-              <option value="Draw">Draw</option>
-            </select>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 mb-6">
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1 flex">
+                Date <CgAsterisk />
+              </label>
+              <input
+                type="date"
+                name="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+                min={yesterdayStr}
+                max={todayStr}
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1">Details</label>
+              <textarea
+                name="details"
+                value={details}
+                onChange={(e) => setDetails(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+                rows={1}
+              />
+            </div>
           </div>
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Opponent</label>
-            <input
-              type="text"
-              name="opponent"
-              value={opponent}
-              onChange={(e) => setOpponent(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Date</label>
-            <input
-              type="date"
-              name="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-              required
-              min={yesterdayStr}
-              max={todayStr}
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Details</label>
-            <textarea
-              name="details"
-              value={details}
-              onChange={(e) => setDetails(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-              rows={3}
-            />
-          </div>
-
-          <div className="flex justify-end">
+          <div className="flex justify-center">
             <button
               type="submit"
-              className="px-4 py-2 bg-[#ddc68b] text-black font-bold rounded hover:brightness-110 cursor-pointer"
+              className={`px-12 py-2 rounded text-black font-bold ${
+                disable
+                  ? "bg-gray-200 cursor-not-allowed"
+                  : "bg-[#ddc68b]  hover:brightness-110 cursor-pointer"
+              } `}
+              disabled={loading ? true : disable}
             >
-              Edit Match
+              <div className="flex items-center justify-center">
+                {loading ? (
+                  <div className="cursor-not-allowed">
+                    <RiLoader4Line className="loader text-2xl" />
+                  </div>
+                ) : (
+                  "Edit Match"
+                )}
+              </div>
             </button>
           </div>
         </form>

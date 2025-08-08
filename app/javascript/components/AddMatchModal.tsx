@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { postRequest } from "../api";
 import { CgAsterisk } from "react-icons/cg";
+import { RiLoader4Line } from "react-icons/ri";
 
 type AddMatchModalProps = {
   isOpen: boolean;
@@ -20,7 +21,20 @@ export default function AddMatchModal({ isOpen, onClose }: AddMatchModalProps) {
   const [blocks, setBlocks] = useState("");
   const [opponent, setOpponent] = useState("");
 
+  const [loading, setLoading] = useState(false);
+  const [disable, setDisable] = useState(true);
+
+  useEffect(() => {
+    if (result != "" && date != "") {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [result, date]);
+
   const handleSubmit = async (e: React.FormEvent) => {
+    setLoading(true);
+
     e.preventDefault();
 
     const score = `${score1}-${score2}`;
@@ -39,6 +53,7 @@ export default function AddMatchModal({ isOpen, onClose }: AddMatchModalProps) {
         date,
       },
     });
+    setLoading(false);
 
     if (resultt.success && resultt.redirect_url) {
       window.location.href = resultt.redirect_url;
@@ -208,7 +223,7 @@ export default function AddMatchModal({ isOpen, onClose }: AddMatchModalProps) {
                 value={details}
                 onChange={(e) => setDetails(e.target.value)}
                 className="w-full p-2 border border-gray-300 rounded"
-                rows={1} 
+                rows={1}
               />
             </div>
           </div>
@@ -216,9 +231,22 @@ export default function AddMatchModal({ isOpen, onClose }: AddMatchModalProps) {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="px-12 py-2 bg-[#ddc68b] text-black font-bold rounded hover:brightness-110 cursor-pointer"
+              className={`px-12 py-2 rounded text-black font-bold ${
+                disable
+                  ? "bg-gray-200 cursor-not-allowed"
+                  : "bg-[#ddc68b]  hover:brightness-110 cursor-pointer"
+              } `}
+              disabled={loading ? true : disable}
             >
-              Add Match
+              <div className="flex items-center justify-center">
+                {loading ? (
+                  <div className="cursor-not-allowed">
+                    <RiLoader4Line className="loader text-2xl" />
+                  </div>
+                ) : (
+                  "Add Match"
+                )}
+              </div>
             </button>
           </div>
         </form>

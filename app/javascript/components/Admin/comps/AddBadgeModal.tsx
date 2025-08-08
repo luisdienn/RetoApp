@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import React, { useState, useEffect } from "react";
 import { RiImageAddLine } from "react-icons/ri";
+import { RiLoader4Line } from "react-icons/ri";
+import { FaRegCircleQuestion } from "react-icons/fa6";
 
 type AddMatchModalProps = {
   isOpen: boolean;
@@ -13,15 +14,56 @@ export default function AddBadgeModal({ isOpen, onClose }: AddMatchModalProps) {
   const [image, setImage] = useState<File | null>(null);
   const [type, setType] = useState("");
   const [value, setValue] = useState("");
+  const [valueAux1, setValueAux1] = useState("");
+  const [valueAux2, setValueAux2] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [disable, setDisable] = useState(true);
+  const [modalErrors, setModalErrors] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (type != "world_cups_won") {
+      if (
+        name !== "" &&
+        description !== "" &&
+        valueAux1 !== "" &&
+        valueAux2 !== "" &&
+        image != null
+      ) {
+        setDisable(false);
+      } else {
+        setDisable(true);
+      }
+    } else{
+            if (
+        name !== "" &&
+        description !== "" &&
+        value !== "" &&
+        image != null
+      ) {
+        setDisable(false);
+      } else {
+        setDisable(true);
+      }
+    }
+  }, [name, description, type, value,valueAux1,valueAux2, image]);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    setLoading(true);
+
     e.preventDefault();
+
+    let finalValue = "";
+    if (type === "world_cups_won") {
+      finalValue = value + "+";
+    } else {
+      finalValue = valueAux1 + ".." + valueAux2;
+    }
 
     const formData = new FormData();
     formData.append("badge[name]", name);
     formData.append("badge[description]", description);
     formData.append("badge[condition_type]", type);
-    formData.append("badge[condition_value]", value);
+    formData.append("badge[condition_value]", finalValue);
     if (image instanceof File) {
       formData.append("badge[image]", image);
     }
@@ -38,15 +80,14 @@ export default function AddBadgeModal({ isOpen, onClose }: AddMatchModalProps) {
         },
       });
 
+      setLoading(false);
+
       const resultt = await response.json();
 
       if (resultt.success && resultt.redirect_url) {
         window.location.href = resultt.redirect_url;
-      } else if (resultt.errors) {
-        resultt.errors.forEach((err: string) => toast.error(err));
       }
     } catch (error) {
-      toast.error("Upload failed.");
       console.error(error);
     }
   };
@@ -58,8 +99,6 @@ export default function AddBadgeModal({ isOpen, onClose }: AddMatchModalProps) {
       className="fixed inset-0 z-50 flex items-start justify-center pt-8 pb-8"
       onClick={onClose}
     >
-      <ToastContainer theme="dark" />
-
       <div className="absolute inset-0 bg-black/70"></div>
 
       <div
@@ -97,32 +136,102 @@ export default function AddBadgeModal({ isOpen, onClose }: AddMatchModalProps) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded"
-              rows={3}
+              rows={1}
               required
             />
           </div>
 
           <div className="mb-4">
             <label className="block text-sm font-medium mb-1">Condition</label>
-            <input
+            <select
               name="type"
               value={type}
               onChange={(e) => setType(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded"
               required
-            />
+            >
+              <option value="">Select Condition</option>
+              <option value="matches_played">Matches Played</option>
+              <option value="goals_scored">Goals Scored</option>
+              <option value="world_cups_won">World Cup Won</option>
+            </select>
           </div>
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Value</label>
-            <input
-              name="value"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-              required
-            />
-          </div>
+          {type === "world_cups_won" ? (
+            <div className="mb-4 ">
+              <label className="block text-sm font-medium mb-1 flex">
+                Value
+                <span className="ml-2 relative group cursor-pointer">
+                  <span className="flex pt-1">
+                    <FaRegCircleQuestion />
+                  </span>
+                  {/* Tooltip content */}
+                  <span className="absolute left-1/2 transform bottom-full mb-2 hidden group-hover:block text-sm text-white bg-black px-4 py-2 rounded shadow-lg w-max max-w-xs">
+                    <ul>
+                      <li>
+                        Badge awarded when user's stat is this value or higher.
+                      </li>
+                    </ul>
+                  </span>
+                </span>
+              </label>
+              <input
+                name="value"
+                value={value}
+                onChange={(e) => {
+                  const newValue = e.target.value;
+                  if (/^\d+$/.test(newValue) || newValue === "") {
+                    const auxValue = newValue;
+                    setValue(auxValue);
+                  }
+                }}
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+              />
+            </div>
+          ) : (
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-1 flex">
+                Value
+                <span className="ml-2 relative group cursor-pointer">
+                  <span className="flex pt-1">
+                    <FaRegCircleQuestion />
+                  </span>
+                  {/* Tooltip content */}
+                  <span className="absolute left-1/2 transform bottom-full mb-2 hidden group-hover:block text-sm text-white bg-black px-4 py-2 rounded shadow-lg w-max max-w-xs">
+                    <ul>
+                      <li>
+                        Badge awarded when user's stats are between this values.
+                      </li>
+                    </ul>
+                  </span>
+                </span>
+              </label>
+              <div className="flex gap-2">
+                <input
+                  value={valueAux1}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    if (/^\d+$/.test(newValue) || newValue === "") {
+                      setValueAux1(newValue);
+                    }
+                  }}
+                  className="w-1/2 p-2 border border-gray-300 rounded"
+                />
+                <span className="font-bold pt-2">-</span>
+                <input
+                  value={valueAux2}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    if (/^\d+$/.test(newValue) || newValue === "") {
+                      setValueAux2(newValue);
+                    }
+                  }}
+                  className="w-1/2 p-2 border border-gray-300 rounded"
+                />
+              </div>
+            </div>
+          )}
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -141,7 +250,10 @@ export default function AddBadgeModal({ isOpen, onClose }: AddMatchModalProps) {
                 ) {
                   setImage(file);
                 } else {
-                  toast.error("Only JPG and PNG files are allowed.");
+                  setModalErrors(["Only JPG and PNG files are allowed."]);
+                  setTimeout(() => {
+                    setModalErrors([]);
+                  }, 5000);
                 }
               }}
               onClick={() =>
@@ -169,7 +281,10 @@ export default function AddBadgeModal({ isOpen, onClose }: AddMatchModalProps) {
                 ) {
                   setImage(file);
                 } else {
-                  toast.error("Only JPG and PNG files are allowed.");
+                  setModalErrors(["Only JPG and PNG files are allowed."]);
+                  setTimeout(() => {
+                    setModalErrors([]);
+                  }, 5000);
                   e.target.value = "";
                 }
               }}
@@ -178,12 +293,34 @@ export default function AddBadgeModal({ isOpen, onClose }: AddMatchModalProps) {
             />
           </div>
 
-          <div className="flex justify-end">
+          {/* Display errors above the login button */}
+          {modalErrors.length > 0 && (
+            <div className="text-red-500 text-sm text-center pb-2">
+              {modalErrors.map((error, index) => (
+                <p key={index}>{error}</p>
+              ))}
+            </div>
+          )}
+
+          <div className="flex justify-center">
             <button
               type="submit"
-              className="px-4 py-2 bg-[#ddc68b] text-black font-bold rounded hover:brightness-110 cursor-pointer"
+              className={`px-12 py-2 rounded text-black font-bold ${
+                disable
+                  ? "bg-gray-200 cursor-not-allowed"
+                  : "bg-[#ddc68b]  hover:brightness-110 cursor-pointer"
+              } `}
+              disabled={loading ? true : disable}
             >
-              Add Badge
+              <div className="flex items-center justify-center">
+                {loading ? (
+                  <div className="cursor-not-allowed">
+                    <RiLoader4Line className="loader text-2xl" />
+                  </div>
+                ) : (
+                  "Add Badge"
+                )}
+              </div>
             </button>
           </div>
         </form>

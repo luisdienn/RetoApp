@@ -1,11 +1,12 @@
 import React from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 import { updateRequest } from "../../api";
 import { CgPassword } from "react-icons/cg";
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import { useState, useEffect } from "react";
+import { RiLoader4Line } from "react-icons/ri";
+import { FaRegCircleQuestion } from "react-icons/fa6";
 
-import { useState } from "react";
 
 export default function EditPassword({ token, RetoLogo }) {
   const [password, setPassword] = useState("");
@@ -13,8 +14,21 @@ export default function EditPassword({ token, RetoLogo }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmationPassword, setConfirmationShowPassword] =
     useState(false);
+  const [loading, setLoading] = useState(false);
+  const [disable, setDisable] = useState(true);
+  const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (password != "" && passwordConfirmation != "") {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [password, passwordConfirmation]);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    setLoading(true);
+
     e.preventDefault();
 
     const result = await updateRequest("/users/password", {
@@ -24,20 +38,21 @@ export default function EditPassword({ token, RetoLogo }) {
         reset_password_token: token,
       },
     });
+    setLoading(false);
 
     if (result.success && result.redirect_url) {
       window.location.href = result.redirect_url;
+    } else {
+      setPasswordErrors(result.errors || ["Unknown error."]);
+      setTimeout(() => {
+        setPasswordErrors([]);
+      }, 5000);
     }
   };
 
   return (
     <div className="relative min-h-screen bg-black overflow-hidden flex items-center justify-center ">
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        theme="dark"
-        aria-label={undefined}
-      />
+
 
       <div className="absolute justify-center items-center flex mx-20">
         <img className="h-64 w-screen blur-xl" src={RetoLogo} />
@@ -57,7 +72,25 @@ export default function EditPassword({ token, RetoLogo }) {
             {/* FORM */}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block mb-1">New Password</label>
+                <label className="block mb-1 flex">
+                  New Password{" "}
+                  <span className="ml-2 relative group cursor-pointer">
+                    <span className="flex pt-1">
+                      <FaRegCircleQuestion />
+                    </span>
+                    {/* Tooltip content */}
+                    <span className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden group-hover:block text-sm text-white bg-black px-4 py-2 rounded shadow-lg w-max max-w-xs">
+                      <ul>
+                        <li>Minimum is 6 characters</li>
+                        <li>Password must contain:</li>
+                        <li>● 1 lowercase letter</li>
+                        <li>● 1 uppercase letter</li>
+                        <li>● 1 number</li>
+                        <li>● 1 special character</li>
+                      </ul>
+                    </span>
+                  </span>
+                </label>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
@@ -97,11 +130,33 @@ export default function EditPassword({ token, RetoLogo }) {
                 </div>
               </div>
 
+              {/* Display errors above the login button */}
+              {passwordErrors.length > 0 && (
+                <div className="text-red-500 text-sm">
+                  {passwordErrors.map((error, index) => (
+                    <p key={index}>{error}</p>
+                  ))}
+                </div>
+              )}
+
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-[rgb(143,108,32)] via-[rgb(228,191,86)] to-[rgb(143,108,32)] text-black font-bold py-2 px-4 rounded  shadow-lg hover:brightness-110 transition-all duration-300 cursor-pointer"
+                className={`w-full text-black font-bold py-2 px-4 rounded  shadow-lg ${
+                  disable
+                    ? "bg-gradient-to-r from-[rgba(129, 129, 129, 1)] via-[rgb(192,192,192)] to-[rgba(129, 129, 129, 1)] cursor-not-allowed "
+                    : "bg-gradient-to-r from-[rgba(143, 108, 32, 1)] via-[rgb(228,191,86)] to-[rgba(143, 108, 32, 1)] hover:brightness-110 transition-all duration-300 cursor-pointer"
+                } `}
+                disabled={loading ? true : disable}
               >
-                Change my Password
+                <div className="flex items-center justify-center">
+                  {loading ? (
+                    <div className="cursor-not-allowed">
+                      <RiLoader4Line className="loader text-2xl" />
+                    </div>
+                  ) : (
+                    "Change my Password"
+                  )}
+                </div>
               </button>
             </form>
           </div>

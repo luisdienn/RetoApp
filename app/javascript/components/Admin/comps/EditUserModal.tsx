@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { updateRequest } from "../../../api";
 import { toast, ToastContainer } from "react-toastify";
-
+import { RiLoader4Line } from "react-icons/ri";
 
 type EditUserModalProps = {
   isOpen: boolean;
@@ -18,7 +18,9 @@ export default function EditUserModal({
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [active, setActive] = useState<boolean>(false);
-
+  const [loading, setLoading] = useState(false);
+  const [disable, setDisable] = useState(true);
+  const [modalErrors, setModalErrors] = useState<string[]>([]);
 
   useEffect(() => {
     setName(user.name || "");
@@ -27,9 +29,17 @@ export default function EditUserModal({
     setActive(Boolean(user.active));
   }, [user]);
 
+  useEffect(() => {
+    if (name !== "" && email !== "") {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [name, email]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     const resultt = await updateRequest(`/current_users/${user.id}`, {
       user: {
@@ -39,11 +49,16 @@ export default function EditUserModal({
         active,
       },
     });
+    setLoading(false);
 
     if (resultt.success && resultt.redirect_url) {
       window.location.href = resultt.redirect_url;
+    } else {
+      setModalErrors(resultt.errors || ["Unknown error."]);
+      setTimeout(() => {
+        setModalErrors([]);
+      }, 5000);
     }
-
   };
 
   if (!isOpen) return null;
@@ -53,7 +68,6 @@ export default function EditUserModal({
       className="fixed inset-0 z-50 flex items-start justify-center pt-8 pb-8"
       onClick={onClose}
     >
-            <ToastContainer position="top-right" autoClose={5000} theme="dark"/>
 
       <div className="absolute inset-0 bg-black/70"></div>
 
@@ -122,12 +136,34 @@ export default function EditUserModal({
             </div>
           </div>
 
-          <div className="flex justify-end">
+          {/* Display errors above the login button */}
+          {modalErrors.length > 0 && (
+            <div className="text-red-500 text-sm text-center pb-2">
+              {modalErrors.map((error, index) => (
+                <p key={index}>{error}</p>
+              ))}
+            </div>
+          )}
+
+          <div className="flex justify-center">
             <button
               type="submit"
-              className="px-4 py-2 bg-[#ddc68b] text-black font-bold rounded hover:brightness-110 cursor-pointer"
+              className={`px-12 py-2 rounded text-black font-bold ${
+                disable
+                  ? "bg-gray-200 cursor-not-allowed"
+                  : "bg-[#ddc68b]  hover:brightness-110 cursor-pointer"
+              } `}
+              disabled={loading ? true : disable}
             >
-              Edit User
+              <div className="flex items-center justify-center">
+                {loading ? (
+                  <div className="cursor-not-allowed">
+                    <RiLoader4Line className="loader text-2xl" />
+                  </div>
+                ) : (
+                  "Edit User"
+                )}
+              </div>
             </button>
           </div>
         </form>

@@ -48,8 +48,7 @@ export default function AdminBadges({ badges, Favicon, RetoLogo }: any) {
     () => [
       { accessorKey: "name", header: "Name" },
       { accessorKey: "description", header: "Description" },
-      { accessorKey: "type", header: "Condition" },
-      { accessorKey: "value", header: "Value" },
+
       {
         accessorKey: "edit",
         header: "Actions",
