@@ -4,7 +4,7 @@
 # accept or reject them, and delete existing friendships.
 class FriendshipsController < ApplicationController
   # Ensures the user is authenticated before accessing any actions.
-  before_action :authenticate_user!, :is_active!
+  before_action :authenticate_user!, :is_active!, :auth_user!
 
   # GET /friendships
   #

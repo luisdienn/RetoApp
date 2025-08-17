@@ -24,7 +24,7 @@ export default function SliderRegistroLogin({ isLogin, toggleForm }: Props) {
   }, [isLogin]);
 
   return (
-    <div className="absolute h-full w-full max-w-md flex justify-center items-center z-10 transition-opacity duration-700 px-4">
+    <div className={`absolute h-full w-full ${activeForm === "login"? "max-w-md" : window.innerWidth < 768 ? "max-w-md" : "max-w-2xl" }  flex justify-center items-center z-10 transition-opacity duration-700 px-4`}>
       <div
         className={`bg-white/5 backdrop-blur-md p-6 sm:p-8 shadow-lg w-full text-white rounded-xl overflow-hidden transition-opacity duration-1000 ease-in-out ${
           transitioning ? "opacity-0" : "opacity-100"

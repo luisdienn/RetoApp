@@ -25,25 +25,32 @@ export async function postRequest<T>(
   body: any
 ): Promise<ApiResponse<T>> {
   try {
-    const response = await api.post(url, body);
-    
+    const isFD = typeof FormData !== "undefined" && body instanceof FormData;
 
-    if (response.data.success) {
-           if (response.data.message) {sessionStorage.setItem("toastMessage", response.data.message);      }
+    const response = await api.post(url, body, {
+      headers: isFD ? undefined : { "Content-Type": "application/json" },
+    });
 
-      return { 
-        success: true, 
-        data: response.data, 
-        redirect_url: response.data.redirect_url 
+    if (response.data?.success) {
+      if (response.data.message) {
+        sessionStorage.setItem("toastMessage", response.data.message);
+      }
+      return {
+        success: true,
+        data: response.data,
+        redirect_url: response.data.redirect_url,
       };
-
     } else {
-
-      return { success: false, errors: response.data.errors || ["Unknown error."] };
+      return {
+        success: false,
+        errors: response.data?.errors || ["Unknown error."],
+      };
     }
   } catch (error: any) {
-      return { success: false, errors: error.response.data.errors };
-    
+    const errors =
+      error?.response?.data?.errors ??
+      [error?.message || "Network or server error."];
+    return { success: false, errors };
   }
 }
 
@@ -88,30 +95,32 @@ export async function updateRequest<T>(
   body: any
 ): Promise<ApiResponse<T>> {
   try {
-    const response = await api.put(url, body);
-    
-    if (response.data.success) {
-      return { success: true, data: response.data, redirect_url: response.data.redirect_url };
+    const isFD = typeof FormData !== "undefined" && body instanceof FormData;
 
-    } else {
-      if (response.data.errors) {
-        response.data.errors.forEach((err: string) => toast.error(err));
-      } else {
-        toast.error("Unknown error.");
+    const response = await api.put(url, body, {
+      headers: isFD ? undefined : { "Content-Type": "application/json" },
+    });
+
+    if (response.data?.success) {
+      if (response.data.message) {
+        sessionStorage.setItem("toastMessage", response.data.message);
       }
-      return { success: false, errors: response.data.errors || ["Unknown error."] };
+      return {
+        success: true,
+        data: response.data,
+        redirect_url: response.data.redirect_url,
+      };
+    } else {
+      const errs = response.data?.errors || ["Unknown error."];
+      if (typeof toast !== "undefined") errs.forEach((e: string) => toast.error(e));
+      return { success: false, errors: errs };
     }
   } catch (error: any) {
-    if (error.response?.data?.errors) {
-      error.response.data.errors.forEach((err: string) => toast.error(err));
-      return { success: false, errors: error.response.data.errors };
-    } else if (error.response?.data?.error) {
-      toast.error(error.response.data.error);
-      return { success: false, errors: [error.response.data.error] };
-    } else {
-      console.error("Unexpected error:", error);
-      toast.error("An unexpected error occurred.");
-      return { success: false, errors: ["An unexpected error occurred."] };
-    }
+    const errs =
+      error?.response?.data?.errors ??
+      (error?.response?.data?.error ? [error.response.data.error] : [error?.message || "Network or server error."]);
+    if (typeof toast !== "undefined") errs.forEach((e: string) => toast.error(e));
+    return { success: false, errors: errs };
   }
 }
+

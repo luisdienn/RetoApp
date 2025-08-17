@@ -117,6 +117,7 @@ export default function EditUserModal({
               >
                 <option value="admin">Admin</option>
                 <option value="user">User</option>
+                <option value="business">Business</option>
               </select>
             </div>
             <div>

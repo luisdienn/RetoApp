@@ -25,5 +25,9 @@ module Reto20
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_job.queue_adapter = :sidekiq
 
+
+
+    config.time_zone = "UTC"    
+    config.active_record.default_timezone = :utc
   end
 end

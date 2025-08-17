@@ -22,11 +22,19 @@ Rails.application.routes.draw do
   get 'friendships/profile/:id', to: 'friendships#profile', as: 'friend_profile'
   resources :current_users, only: [:update]
   
+  get 'business', to: 'business#index'
+  get 'business/all', to: 'business#all'
+  get 'business/location/:id', to: 'business#location', as: 'business_location'
+
+  resources :locations, only: [:index, :update, :create, :destroy] 
+  resources :fields, only: [:index, :update, :create, :destroy] 
+
+
   get 'admin', to: 'admin#index'
   get 'admin/users', to: 'admin#users'
   get 'admin/badges', to: 'admin#badges'
 
-  post '/aichat', to: 'aichat#create'
+  # post '/aichat', to: 'aichat#create'
 
 
   devise_for :users, controllers: {

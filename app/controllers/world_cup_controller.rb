@@ -3,7 +3,7 @@
 # Ensures the user has an active World Cup, and calculates relevant statistics for display.
 class WorldCupController < ApplicationController
   # Ensures the user is authenticated before accessing any action.
-  before_action :authenticate_user!, :is_active!
+  before_action :authenticate_user!, :is_active!, :auth_user!
 
   # GET /world_cup
   #

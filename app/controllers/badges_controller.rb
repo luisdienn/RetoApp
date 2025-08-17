@@ -6,6 +6,12 @@
 class BadgesController < ApplicationController
   # Ensures the user is authenticated and active before performing any action.
   before_action :authenticate_user!, :is_active!
+  before_action :auth_user!, only: :index
+  before_action :auth_admin!, only: %i[create update destroy]
+
+
+ 
+
 
   # Displays a list of all available badges for the current user.
   #

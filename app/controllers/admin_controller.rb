@@ -3,10 +3,9 @@
 class AdminController < ApplicationController
 
   # Ensures the user is authenticated before accessing any action.
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :auth_admin!
 
-  # Ensures the user has admin privileges before accessing any action.
-  before_action :auth_admin!
+
 
   # GET /admin
   # Loads the current user and retrieves all non-admin users.

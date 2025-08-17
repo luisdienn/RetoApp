@@ -32,6 +32,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def auth_business!
+    unless current_user.role == "business"
+      redirect_to "/401"
+    end
+  end
+
+
+  def auth_user!
+    unless current_user.role == "user"
+      redirect_to "/401"
+    end
+  end
+
   # Ensures the current user is marked as active.
   # Redirects to the root path if the user is inactive.
   #

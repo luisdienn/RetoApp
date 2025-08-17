@@ -30,6 +30,10 @@ import AdminDashboard from "../components/Admin/pages/AdminDashboard";
 import AdminTable from "../components/Admin/pages/AdminTable";
 import AdminBadges from "../components/Admin/pages/AdminBadges";
 import Badges from "../components/Badges/pages/Badges";
+import BusinessDashboard from "../components/BusinessUser/pages/BusinessDashboard";
+import BusinessAllLocations from "../components/BusinessUser/pages/BusinessAllLocations";
+import BusinessLocation from "../components/BusinessUser/pages/BusinessLocation";
+
 
 
 
@@ -53,7 +57,9 @@ ReactOnRails.register({
   AdminTable,
   AdminBadges,
   Badges,
-
+  BusinessDashboard,
+  BusinessAllLocations,
+  BusinessLocation,
 
   
 });

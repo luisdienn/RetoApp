@@ -104,3 +104,5 @@ gem 'prawn-table'
 
 gem "boxcars"
 
+
+gem "geocoder", "~> 1.8"

@@ -3,7 +3,7 @@
 # Requires the user to be authenticated before accessing any action.
 class ProfileController < ApplicationController
   # Ensures that a user is logged in before accessing the index action.
-  before_action :authenticate_user!, :is_active!
+  before_action :authenticate_user!, :is_active!, :auth_user!
 
   # GET /profile
   #

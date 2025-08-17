@@ -12,7 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #
   # @return [JSON] Success message and redirect URL, or error messages if registration fails.
   def create
-    build_resource(sign_up_params)
+    build_resource(signup_params)
 
     resource.save
     if resource.persisted?
@@ -40,6 +40,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   protected
+
+    def signup_params
+    params.require(:user).permit(
+      :name,
+      :email,
+      :phone,
+      :address,
+      :password,
+      :password_confirmation,
+      :role,
+
+    )
+  end
 
   # Path used after successful sign-up.
   #

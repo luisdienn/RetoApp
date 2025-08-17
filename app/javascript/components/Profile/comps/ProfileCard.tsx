@@ -33,7 +33,6 @@ export default function ProfileCard({
   const [isFriendsModalOpen, setIsFriendsModalOpen] = useState(false);
   const [name, setName] = useState(user.name);
   
-  console.log(badges);
 
   const handleNameChange = async () => {
     const result = await updateRequest(`/current_users/${user.id}`, {

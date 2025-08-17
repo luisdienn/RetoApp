@@ -5,7 +5,7 @@
 class DashboardController < ApplicationController
   # Before accessing any action, ensures the user is authenticated
   # and marked as active in the system.
-  before_action :authenticate_user!, :is_active!
+  before_action :authenticate_user!, :is_active!, :auth_user!
 
   # GET /dashboard
   #

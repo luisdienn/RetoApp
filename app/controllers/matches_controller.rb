@@ -4,7 +4,7 @@
 # while managing the user's active World Cup progress.
 class MatchesController < ApplicationController
   # Ensure the user is authenticated before allowing access to any action.
-  before_action :authenticate_user!, :is_active!
+  before_action :authenticate_user!, :is_active!, :auth_user!
 
   # GET /matches
   #

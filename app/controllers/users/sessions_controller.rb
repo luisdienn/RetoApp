@@ -22,7 +22,10 @@ class Users::SessionsController < Devise::SessionsController
 
       if user.role == "admin"
         render json: { success: true, redirect_url: admin_path(resource) }
+      elsif user.role == "business"
+        render json: { success: true, redirect_url: business_path(resource) }
       else
+        # For regular users, redirect to the dashboard.
         render json: { success: true, redirect_url: after_sign_in_path_for(resource) }
       end
     else
@@ -72,6 +75,10 @@ class Users::SessionsController < Devise::SessionsController
   # @return [String] admin path
   def admin_path(resource)
     "/admin"
+  end
+
+    def business_path(resource)
+    "/business"
   end
 
   # If you have extra params to permit, append them to the sanitizer.
