@@ -7,8 +7,9 @@ class BusinessController < ApplicationController
   def index
     @user = current_user
     @locations = Location.where(user_id: current_user.id)
+    @fields = Field.where(location: @locations)        
+    @bookings = Booking.joins(field: {location: :user}).where(users: {id: current_user.id}).pluck("bookings.id , users.name ,locations.name, fields.name,bookings.starts_at,bookings.ends_at ")
 
-    @fields = Field.where(location: @locations)
 
 
   end

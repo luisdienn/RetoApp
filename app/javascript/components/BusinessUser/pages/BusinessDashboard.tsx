@@ -2,11 +2,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 import SideBar from "../comps/SideBar";
 import NavbarMobile from "../comps/NavBarMobile";
+import BookingsTable from "../comps/BookingsTable";
 
 export default function BusinessDashboard({
   user,
   locations,
   fields,
+  bookings,
   Favicon,
   RetoLogo,
 }:any) {
@@ -25,6 +27,9 @@ export default function BusinessDashboard({
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
+
+console.log(bookings)
+
 
   return (
     <div className="flex overflow-hidden h-screen">
@@ -51,7 +56,7 @@ export default function BusinessDashboard({
           </div>
           <p className="mb-8 text-gray-600">Check your bookings</p>
 
-          <div className="flex items-center  py-4 gap-4">
+          {/* <div className="flex items-center  py-4 gap-4">
             <div>
               <label className=" font-medium">Location</label>
               <select
@@ -93,11 +98,13 @@ export default function BusinessDashboard({
                 ))}
               </select>
             </div>
-          </div>
+          </div> */}
 
 
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+
+
+          <BookingsTable bookings={bookings}/>
         </div>
       </div>
     </div>

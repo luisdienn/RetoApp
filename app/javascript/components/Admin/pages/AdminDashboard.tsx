@@ -6,8 +6,9 @@ import UsersMonth from "../comps/UsersMonth";
 import ActiveUsers from "../comps/ActiveUsers";
 import AdminChart from "../comps/AdminChart";
 import AdminNavbarMobile from "../comps/AdminNavbarMobile";
+import ActiveBusiness from "../comps/ActiveBusiness";
 
-export default function AdminDashboard({ allusers, Favicon, RetoLogo }) {
+export default function AdminDashboard({ allusers, Favicon, RetoLogo }:any) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -42,7 +43,7 @@ export default function AdminDashboard({ allusers, Favicon, RetoLogo }) {
           </div>
           <p className="mb-8 text-gray-600">Take a look at the stats</p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             <div className="bg-black rounded-xl  p-6">
               {" "}
               <TotalUsers allusers={allusers} />
@@ -52,8 +53,11 @@ export default function AdminDashboard({ allusers, Favicon, RetoLogo }) {
             </div>
             <div className="bg-black rounded-xl  p-6">
               <ActiveUsers allusers={allusers} />
+            </div>{" "}
+            <div className="bg-black rounded-xl  p-6">
+              <ActiveBusiness allusers={allusers} />
             </div>
-            <div className="sm:col-span-2 lg:col-span-3 row-span-1 bg-black rounded-xl  p-6">
+            <div className="sm:col-span-2 lg:col-span-4 row-span-1 bg-black rounded-xl  p-6">
               <AdminChart allusers={allusers} />
             </div>
           </div>

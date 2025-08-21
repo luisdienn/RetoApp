@@ -5,6 +5,7 @@ import { deleteRequest } from "../../../api";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
+import DeleteBookModal from "./DeleteBookModal";
 
 export type Option = { label: string; value: string };
 
@@ -15,9 +16,9 @@ type Props = {
 };
 
 export default function FilterModal({ isOpen, onClose, bookings }: Props) {
-  const [selectBooking, setSelectBooking] = useState();
+  const [selectBooking, setSelectBooking] = useState <number>();
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  console.log(bookings);
 
   const parsed = (Array.isArray(bookings) ? bookings : [])
     .map((b: any) => ({
@@ -50,23 +51,13 @@ export default function FilterModal({ isOpen, onClose, bookings }: Props) {
   const fmtTime = (d: Date) =>
     d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
 
-  const handleDelete = async () => {
-    try {
-      const result = await deleteRequest(`/bookings/${selectBooking}`, {});
-
-      if (result.success && result.redirect_url) {
-        toast.success("Badge deleted successfully");
-        window.location.href = result.redirect_url;
-      } else if (result.errors) {
-        result.errors.forEach((err: string) => toast.error(err));
-      }
-    } catch (error) {
-      toast.error("Failed to delete badge");
-      console.error(error);
-    }
+  const handleDelete = async (book:number) => {
+    setSelectBooking(book);
+    setIsDeleteModalOpen(true);
   };
 
   return (
+    <div>
     <AnimatePresence>
       {isOpen && (
         <>
@@ -118,8 +109,7 @@ export default function FilterModal({ isOpen, onClose, bookings }: Props) {
                   <div className="flex justify-end ">
                     <button
                       onClick={() => {
-                        setSelectBooking(b.id);
-                        handleDelete();
+                        handleDelete(b.id);
                       }}
                       className=" rounded p-2 font-bold text-sm border-2 text-white hover:border-red-500 hover:bg-red-500 hover:cursor-pointer"
                     >
@@ -150,5 +140,12 @@ export default function FilterModal({ isOpen, onClose, bookings }: Props) {
         </>
       )}
     </AnimatePresence>
+
+          <DeleteBookModal
+            isOpen={isDeleteModalOpen}
+            onClose={() => setIsDeleteModalOpen(false)}
+            book={selectBooking}
+          />
+        </div>
   );
 }
