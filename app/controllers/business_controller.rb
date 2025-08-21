@@ -6,6 +6,11 @@ class BusinessController < ApplicationController
 
   def index
     @user = current_user
+    @locations = Location.where(user_id: current_user.id)
+
+    @fields = Field.where(location: @locations)
+
+
   end
 
 
@@ -20,7 +25,7 @@ class BusinessController < ApplicationController
     @fields = @location.fields
 
     respond_to do |format|
-      format.html # renders the default HTML template
+      format.html 
       format.json do
         render json: @location.as_json.merge(
           images: @location.images.map { |img| url_for(img) },

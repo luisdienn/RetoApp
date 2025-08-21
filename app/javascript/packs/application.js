@@ -15,9 +15,16 @@
 // const imagePath = (name) => images(name, true)
 import ReactOnRails from 'react-on-rails';
 
+
+
+
+
+
 import Login from "../components/Login/pages/Login";
 import Dashboard from "../components/Dashboard/pages/Dashboard";
 import Matches from "../components/Matches/pages/Matches";
+import Locations from "../components/Locations/pages/Locations";
+import LocationDetails from "../components/Locations/pages/LocationDetails";
 import WorldCup from "../components/WorldCup/pages/WorldCup";
 import Profile from "../components/Profile/pages/Profile";
 import Friendships from "../components/Friendships/pages/Friendships";
@@ -60,6 +67,8 @@ ReactOnRails.register({
   BusinessDashboard,
   BusinessAllLocations,
   BusinessLocation,
+  Locations,
+  LocationDetails
 
   
 });

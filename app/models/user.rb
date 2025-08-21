@@ -56,6 +56,9 @@ class User < ApplicationRecord
   
   has_many :locations, dependent: :destroy, inverse_of: :user
 
+  has_many :bookings, dependent: :destroy
+
+
 
   # Friendships the user initiated
   #

@@ -3,16 +3,36 @@ import { useState } from "react";
 import EditLocationStepper from "./EditLocationStepper";
 import { motion, AnimatePresence } from "framer-motion";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-import { deleteRequest } from "../../../api";
 import DeleteLocationModal from "./DeleteLocationModal";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 export default function LocationsCards({ location }: any) {
   const [isStepperOpen, setIsStepperOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [images, setImages] = useState<(string | File)[]>(
+    location?.images ?? []
+  );
+
+  var carousel_settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplaySpeed: 4000,
+    autoplay: true,
+    speed: 10000,
+    cssEase: "linear",
+  };
+
+  const LINK = `/business/location/${location.id}`;
+
+    const tags3 = location.tags.slice(0, 3);
+
 
   function toHHMM(value?: string | null): string {
     if (!value) return "";
-    // Works for "HH:MM", "HH:MM:SS", "YYYY-MM-DDTHH:MM:SS..."
     const m = String(value).match(/(\d{2}):(\d{2})/);
     return m ? `${m[1]}:${m[2]}` : "";
   }
@@ -33,24 +53,28 @@ export default function LocationsCards({ location }: any) {
     return `${prefix} ${national.replace(/\s+/g, "-")}`;
   }
 
-
-
   return (
     <div className="max-w-full rounded overflow-hidden shadow-sm hover:shadow-lg bg-white">
-      <a href={`/business/location/${location.id}`}>
+      <a href={LINK}>
         <div className="relative aspect-[16/9] w-full overflow-hidden  h-32">
-          <img
-            src={location.images[0]}
-            alt={location.name}
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 hover:scale-105"
-            loading="lazy"
-          />
+          <Slider {...carousel_settings} className="!overflow-hidden">
+            {images.map((image) => (
+              <div>
+                <img
+                  src={image}
+                  alt=""
+                  className="inset-0 h-32 w-full object-cover transition-transform duration-300 hover:scale-105 "
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
       </a>
 
       <div className="px-6 py-4">
         <div className="flex justify-between">
-          <a href={`/business/location/${location.id}`}>
+          <a href={LINK}>
             <div className="font-bold text-xl">{location.name}</div>
           </a>
 
@@ -76,7 +100,7 @@ export default function LocationsCards({ location }: any) {
             </button>
           </div>
         </div>
-        <a href={`/business/location/${location.id}`}>
+        <a href={LINK}>
           <p className="text-gray-600 text-sm ">{location.address}</p>
           <p className="text-gray-600 text-sm">
             Phone: {formatPhoneIntlDashed(location.phone)}
@@ -89,9 +113,9 @@ export default function LocationsCards({ location }: any) {
         </a>
       </div>
 
-      <a href={`/business/location/${location.id}`}>
+      <a href={LINK}>
         <div className="px-6 pt-2 pb-2 gap-2">
-          {location.tags?.map((tag) => (
+          {tags3?.map((tag: any) => (
             <span className="inline-block bg-gray-200 rounded-full px-4 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 ">
               {tag}
             </span>
@@ -135,19 +159,16 @@ export default function LocationsCards({ location }: any) {
                   location={location}
                 />
               </div>
-
-
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-
-                    <DeleteLocationModal
-                isOpen={isDeleteModalOpen}
-                onClose={() => setIsDeleteModalOpen(false)}
-                location={location}
-              />
+      <DeleteLocationModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        location={location}
+      />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { FaHome, FaUserFriends, FaSignOutAlt, FaListUl,FaMedal  } from "react-icons/fa";
-import { GiTrophy  } from "react-icons/gi";
+import { GiTrophy, GiSoccerField   } from "react-icons/gi";
 import React from "react";
 
 type NavItem = {
@@ -22,6 +22,7 @@ const navItems: NavItem[] = [
   { icon: <GiTrophy />, label: "World Cup", href: "/world_cup" },
   { icon: <FaListUl />, label: "Matches", href: "/matches" },
   { icon: <FaMedal   />, label: "Badges", href: "/badges" },
+  { icon: <GiSoccerField    />, label: "Reservations", href: "/locations" },
 ];
 
 export default function Sidebar({

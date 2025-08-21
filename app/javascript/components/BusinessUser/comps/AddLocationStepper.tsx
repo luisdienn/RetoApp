@@ -6,15 +6,10 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { Country, City } from "country-state-city";
 import Select from "react-select";
-import {
-  FaWheelchair,
-  FaParking,
-  FaShower,
-  FaLightbulb,
-  FaWater,
-} from "react-icons/fa";
+import { FaWheelchair, FaParking, FaShower, FaLightbulb } from "react-icons/fa";
+import { PiSolarRoof, PiChairFill, PiSoccerBall } from "react-icons/pi";
 import { MdFastfood } from "react-icons/md";
-import { GiLockers, GiWhistle, GiSoccerField } from "react-icons/gi";
+import { GiLockers } from "react-icons/gi";
 import { RiImageAddLine, RiLoader4Line } from "react-icons/ri";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { postRequest } from "../../../api";
@@ -41,17 +36,17 @@ const timeOptions = Array.from({ length: 24 }, (_, i) => {
 
 const tagOptions = [
   { key: "Accessibility", label: "Accessibility", Icon: FaWheelchair },
-  { key: "Free parking", label: "Free parking", Icon: FaParking },
+  { key: "Free Parking", label: "Free Parking", Icon: FaParking },
   { key: "Snacks", label: "Snacks", Icon: MdFastfood },
-  { key: "Locker rooms", label: "Locker rooms", Icon: GiLockers },
+  { key: "Locker", label: "Locker", Icon: GiLockers },
   { key: "Shower", label: "Shower", Icon: FaShower },
   { key: "Lighting", label: "Lighting", Icon: FaLightbulb },
-  { key: "Water fountain", label: "Water fountain", Icon: FaWater },
-  { key: "Turf quality", label: "Turf quality", Icon: GiSoccerField },
-  { key: "Referees", label: "Referees", Icon: GiWhistle },
+  { key: "Indoor", label: "Indoor", Icon: PiSolarRoof },
+  { key: "Equipment Rental", label: "Equipment Rental", Icon: PiSoccerBall },
+  { key: "Changing Rooms", label: "Changing Rooms", Icon: PiChairFill },
 ];
 
-export default function AddLocationStepper({ onClose }) {
+export default function AddLocationStepper({ onClose }: any) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -98,7 +93,7 @@ export default function AddLocationStepper({ onClose }) {
   ); // Default Map
 
   // Validations
-  function parseTimeStr(t) {
+  function parseTimeStr(t: any) {
     if (!t) return null;
     const [hh, mm] = t.split(":");
     return Number(hh) * 60 + Number(mm);
@@ -122,7 +117,7 @@ export default function AddLocationStepper({ onClose }) {
   const canNext =
     step === 1 ? step1Valid : step === 2 ? step2Valid : step3Valid;
 
-  function toggleTag(key) {
+  function toggleTag(key: string) {
     setSelectedTags((prev) =>
       prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
     );
@@ -142,7 +137,7 @@ export default function AddLocationStepper({ onClose }) {
     if (ok.length) setFiles((prev) => [...prev, ...ok]);
   }
 
-  function removeFile(idx) {
+  function removeFile(idx: number) {
     setFiles((prev) => prev.filter((_, i) => i !== idx));
   }
 
@@ -326,7 +321,7 @@ export default function AddLocationStepper({ onClose }) {
                         type="button"
                         key={key}
                         onClick={() => toggleTag(key)}
-                        className={`flex items-center gap-2 rounded-lg border px-3 py-2 transition ${
+                        className={`flex items-center gap-2 rounded-lg border px-3 py-2 transition hover:cursor-pointer ${
                           active
                             ? `border-[${GOLD}] bg-[${GOLD}] text-black`
                             : "border-black/10 bg-white text-black hover:border-black/30"
@@ -493,8 +488,6 @@ export default function AddLocationStepper({ onClose }) {
                     {er}
                   </p>
                 ))}
-
-                {/* Previews */}
                 {files.length > 0 && (
                   <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
                     {files.map((f, i) => (

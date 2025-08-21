@@ -1,0 +1,16 @@
+<%= react_component(
+  "Locations",
+  props: {
+    user: @user.as_json,
+    locations: @locations.map { |location|
+      location.as_json.merge(
+        images: location.images.map { |img| rails_blob_url(img, only_path: true) },
+        tags: location.tags
+      )
+    },
+    bookings: @bookings.as_json,
+    Favicon: "/assets/LogoO2.png",
+    RetoLogo: "/assets/RetoLogo2.png"
+  },
+  options: { prerender: false }
+) %>

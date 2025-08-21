@@ -1,29 +1,23 @@
-import AddButton from "../../AddButton";
 import React from "react";
 import { useState, useEffect } from "react";
 import SideBar from "../comps/SideBar";
 import NavbarMobile from "../comps/NavBarMobile";
-import AddMatchModal from "../../AddMatchModal";
-import Aichat from "../../aichat";
 
 export default function BusinessDashboard({
   user,
-  matchesyear,
-  goalsyear,
-  foulsyear,
-  assistsyear,
-  blockyear,
-  passesyear,
-  lastmatch,
-  totalmatches,
-  totalgoals,
-  world_cups,
+  locations,
+  fields,
   Favicon,
   RetoLogo,
-}) {
+}:any) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [location, setLocation] = useState("");
+  const [field, setField] = useState("");
+
+  const filterFields = fields.filter((f:any) => f.location_id === Number(location));
+
 
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth < 768);
@@ -54,45 +48,56 @@ export default function BusinessDashboard({
             <h1 className="text-4xl font-bold text-gray-800">
               Welcome back, {user.name}!
             </h1>
-            <AddButton onClick={() => setIsModalOpen(true)} />
           </div>
-          <p className="mb-8 text-gray-600">Check your resume</p>
+          <p className="mb-8 text-gray-600">Check your bookings</p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {/* <div className="sm:col-span-2 lg:col-span-2 row-span-1 bg-black rounded-xl  p-6">
-              <Performance
-                matchesyear={matchesyear}
-                goalsyear={goalsyear}
-                foulsyear={foulsyear}
-                assistsyear={assistsyear}
-                blockyear={blockyear}
-                passesyear={passesyear}
-              />
+          <div className="flex items-center  py-4 gap-4">
+            <div>
+              <label className=" font-medium">Location</label>
+              <select
+                name="location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                className="w-full p-2 bg-white rounded hover:cursor-pointer"
+                required
+              >
+                <option value="">Select a location</option>
+                {locations.map((loc:any) => (
+                  <option key={loc.id} value={loc.id}>
+                    {loc.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            <div className="bg-black rounded-xl  p-6">
-              <RecentGame lastmatch={lastmatch} />
+            <div>
+              <label className=" font-medium mb-1">Field</label>
+              <select
+                disabled={location == "" ? true : false}
+                name="field"
+                value={field}
+                onChange={(e) => setField(e.target.value)}
+                className={`w-full p-2  rounded ${
+                  location == ""
+                    ? "cursor-not-allowed bg-gray-200 text-gray-400"
+                    : "bg-white hover:cursor-pointer"
+                }`}
+                required
+                aria-placeholder="Select field"
+              >
+                <option value="">Select field</option>
+                {filterFields.map((f:any) => (
+                  <option key={f.id} value={f.id}>
+                    {f.name}
+                  </option>
+                ))}
+              </select>
             </div>
-
-            <div className="bg-black rounded-xl  p-6 flex items-center justify-center">
-              <TotalGoals totalgoals={totalgoals} />
-            </div>
-
-            <div className="bg-black rounded-xl  p-6 flex items-center justify-center">
-              <TotalMatches totalmatches={totalmatches} />
-            </div>
-
-            <div className="bg-black rounded-xl p-6 flex items-center justify-center">
-              <TotalWC world_cups={world_cups} />
-            </div> */}
-
-            {/* <Aichat /> */}
-            
           </div>
-          <AddMatchModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-          />
+
+
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
         </div>
       </div>
     </div>

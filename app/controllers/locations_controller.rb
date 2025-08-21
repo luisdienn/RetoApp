@@ -1,11 +1,13 @@
 class LocationsController < ApplicationController
   before_action :authenticate_user!, :is_active!
-  before_action :auth_user!, only: :index
+  before_action :auth_user!, only: %i[index show]
   before_action :auth_business!, only: %i[create update destroy]
 
     def index
     @user = current_user
     @locations = Location.includes(images_attachments: :blob).order(created_at: :desc)
+    @bookings = @user.bookings.joins(field: :location).pluck("bookings.id , bookings.starts_at ,locations.name, fields.name ")
+
 
     respond_to do |format|
         format.html 
@@ -18,10 +20,24 @@ class LocationsController < ApplicationController
         }
         end
     end
+
+
     end
 
     def show
-        @locations = Location.find(params[:id])
+        @user = current_user
+        @location = Location.includes(images_attachments: :blob).find(params[:id])
+        @fields = @location.fields.where(active: true)
+
+        respond_to do |format|
+        format.html 
+        format.json do
+            render json: @location.as_json.merge(
+            images: @location.images.map { |img| url_for(img) },
+            tags: @location.tags
+            )
+        end
+    end
 
     end
 

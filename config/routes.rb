@@ -26,8 +26,13 @@ Rails.application.routes.draw do
   get 'business/all', to: 'business#all'
   get 'business/location/:id', to: 'business#location', as: 'business_location'
 
-  resources :locations, only: [:index, :update, :create, :destroy] 
-  resources :fields, only: [:index, :update, :create, :destroy] 
+  resources :locations, only: [:index, :show, :update, :create, :destroy] 
+  resources :fields, only: [:index, :update, :create, :destroy] do
+    get :availability, on: :member #same as: get "fields/availability", to: "fields#availability"
+ 
+  end
+
+  resources :bookings, only: [:create, :destroy]
 
 
   get 'admin', to: 'admin#index'

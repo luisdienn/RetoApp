@@ -13,7 +13,7 @@ export default function BusinessAllLocations({
   locations,
   Favicon,
   RetoLogo,
-}) {
+}:any) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [isStepperOpen, setIsStepperOpen] = useState(false);
@@ -50,7 +50,7 @@ export default function BusinessAllLocations({
           <p className="mb-8 text-gray-600">Check out your locations</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5">
-            {locations?.map((location) => (
+            {locations?.map((location:any) => (
               <div
                 key={location.id}
                 className="block rounded-xl transition-shadow duration-200 "

@@ -20,6 +20,26 @@ interface ApiResponse<T = any> {
   message?:string;
 }
 
+export async function getRequest<T>(url: string, params?: any): Promise<ApiResponse<T>> {
+  try {
+    const response = await api.get(url, { params });
+
+    if (typeof response.data?.success === "boolean") {
+      if (response.data.success) {
+        if (response.data.message) sessionStorage.setItem("toastMessage", response.data.message);
+        return { success: true, data: response.data, redirect_url: response.data.redirect_url };
+      } else {
+        return { success: false, errors: response.data?.errors || ["Unknown error."] };
+      }
+    }
+
+    return { success: true, data: response.data };
+  } catch (error: any) {
+    const errors = error?.response?.data?.errors ?? [error?.message || "Network or server error."];
+    return { success: false, errors };
+  }
+}
+
 export async function postRequest<T>(
   url: string,
   body: any

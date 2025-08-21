@@ -54,7 +54,6 @@ const tagOptions = [
 
 function toHHMM(value?: string | null): string {
   if (!value) return "";
-  // Works for "HH:MM", "HH:MM:SS", "YYYY-MM-DDTHH:MM:SS..."
   const m = String(value).match(/(\d{2}):(\d{2})/);
   return m ? `${m[1]}:${m[2]}` : "";
 }
@@ -76,7 +75,7 @@ function splitAddress(addr?: string | null): { country: string; city: string } {
   return { country, city };
 }
 
-export default function EditLocationStepper({ onClose, location }) {
+export default function EditLocationStepper({ onClose, location }:any) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -138,7 +137,7 @@ export default function EditLocationStepper({ onClose, location }) {
   ); // Default Map
 
   // Validations
-  function parseTimeStr(t) {
+  function parseTimeStr(t:string) {
     if (!t) return null;
     const [hh, mm] = t.split(":");
     return Number(hh) * 60 + Number(mm);
@@ -162,7 +161,7 @@ export default function EditLocationStepper({ onClose, location }) {
   const canNext =
     step === 1 ? step1Valid : step === 2 ? step2Valid : step3Valid;
 
-  function toggleTag(key) {
+  function toggleTag(key:any) {
     setSelectedTags((prev) =>
       prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
     );

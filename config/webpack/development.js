@@ -2,10 +2,23 @@
 // https://github.com/shakacode/react_on_rails_demo_ssr_hmr/blob/master/config/webpack/development.js
 
 const { devServer, inliningCss } = require('shakapacker');
+const Dotenv = require('dotenv-webpack');                 
+
 
 const webpackConfig = require('./webpackConfig');
 
-const developmentEnvOnly = (clientWebpackConfig, _serverWebpackConfig) => {
+const developmentEnvOnly = (clientWebpackConfig, serverWebpackConfig) => {
+
+ clientWebpackConfig.plugins.push(
+    new Dotenv({ path: '.env', systemvars: true })
+  );
+  if (serverWebpackConfig) {
+    serverWebpackConfig.plugins.push(
+      new Dotenv({ path: '.env', systemvars: true })
+    );
+  }
+
+
   // plugins
   if (inliningCss) {
     // Note, when this is run, we're building the server and client bundles in separate processes.

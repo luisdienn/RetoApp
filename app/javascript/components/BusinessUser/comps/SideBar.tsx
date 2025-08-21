@@ -20,8 +20,7 @@ type SidebarProps = {
 
 const navItems: NavItem[] = [
   { icon: <FaHome />, label: "Dashboard", href: "/business" },
-  {icon: <FaMapLocationDot />, label: "Locations",href: "/business/all"},
-  // { icon: <FaRegCalendarAlt />, label: "Calendar", href: "/business/calendar" },
+  {icon: <FaMapLocationDot />, label: "Your Locations",href: "/business/all"},
 
 ];
 

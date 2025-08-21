@@ -8,10 +8,8 @@ import { GiSoccerBall  } from "react-icons/gi";
 import { FaMapLocationDot } from "react-icons/fa6";
 
 const navItems = [
-  { icon: <FaHome  />, label: "Dashboard", href: "/business" },
-  { icon: <FaRegCalendarAlt  />, label: "Calendar", href: "/business/calendar" },
-  { icon: <FaMapLocationDot  />, label: "Locations", href: "/business/locations" },
-  { icon: <GiSoccerBall  />, label: "Fields", href: "/business/fields" },
+  { icon: <FaHome />, label: "Dashboard", href: "/business" },
+  {icon: <FaMapLocationDot />, label: "Your Locations",href: "/business/all"},
 
   
 ];

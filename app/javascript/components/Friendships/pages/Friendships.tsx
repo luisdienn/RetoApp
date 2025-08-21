@@ -116,6 +116,8 @@ export default function Friendships({
                 )}
               </div>
             )}
+
+            
           </div>
 
           <StatsTable

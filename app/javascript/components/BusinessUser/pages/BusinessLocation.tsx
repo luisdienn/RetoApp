@@ -4,9 +4,7 @@ import SideBar from "../comps/SideBar";
 import NavbarMobile from "../comps/NavBarMobile";
 import AddFieldModal from "../comps/AddFieldModal";
 import EditFieldModal from "../comps/EditFieldModal";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
+
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { GiSoccerField } from "react-icons/gi";
 import { FaPlus, FaCircle } from "react-icons/fa";
@@ -17,26 +15,13 @@ export default function BusinessLocation({
   fields,
   Favicon,
   RetoLogo,
-}) {
+}:any) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [currentField, setCurrentField] = useState([]);
-  const [images, setImages] = useState<(string | File)[]>(
-    location?.images ?? []
-  );
 
-  var carousel_settings = {
-    dots: false,
-    infinite: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplaySpeed: 4000,
-    autoplay: true,
-    speed: 10000,
-    cssEase: "linear",
-  };
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth < 768);
     update();
@@ -62,20 +47,7 @@ export default function BusinessLocation({
         )}
 
         <div className="flex-1 overflow-y-auto">
-          {/* <div className="slider-container w-full max-w-8xl bg-gray-100">
-            <Slider {...carousel_settings} className="!overflow-hidden">
-              {images.map((image) => (
-                <div>
-                  <img
-                    src={image}
-                    alt=""
-                    className="inset-0 h-64 w-full object-cover transition-transform duration-300 hover:scale-105 "
-                    loading="lazy"
-                  />
-                </div>
-              ))}
-            </Slider>
-          </div> */}
+
           <div className="min-h-screen bg-gray-100 px-12 pt-12">
             <div className="flex items-center justify-between  pt-20">
               <div className="p-6 sm:p-8 bg-black shadow-lg rounded-lg w-5xl mx-auto">
@@ -116,7 +88,7 @@ export default function BusinessLocation({
                       : "lg:grid-cols-1"
                   }`}
                 >
-                  {fields.map((field) => (
+                  {fields.map((field:any) => (
                     <button
                       onClick={() => {
                         setCurrentField(field);

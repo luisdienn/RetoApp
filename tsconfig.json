@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+
+    "jsx": "react-jsx",                     
+
+    "strict": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "baseUrl": "./app/javascript",            
+    "paths": {
+      "@/*": ["*"]                            
+    },
+
+    "types": ["node","webpack-env"]                 
+  },
+  "include": [
+    "app/javascript/components/**/*",                   
+    "types/**/*"
+  ]
+}

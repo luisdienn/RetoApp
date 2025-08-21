@@ -1,0 +1,19 @@
+<%= react_component(
+  "LocationDetails",
+  props: {
+    user: @user.as_json(),
+    location: @location.as_json.merge(
+        images: @location.images.map { |img| url_for(img) },
+        tags: @location.tags
+      ),
+       fields: @fields.as_json,
+   
+    Favicon: "/assets/LogoO2.png",
+    RetoLogo: "/assets/RetoLogo2.png"
+  },
+  options: {
+    prerender: false
+  }
+) %>
+
+ 

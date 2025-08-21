@@ -10,7 +10,6 @@ import { useState, useEffect } from "react";
 import SideBar from "../../SideBar";
 import NavbarMobile from "../../NavBarMobile";
 import AddMatchModal from "../../AddMatchModal";
-import Aichat from "../../aichat";
 
 export default function Dashboard({
   user,
@@ -26,7 +25,7 @@ export default function Dashboard({
   world_cups,
   Favicon,
   RetoLogo,
-}) {
+}:any) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);

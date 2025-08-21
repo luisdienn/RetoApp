@@ -1,33 +1,49 @@
 class BookingsController < ApplicationController
-    def create
-        tz = params[:tz].presence || "UTC"
-        zone = ActiveSupport::TimeZone[tz] || Time.zone
+  before_action :set_field, only: :create
 
-        
-        start_local = zone.parse("#{params[:date]} #{params[:hour]}")
-        slot_minutes = @field.slot_length_mins
-        starts_at = start_local.utc
-        ends_at   = (start_local + slot_minutes.minutes).utc
+  def create
+    p = booking_payload 
 
+    tz   = p[:tz].presence || "UTC"
+    zone = ActiveSupport::TimeZone[tz] || Time.zone
 
-        @booking = @field.bookings.new(user: current_user, starts_at: starts_at, ends_at: ends_at, status: "confirmed")
+    start_local = zone.parse("#{p[:date]} #{p[:hour]}")
+    slot_minutes = @field.slot_length_mins
+    starts_at = start_local.utc
+    ends_at   = (start_local + slot_minutes.minutes).utc
 
-        if @booking.save
-            render json: { success: true, redirect_url: request.referer }
-        else
-            render json: { success: false, errors: @booking.errors.full_messages }
-        end
+    @booking = @field.bookings.new(
+      user: current_user,
+      starts_at: starts_at,
+      ends_at: ends_at,
+      status: "confirmed"
+    )
 
+    if @booking.save
+      render json: { success: true, redirect_url: request.referer }
+    else
+      render json: { success: false, errors: @booking.errors.full_messages }
     end
+  end
 
-    def destroy
-        @booking = Booking.find(params[:id])
 
-        if @booking.user_id == current_user.id || @booking.field.location.user_id == current_user.id
-            @booking.destroy
-            render json: { success: true, redirect_url: request.referer }
-        else
-            render json: { success: false, errors: @booking.errors.full_messages }
-        end
+  def destroy
+    @booking = Booking.find(params[:id])
+    if @booking.destroy
+      render json: { success: true, redirect_url: request.referer }
+    else
+      render json: { success: false, errors: @badge.errors.full_messages }
     end
+  end
+
+  private
+
+  def set_field
+    @field = Field.find(booking_payload[:field_id])
+  end
+
+
+  def booking_payload
+    params.dig(:book, :payload) || params
+  end
 end
