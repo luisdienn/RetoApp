@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -11,10 +11,10 @@ import {
   FaParking,
   FaShower,
   FaLightbulb,
-  FaWater,
 } from "react-icons/fa";
 import { MdFastfood } from "react-icons/md";
-import { GiLockers, GiWhistle, GiSoccerField } from "react-icons/gi";
+import { PiSolarRoof, PiChairFill, PiSoccerBall } from "react-icons/pi";
+import { GiLockers } from "react-icons/gi";
 import { RiImageAddLine, RiLoader4Line } from "react-icons/ri";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { updateRequest } from "../../../api";
@@ -42,14 +42,14 @@ const timeOptions = Array.from({ length: 24 }, (_, i) => {
 
 const tagOptions = [
   { key: "Accessibility", label: "Accessibility", Icon: FaWheelchair },
-  { key: "Free parking", label: "Free parking", Icon: FaParking },
+  { key: "Free Parking", label: "Free Parking", Icon: FaParking },
   { key: "Snacks", label: "Snacks", Icon: MdFastfood },
-  { key: "Locker rooms", label: "Locker rooms", Icon: GiLockers },
+  { key: "Locker", label: "Locker", Icon: GiLockers },
   { key: "Shower", label: "Shower", Icon: FaShower },
   { key: "Lighting", label: "Lighting", Icon: FaLightbulb },
-  { key: "Water fountain", label: "Water fountain", Icon: FaWater },
-  { key: "Turf quality", label: "Turf quality", Icon: GiSoccerField },
-  { key: "Referees", label: "Referees", Icon: GiWhistle },
+  { key: "Indoor", label: "Indoor", Icon: PiSolarRoof },
+  { key: "Equipment Rental", label: "Equipment Rental", Icon: PiSoccerBall },
+  { key: "Changing Rooms", label: "Changing Rooms", Icon: PiChairFill },
 ];
 
 function toHHMM(value?: string | null): string {
@@ -115,7 +115,7 @@ export default function EditLocationStepper({ onClose, location }:any) {
   const [errors, setErrors] = useState<string[]>([]);
   const [removedImages, setRemovedImages] = useState<string[]>([]);
 
-  function removeFile(idx: number) {
+  function removeFile(idx: any) {
     setFiles((prev) => {
       const removed = prev[idx];
       if (typeof removed === "string")

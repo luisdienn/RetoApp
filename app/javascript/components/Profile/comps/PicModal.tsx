@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { updateRequest } from "../../../api";
 import { FaTimes } from "react-icons/fa";
 type PicModalProps = {

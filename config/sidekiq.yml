@@ -5,7 +5,7 @@
     queue: default
 
   delete_old_reports_job:
-    cron: "* 5 * * *"
+    cron: "0 5 * * *"
     class: "DeleteOldReportsJob"
     queue: default
 

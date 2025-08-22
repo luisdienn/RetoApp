@@ -14,7 +14,7 @@ export default function FriendshipProfile({
   friends_of_friends,
   Favicon,
   RetoLogo,
-}) {
+}:any) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 

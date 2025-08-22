@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { updateRequest } from "../../../api";
-import { toast, ToastContainer } from "react-toastify";
 import { RiLoader4Line } from "react-icons/ri";
 
 type EditUserModalProps = {

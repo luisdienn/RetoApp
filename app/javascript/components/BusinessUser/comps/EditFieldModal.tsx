@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { updateRequest } from "../../../api";
-import { CgAsterisk } from "react-icons/cg";
 import { RiLoader4Line } from "react-icons/ri";
 
 type AddFieldModalProps = {

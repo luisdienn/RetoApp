@@ -47,17 +47,26 @@ export default function AddBadgeModal({ isOpen, onClose }: AddMatchModalProps) {
     e.preventDefault();
     setLoading(true);
 
-      if (!image) {
-    setModalErrors(["Please select an image."]);
-    setLoading(false);
-    return;
-  }
+    if (!image) {
+      setModalErrors(["Please select an image."]);
+      setLoading(false);
+      return;
+    }
 
     let finalValue = "";
     if (type === "world_cups_won") {
       finalValue = value + "+";
     } else {
-      finalValue = valueAux1 + ".." + valueAux2;
+      Number(valueAux1) > Number(valueAux2)
+        ? setModalErrors(["value 1 can´t be greater than value 2"])
+        : Number(valueAux1) == Number(valueAux2)
+        ? setModalErrors(["value 1 and value 2 should be different"])
+        : (finalValue = valueAux1 + ".." + valueAux2);
+    }
+
+    if (finalValue === "") {
+      setLoading(false);
+      return;
     }
 
     const formData = new FormData();

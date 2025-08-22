@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 const BotpressChat = () => {
   useEffect(() => {
     // Function to load a script dynamically
-    const loadScript = (src) => {
+    const loadScript = (src:any) => {
       return new Promise((resolve, reject) => {
         const script = document.createElement('script');
         script.src = src;

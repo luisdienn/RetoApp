@@ -1,8 +1,7 @@
 # Controller responsible for updating user profile data via JSON.
 class CurrentUsersController < ApplicationController
 
-    before_action :auth_admin! 
-
+ before_action :authenticate_user!
 
   # PUT /current_users/:id
   #

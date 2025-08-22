@@ -31,7 +31,14 @@ class Users::SessionsController < Devise::SessionsController
     else
       user = User.find_by(email: params[:user][:email])
 
-      if user && user.unlock_token.present?
+      if user && !user.confirmed?
+        expire_data_after_sign_in!
+        render json: {
+          success: false,
+          errors: ["Please verify your email address to activate your account."]
+        }, status: :unauthorized
+
+      elsif user && user.unlock_token.present?
         render json: {
           success: false,
           errors: ["Your account is locked due to too many unsuccessful login attempts. Please check your email."]

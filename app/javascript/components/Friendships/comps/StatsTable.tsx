@@ -24,7 +24,7 @@ export default function StatsTable({
   userwc,
   friends_matches,
   friends_wc,
-}) {
+}:any) {
   const [selectedStat, setSelectedStat] =
     useState<keyof PlayerStats>("matches");
 
@@ -33,30 +33,30 @@ export default function StatsTable({
       id: user.id,
       profileImage: user.image,
       name: user.name,
-      matches: usermatches.filter((match) => match.user_id === user.id).length,
+      matches: usermatches.filter((match:any) => match.user_id === user.id).length,
       goals: usermatches
-        .filter((match) => match.user_id === user.id)
-        .reduce((sum, match) => sum + match.goals, 0),
+        .filter((match:any) => match.user_id === user.id)
+        .reduce((sum:any, match:any) => sum + match.goals, 0),
       worldCups: userwc,
       assists: usermatches
-        .filter((match) => match.user_id === user.id)
-        .reduce((sum, match) => sum + match.assists, 0),
+        .filter((match:any) => match.user_id === user.id)
+        .reduce((sum:any, match:any) => sum + match.assists, 0),
     },
-    ...friends.map((friend) => ({
+    ...friends.map((friend:any) => ({
       id: friend.id,
       profileImage: friend.image,
       name: friend.name,
-      matches: friends_matches.filter((match) => match.user_id === friend.id)
+      matches: friends_matches.filter((match:any) => match.user_id === friend.id)
         .length,
       goals: friends_matches
-        .filter((match) => match.user_id === friend.id)
-        .reduce((sum, match) => sum + match.goals, 0),
+        .filter((match:any) => match.user_id === friend.id)
+        .reduce((sum:any, match:any) => sum + match.goals, 0),
       worldCups: friends_wc.filter(
-        (wc) => wc.user_id === friend.id && wc.was_won
+        (wc:any) => wc.user_id === friend.id && wc.was_won
       ).length,
       assists: friends_matches
-        .filter((match) => match.user_id === friend.id)
-        .reduce((sum, match) => sum + match.assists, 0),
+        .filter((match:any) => match.user_id === friend.id)
+        .reduce((sum:any, match:any) => sum + match.assists, 0),
     })),
   ];
 

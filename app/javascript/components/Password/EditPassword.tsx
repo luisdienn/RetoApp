@@ -8,7 +8,7 @@ import { RiLoader4Line } from "react-icons/ri";
 import { FaRegCircleQuestion } from "react-icons/fa6";
 
 
-export default function EditPassword({ token, RetoLogo }) {
+export default function EditPassword({ token, RetoLogo }:any) {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [showPassword, setShowPassword] = useState(false);

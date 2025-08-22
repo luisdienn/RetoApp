@@ -13,7 +13,7 @@ import NavbarMobile from "../../NavBarMobile";
 
 import AddMatchModal from "../../AddMatchModal";
 
-export default function WorldCup({ user, currentwc, matches, goals, winstreak, world_cups,totalwc, Favicon, RetoLogo }) {
+export default function WorldCup({ user, currentwc, matches, goals, winstreak, world_cups,totalwc, Favicon, RetoLogo }:any) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);

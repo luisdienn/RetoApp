@@ -47,8 +47,11 @@ export async function postRequest<T>(
   try {
     const isFD = typeof FormData !== "undefined" && body instanceof FormData;
 
+
+
     const response = await api.post(url, body, {
       headers: isFD ? undefined : { "Content-Type": "application/json" },
+      validateStatus: (status) => status < 500,
     });
 
     if (response.data?.success) {
@@ -60,11 +63,14 @@ export async function postRequest<T>(
         data: response.data,
         redirect_url: response.data.redirect_url,
       };
-    } else {
-      return {
-        success: false,
-        errors: response.data?.errors || ["Unknown error."],
-      };
+    }  else {
+      const errs =
+        (Array.isArray(response.data?.errors) && response.data.errors.length && response.data.errors) ||
+        (typeof response.data?.error === "string" && [response.data.error]) ||
+        (typeof response.data?.message === "string" && [response.data.message]) ||
+        (typeof response.data === "string" && [response.data]) ||
+        ["Unknown error."];
+      return { success: false, errors: errs };
     }
   } catch (error: any) {
     const errors =

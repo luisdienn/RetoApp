@@ -1,10 +1,7 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import { deleteRequest } from "../../../api";
-
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { toast } from "react-toastify";
 import DeleteBookModal from "./DeleteBookModal";
 
 export type Option = { label: string; value: string };

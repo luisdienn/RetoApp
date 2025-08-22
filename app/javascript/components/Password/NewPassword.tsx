@@ -1,22 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { postRequest } from "../../api";
 import { TbPasswordUser } from "react-icons/tb";
+import { RiLoader4Line } from "react-icons/ri";
 
 import { useState } from "react";
 
-export default function NewPassword({ RetoLogo }) {
+export default function NewPassword({ RetoLogo }: any) {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [disable, setDisable] = useState(true);
+
+  useEffect(() => {
+    if (email != "") {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [email]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     const result = await postRequest("/users/password", {
       user: {
         email,
       },
     });
+    setLoading(false);
 
     if (result.success && result.redirect_url) {
       window.location.href = result.redirect_url;
@@ -38,12 +51,17 @@ export default function NewPassword({ RetoLogo }) {
       <div className="relative z-10 w-full flex justify-center  px-4">
         <div className="absolute h-full w-full max-w-md flex justify-center items-center ">
           <div className="bg-black/25 backdrop-blur-md p-6 sm:p-8 shadow-lg w-full text-white rounded-xl">
-                  <TbPasswordUser className=" text-white mx-auto mb-2"style={{ fontSize: '8rem' }}/>
+            <TbPasswordUser
+              className=" text-white mx-auto mb-2"
+              style={{ fontSize: "8rem" }}
+            />
 
             <h2 className="text-2xl font-bold mb-2 text-center">
               Forgot your password?
             </h2>
-            <p className="text-sm mb-6 text-center">Enter the email address associated with your account</p>
+            <p className="text-sm mb-6 text-center">
+              Enter the email address associated with your account
+            </p>
             {/* FORM */}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -58,9 +76,22 @@ export default function NewPassword({ RetoLogo }) {
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-[rgb(143,108,32)] via-[rgb(228,191,86)] to-[rgb(143,108,32)] text-black font-bold py-2 px-4 rounded  shadow-lg hover:brightness-110 transition-all duration-300 cursor-pointer"
+                className={`w-full text-black font-bold py-2 px-4 rounded  shadow-lg ${
+                  disable
+                    ? "bg-gradient-to-r from-[rgba(129, 129, 129, 1)] via-[rgb(192,192,192)] to-[rgba(129, 129, 129, 1)] cursor-not-allowed "
+                    : "bg-gradient-to-r from-[rgba(143, 108, 32, 1)] via-[rgb(228,191,86)] to-[rgba(143, 108, 32, 1)] hover:brightness-110 transition-all duration-300 cursor-pointer"
+                } `}
+                disabled={loading ? true : disable}
               >
-                Next
+                <div className="flex items-center justify-center">
+                  {loading ? (
+                    <div className="cursor-not-allowed">
+                      <RiLoader4Line className="loader text-2xl" />
+                    </div>
+                  ) : (
+                    "Next"
+                  )}
+                </div>
               </button>
             </form>
           </div>

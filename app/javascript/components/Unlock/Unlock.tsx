@@ -6,7 +6,7 @@ import { IoIosUnlock } from "react-icons/io";
 import { RiLoader4Line } from "react-icons/ri";
 import { useState, useEffect } from "react";
 
-export default function Unlock({ RetoLogo }) {
+export default function Unlock({ RetoLogo }:any) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(true);
@@ -20,9 +20,9 @@ export default function Unlock({ RetoLogo }) {
   }, [email]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    setLoading(true);
 
     e.preventDefault();
+    setLoading(true);
 
     const result = await postRequest("/users/unlock", {
       user: {

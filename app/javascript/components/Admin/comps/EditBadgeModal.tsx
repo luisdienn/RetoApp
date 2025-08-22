@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { RiImageAddLine } from "react-icons/ri";
 import { RiLoader4Line } from "react-icons/ri";
 import { FaRegCircleQuestion } from "react-icons/fa6";
+import { updateRequest } from "../../../api";
 
 type EditBadgeModalProps = {
   isOpen: boolean;
@@ -50,7 +51,7 @@ export default function EditBadgeModal({
     const initialDesc = badge?.description ?? "";
     const initialType = badge?.condition_type ?? "";
     const initialValue = badge?.condition_value ?? "";
-    const currentUrl = badge?.image_url ?? "";
+    const currentUrl = badge?.image ?? "";
 
     setName(initialName);
     setDescription(initialDesc);
@@ -76,7 +77,16 @@ export default function EditBadgeModal({
     if (type === "world_cups_won") {
       finalValue = value + "+";
     } else {
-      finalValue = valueAux1 + ".." + valueAux2;
+      Number(valueAux1) > Number(valueAux2)
+        ? setModalErrors(["value 1 can´t be greater than value 2"])
+        : Number(valueAux1) == Number(valueAux2)
+        ? setModalErrors(["value 1 and value 2 should be different"])
+        : (finalValue = valueAux1 + ".." + valueAux2);
+    }
+
+    if (finalValue === "") {
+      setLoading(false);
+      return;
     }
 
     const formData = new FormData();
@@ -87,27 +97,21 @@ export default function EditBadgeModal({
     if (image instanceof File) {
       formData.append("badge[image]", image);
     }
-
     try {
-      const response = await fetch(`/badges/${badge.id}`, {
-        method: "PUT",
-        body: formData,
-        headers: {
-          "X-CSRF-Token":
-            document
-              .querySelector('meta[name="csrf-token"]')
-              ?.getAttribute("content") || "",
-        },
-      });
-      setLoading(false);
+      const resultt = await updateRequest(`/badges/${badge.id}`, formData);
 
-      const result = await response.json();
+      if (resultt.success && resultt.redirect_url) {
+        window.location.href = resultt.redirect_url;
+        return;
+      }
 
-      if (result.success && result.redirect_url) {
-        window.location.href = result.redirect_url;
+      if (!resultt.success) {
+        console.error(resultt.errors);
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -275,7 +279,7 @@ export default function EditBadgeModal({
             >
               <RiImageAddLine className="text-3xl mb-2" />
 
-              {image ? (
+              {image instanceof File ? (
                 <p className="text-xs mt-2 text-gray-600 truncate max-w-full">
                   Selected: {image.name}
                 </p>

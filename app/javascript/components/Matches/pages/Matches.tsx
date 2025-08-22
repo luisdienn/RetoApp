@@ -8,7 +8,7 @@ import AddMatchModal from "../../AddMatchModal";
 import NavbarMobile from "../../NavBarMobile";
 
 
-export default function Matches({ user, matches, Favicon, RetoLogo }) {
+export default function Matches({ user, matches, Favicon, RetoLogo }:any) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

@@ -7,7 +7,7 @@ import { useState } from "react";
 
 import SliderRegistroLogin from "../comps/sliderRegistroLogin";
 
-export default function Login({ CR7, Messi, RetoLogo }) {
+export default function Login({ CR7, Messi, RetoLogo }:any) {
   const [isLogin, setIsLogin] = useState(true);
   const [videoSrc, setVideoSrc] = useState(CR7);
   const [videoOpacity, setVideoOpacity] = useState("opacity-70");
@@ -16,7 +16,7 @@ export default function Login({ CR7, Messi, RetoLogo }) {
     setVideoOpacity("opacity-0");
     setTimeout(() => {
       setIsLogin((prev) => !prev);
-      setVideoSrc((prev) => (prev === CR7 ? Messi : CR7));
+      setVideoSrc((prev:any) => (prev === CR7 ? Messi : CR7));
     }, 500);
     setTimeout(() => {
       setVideoOpacity("opacity-70");

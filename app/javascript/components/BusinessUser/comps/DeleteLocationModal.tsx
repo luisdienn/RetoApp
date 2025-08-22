@@ -1,5 +1,5 @@
 import React from "react";
-import { toast, ToastContainer } from "react-toastify";
+import {  ToastContainer } from "react-toastify";
 import { FaTimesCircle, FaCheckCircle } from "react-icons/fa";
 import { deleteRequest } from "../../../api";
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaCheck, FaTimes } from "react-icons/fa"; 
+import {  FaTimes } from "react-icons/fa"; 
 import QRCode from "react-qr-code";
 
 type ShareModalProps = {

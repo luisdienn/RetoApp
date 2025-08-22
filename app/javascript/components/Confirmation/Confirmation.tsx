@@ -6,7 +6,7 @@ import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import { RiLoader4Line } from "react-icons/ri";
 import { useState, useEffect } from "react";
 
-export default function Confirmation({ RetoLogo }) {
+export default function Confirmation({ RetoLogo }:any) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(true);

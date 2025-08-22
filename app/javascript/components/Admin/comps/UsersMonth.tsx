@@ -10,7 +10,7 @@ export default function UsersMonth({allusers}:any) {
     
     
 
-    const newCount = allusers.filter(user => {
+    const newCount = allusers.filter((user:any) => {
         const userMonth = new Date(user.created_at).getMonth();
         return userMonth ===monthaux;
     }).length;

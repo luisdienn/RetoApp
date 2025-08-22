@@ -16,7 +16,7 @@ export default function WCGames({matches}:any) {
             </tr>
           </thead>
           <tbody>
-            {matches.map((match, idx) => (
+            {matches.map((match:any, idx:number) => (
               <tr key={idx} className="border-b border-gray-700 last:border-0">
                 <td className="px-2 py-1 text-white">{match.date}</td>
                 <td className="px-2 py-1 text-white">{match.score}</td>

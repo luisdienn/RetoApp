@@ -14,7 +14,7 @@ export default function Friendships({
   friends,
   Favicon,
   RetoLogo,
-}) {
+}:any) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [showResults, setShowResults] = useState(false);
@@ -31,7 +31,7 @@ export default function Friendships({
 
   const filteredUsers =
     searchTerm.length >= 2
-      ? allusers.filter((u) =>
+      ? allusers.filter((u:any) =>
           u.email.toLowerCase().includes(searchTerm.toLowerCase())
         )
       : [];
@@ -88,7 +88,7 @@ export default function Friendships({
             {showResults && searchTerm.length >= 2 && (
               <div className="absolute top-full w-full bg-white shadow-lg rounded z-50 max-h-60 overflow-y-auto">
                 {filteredUsers.length > 0 ? (
-                  filteredUsers.map((friend) => (
+                  filteredUsers.map((friend:any) => (
                     <a
                       href={
                         user.id === friend.id

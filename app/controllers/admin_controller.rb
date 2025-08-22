@@ -31,7 +31,17 @@ class AdminController < ApplicationController
   # @return [void]
   def badges
     @user = current_user
-    @badges = Badge.all
+    @badges = Badge.includes(image_attachment: :blob)
+
+    respond_to do |format|
+        format.html 
+        format.json do
+        render json: @badges.map { |badge|
+            badge.as_json.merge(
+            image: badge.image.attached? ? url_for(badge.image): nil)
+        }
+        end
+    end
   end
 
   private

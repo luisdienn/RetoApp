@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import {
-  FaRegCalendarAlt ,
   FaSignOutAlt,
 FaHome
 } from "react-icons/fa";
-import { GiSoccerBall  } from "react-icons/gi";
 import { FaMapLocationDot } from "react-icons/fa6";
 
 const navItems = [

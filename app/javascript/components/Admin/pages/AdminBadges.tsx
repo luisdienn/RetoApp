@@ -25,6 +25,8 @@ export default function AdminBadges({ badges, Favicon, RetoLogo }: any) {
   const [isMobile, setIsMobile] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
+
+
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth < 768);
     update();
