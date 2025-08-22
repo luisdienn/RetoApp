@@ -11,7 +11,7 @@
 #   user_report_YYYY-MM-DD.pdf
 #
 # @note Email delivery is performed asynchronously using `deliver_later`.
-class DeleteOldReportsJob < ApplicationJob
+class DailyUserReportJob  < ApplicationJob
   queue_as :default
 
   # Performs the job by generating the report and emailing it to all admins.
