@@ -5,7 +5,7 @@ import SideBar from "../../SideBar";
 import NavbarMobile from "../../NavBarMobile";
 
 
-export default function Profile({ user,friends,notifications,requesters, totalmatches,world_cups,badges, Favicon, RetoLogo }) {
+export default function Profile({ user,friends,notifications,requesters, totalmatches,world_cups,badges, Favicon, RetoLogo }:any) {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [isMobile, setIsMobile] = useState(false);

@@ -2,7 +2,11 @@
   "Badges",
   props: {
     user: @user.as_json(),
-    badges: @badges.as_json(),
+    badges: @badges.map { |badge|
+      badge.as_json.merge(
+            image: badge.image.attached? ? url_for(badge.image): nil
+      )
+    },
     Favicon: "/assets/LogoO2.png",
     RetoLogo: "/assets/RetoLogo2.png"
   },

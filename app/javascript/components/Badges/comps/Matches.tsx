@@ -5,9 +5,10 @@ type MatchesProps = {
 };
 
 export default function Matches({ badges }: MatchesProps) {
-  const matches_badges = badges.filter((badge) =>
+  const matches_badges = badges.filter((badge: any) =>
     badge.condition_type.includes("matches")
   );
+
 
   return (
     <>
@@ -20,7 +21,7 @@ export default function Matches({ badges }: MatchesProps) {
           </div>
 
           <div className="flex flex-wrap justify-center gap-8">
-            {matches_badges.map((badge) => {
+            {matches_badges.map((badge: any) => {
               const [isOpen, setIsOpen] = useState(false);
 
               return (
@@ -30,11 +31,13 @@ export default function Matches({ badges }: MatchesProps) {
                   onMouseEnter={() => setIsOpen(true)}
                   onMouseLeave={() => setIsOpen(false)}
                 >
-                  <img
-                    src={`http://localhost:3000/${badge.image_url}`}
-                    alt="badge"
-                    className="w-18 h-18 object-contain cursor-pointer"
-                  />
+                    <div>
+                      <img
+                        src={badge.image}
+                        alt="badge"
+                        className="w-18 h-18 object-contain cursor-pointer"
+                      />
+                    </div>
 
                   {isOpen && (
                     <div className="absolute z-10 w-32 bg-white rounded-lg shadow-lg left-1/2 -translate-x-1/2 top-6 p-2">

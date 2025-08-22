@@ -6,7 +6,7 @@ import Matches from "../comps/Matches";
 import Goals from "../comps/Goals";
 import WorldCups from "../comps/WorldCups";
 
-export default function Badges({ user, badges, Favicon, RetoLogo }) {
+export default function Badges({ user, badges, Favicon, RetoLogo }:any) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const [isMobile, setIsMobile] = useState(false);

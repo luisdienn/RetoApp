@@ -48,7 +48,7 @@ export default function SliderRegistroLogin({ isLogin, toggleForm }: Props) {
           {isLogin ? "Don’t have an account?" : "Already have an account?"}{" "}
           <button
             onClick={toggleForm}
-            className="cantarell-bold text-gray-300 hover:text-gray-200 font-semibold ml-1 underline cursor-pointer"
+            className="PT Sans-bold text-gray-300 hover:text-gray-200 font-semibold ml-1 underline cursor-pointer"
           >
             {isLogin ? "Sign Up" : "Log In"}
           </button>
@@ -60,14 +60,14 @@ export default function SliderRegistroLogin({ isLogin, toggleForm }: Props) {
         >
           {isLogin ? (
             <span
-              className="cantarell-regular text-gray-300 hover:text-gray-200 hover:underline hover:cursor-pointer"
+              className="PT Sans-regular text-gray-300 hover:text-gray-200 hover:underline hover:cursor-pointer"
               onClick={() => (window.location.href = "/users/unlock/new")}
             >
               Didn't receive unlock instructions?
             </span>
           ) : (
             <span
-              className="cantarell-regular text-gray-300 hover:text-gray-200 hover:underline hover:cursor-pointer"
+              className="PT Sans-regular text-gray-300 hover:text-gray-200 hover:underline hover:cursor-pointer"
               onClick={() => (window.location.href = "/users/confirmation/new")}
             >
               Didn't receive confirmation instructions?

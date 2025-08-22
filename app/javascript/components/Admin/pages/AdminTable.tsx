@@ -119,7 +119,7 @@ export default function AdminTable({  allusers, Favicon, RetoLogo }: any) {
 
             {/* TABLE */}
           </div>{" "}
-          <div style={{ fontFamily: "Cantarell" }}>
+          <div style={{ fontFamily: "PT Sans" }}>
             <MaterialReactTable table={table} />
           </div>
           <EditUserModal

@@ -15,7 +15,7 @@ type ProfileProps = {
   requesters?: any[];
   world_cups?: number;
   totalmatches?: number;
-  badges?: string[];
+  badges?: any[];
 };
 
 export default function ProfileCard({

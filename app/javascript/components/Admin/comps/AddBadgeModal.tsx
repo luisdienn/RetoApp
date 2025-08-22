@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { RiImageAddLine } from "react-icons/ri";
 import { RiLoader4Line } from "react-icons/ri";
 import { FaRegCircleQuestion } from "react-icons/fa6";
+import { postRequest } from "../../../api";
 
 type AddMatchModalProps = {
   isOpen: boolean;
@@ -33,24 +34,24 @@ export default function AddBadgeModal({ isOpen, onClose }: AddMatchModalProps) {
       } else {
         setDisable(true);
       }
-    } else{
-            if (
-        name !== "" &&
-        description !== "" &&
-        value !== "" &&
-        image != null
-      ) {
+    } else {
+      if (name !== "" && description !== "" && value !== "" && image != null) {
         setDisable(false);
       } else {
         setDisable(true);
       }
     }
-  }, [name, description, type, value,valueAux1,valueAux2, image]);
+  }, [name, description, type, value, valueAux1, valueAux2, image]);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     setLoading(true);
 
-    e.preventDefault();
+      if (!image) {
+    setModalErrors(["Please select an image."]);
+    setLoading(false);
+    return;
+  }
 
     let finalValue = "";
     if (type === "world_cups_won") {
@@ -64,31 +65,23 @@ export default function AddBadgeModal({ isOpen, onClose }: AddMatchModalProps) {
     formData.append("badge[description]", description);
     formData.append("badge[condition_type]", type);
     formData.append("badge[condition_value]", finalValue);
-    if (image instanceof File) {
-      formData.append("badge[image]", image);
-    }
+    formData.append("badge[image]", image);
 
     try {
-      const response = await fetch("/badges", {
-        method: "POST",
-        body: formData,
-        headers: {
-          "X-CSRF-Token":
-            document
-              .querySelector('meta[name="csrf-token"]')
-              ?.getAttribute("content") || "",
-        },
-      });
-
-      setLoading(false);
-
-      const resultt = await response.json();
+      const resultt = await postRequest("/badges", formData);
 
       if (resultt.success && resultt.redirect_url) {
         window.location.href = resultt.redirect_url;
+        return;
+      }
+
+      if (!resultt.success) {
+        console.error(resultt.errors);
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 

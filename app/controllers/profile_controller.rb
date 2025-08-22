@@ -44,7 +44,17 @@ class ProfileController < ApplicationController
 
 
     # Retrieve the badges links won by the user
-    @badges = @user.badges
+    @badges = @user.badges.includes(image_attachment: :blob)
+
+    respond_to do |format|
+        format.html 
+        format.json do
+        render json: @badges.map { |badge|
+            badge.as_json.merge(
+            image: badge.image.attached? ? url_for(badge.image): nil)
+        }
+        end
+    end
   end
 
 

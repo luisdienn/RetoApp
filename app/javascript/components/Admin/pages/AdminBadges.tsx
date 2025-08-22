@@ -117,7 +117,7 @@ export default function AdminBadges({ badges, Favicon, RetoLogo }: any) {
             <h1 className="text-4xl font-bold text-gray-800">All Badges</h1>
             <AddBadgeButton onClick={() => setIsAddModalOpen(true)} />
           </div>
-          <div style={{ fontFamily: "Cantarell" }}>
+          <div style={{ fontFamily: "PT Sans" }}>
             <MaterialReactTable table={table} />
           </div>
           <EditBadgeModal

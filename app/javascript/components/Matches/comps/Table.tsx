@@ -80,7 +80,7 @@ className="px-2 py-1 sm:px-4 sm:py-2 text-[10px] sm:text-sm bg-[#ddc68b] text-bl
   return (
     <>
       {" "}
-      <div style={{ fontFamily: "Cantarell" }}>
+      <div style={{ fontFamily: "PT Sans" }}>
         <MaterialReactTable table={table} />
       </div>
 

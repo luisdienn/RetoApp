@@ -5,7 +5,7 @@ type WorldCupProps = {
 };
 
 export default function WorldCups({ badges }: WorldCupProps) {
-  const wc_badges = badges.filter((badge) =>
+  const wc_badges = badges.filter((badge: any) =>
     badge.condition_type.includes("world_cups")
   );
 
@@ -20,8 +20,9 @@ export default function WorldCups({ badges }: WorldCupProps) {
           </div>
 
           <div className="flex flex-wrap justify-center">
-            {wc_badges.map((badge) => {
+            {wc_badges.map((badge: any) => {
               const [isOpen, setIsOpen] = useState(false);
+
 
               return (
                 <div
@@ -30,11 +31,13 @@ export default function WorldCups({ badges }: WorldCupProps) {
                   onMouseEnter={() => setIsOpen(true)}
                   onMouseLeave={() => setIsOpen(false)}
                 >
-                  <img
-                    src={`http://localhost:3000/${badge.image_url}`}
-                    alt="badge"
-                    className="w-18 h-18 object-contain cursor-pointer"
-                  />
+                    <div>
+                      <img
+                        src={badge.image}
+                        alt="badge"
+                        className="w-18 h-18 object-contain cursor-pointer"
+                      />
+                    </div>
 
                   {isOpen && (
                     <div className="absolute z-10 w-32 bg-white rounded-lg shadow-lg left-1/2 -translate-x-1/2 top-6 p-2">

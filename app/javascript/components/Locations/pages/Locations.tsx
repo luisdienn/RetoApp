@@ -65,7 +65,7 @@ export default function Locations({
     return addr.replace(/^[A-Za-z]{2}[\s-]*/, "").trim();
   };
 
-console.log(bookings)
+
 
   const baseFiltered = useMemo(() => {
     return locations.filter((loc: any) => {

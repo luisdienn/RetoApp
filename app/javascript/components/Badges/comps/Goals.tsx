@@ -5,7 +5,7 @@ type GoalsProps = {
 };
 
 export default function Goals({ badges }: GoalsProps) {
-  const goals_badges = badges.filter((badge) =>
+  const goals_badges = badges.filter((badge: any) =>
     badge.condition_type.includes("goals")
   );
 
@@ -20,7 +20,7 @@ export default function Goals({ badges }: GoalsProps) {
           </div>
 
           <div className="flex flex-wrap justify-center gap-8">
-            {goals_badges.map((badge) => {
+            {goals_badges.map((badge: any) => {
               const [isOpen, setIsOpen] = useState(false);
 
               return (
@@ -30,11 +30,13 @@ export default function Goals({ badges }: GoalsProps) {
                   onMouseEnter={() => setIsOpen(true)}
                   onMouseLeave={() => setIsOpen(false)}
                 >
-                  <img
-                    src={`http://localhost:3000/${badge.image_url}`}
-                    alt="badge"
-                    className="w-18 h-18 object-contain cursor-pointer"
-                  />
+                    <div>
+                      <img
+                        src={badge.image}
+                        alt="badge"
+                        className="w-18 h-18 object-contain cursor-pointer"
+                      />
+                    </div>
 
                   {isOpen && (
                     <div className="absolute z-10 w-32 bg-white rounded-lg shadow-lg left-1/2 -translate-x-1/2 top-6 p-2">

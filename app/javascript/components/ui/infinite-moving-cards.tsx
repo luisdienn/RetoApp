@@ -91,12 +91,12 @@ export const InfiniteMovingCards = ({
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
-        {items.map((item) => (
+        {items.map((item:any) => (
           <li className="relative w-auto  py-6 px-4 md:w-auto " key={item.name}>
             <blockquote>
               <img
-                src={item.image_url == null? item : `http://localhost:3000/${item.image_url}` }
-                className={item.image_url == null? `w-full h-42 object-contain cursor-pointer`: "w-42 h-42 object-contain cursor-pointer"}
+                src={item.image }
+                className={item.image == null? `w-full h-42 object-contain cursor-pointer`: "w-42 h-42 object-contain cursor-pointer"}
               />
             </blockquote>
           </li>

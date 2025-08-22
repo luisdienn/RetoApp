@@ -18,7 +18,18 @@ class BadgesController < ApplicationController
   # @return [void]
   def index
     @user = current_user
-    @badges = Badge.all
+    @badges = Badge.includes(image_attachment: :blob)
+
+    respond_to do |format|
+        format.html 
+        format.json do
+        render json: @badges.map { |badge|
+            badge.as_json.merge(
+            image: badge.image.attached? ? url_for(badge.image): nil)
+        }
+        end
+    end
+
   end
 
   # Updates an existing badge with permitted parameters.
@@ -42,29 +53,18 @@ class BadgesController < ApplicationController
   #
   # @return [JSON]
   def create
-    if params[:badge][:image]
-      image = params[:badge][:image]
-      filename = "#{SecureRandom.hex(8)}_#{image.original_filename}"
-      filepath = Rails.root.join("public", "assets", "Badges", filename)
-      File.open(filepath, "wb") { |f| f.write(image.read) }
 
-      image_url = "assets/Badges/#{filename}"
-    end
+    @badge = Badge.build(badge_params)
 
-    @badge = Badge.new(
-      name: params[:badge][:name],
-      description: params[:badge][:description],
-      image_url: image_url,
-      condition_type: params[:badge][:condition_type],
-      condition_value: params[:badge][:condition_value],
-
-    )
 
     if @badge.save
       render json: { success: true, redirect_url: request.referer }
     else
       render json: { success: false, errors: @badge.errors.full_messages }
     end
+
+
+
   end
 
   # Deletes the specified badge from the database.
@@ -87,6 +87,6 @@ class BadgesController < ApplicationController
   #
   # @return [ActionController::Parameters] the permitted badge parameters
   def badge_params
-    params.require(:badge).permit(:name, :description, :image_url, :condition_type, :condition_value)
+    params.require(:badge).permit(:name, :description, :condition_type, :condition_value, :image)
   end
 end

@@ -11,10 +11,13 @@ class Badge < ApplicationRecord
   # Association to the join records between badges and users.
   #
   # @return [ActiveRecord::Associations::CollectionProxy<UserBadge>]
-  has_many :user_badges
-
+  has_many :user_badges, dependent: :destroy 
   # Association to users who have been awarded this badge.
   #
   # @return [ActiveRecord::Associations::CollectionProxy<User>]
   has_many :users, through: :user_badges
+
+
+  has_one_attached :image
+
 end
