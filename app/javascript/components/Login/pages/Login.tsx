@@ -12,6 +12,8 @@ export default function Login({ CR7, Messi, RetoLogo }:any) {
   const [videoSrc, setVideoSrc] = useState(CR7);
   const [videoOpacity, setVideoOpacity] = useState("opacity-70");
 
+  console.log("GIT Test")
+
   const toggleForm = () => {
     setVideoOpacity("opacity-0");
     setTimeout(() => {
