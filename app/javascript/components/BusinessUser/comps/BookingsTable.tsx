@@ -36,9 +36,9 @@ export default function BookingsTable({ bookings = [] as any[] }) {
           user: b?.[1],
           location: b?.[2],
           field: b?.[3],
-          starts, // keep Date for sorting
-          ends,   // keep Date for sorting
-          day: fmtDay(starts), // precompute day label
+          starts, 
+          ends,   
+          day: fmtDay(starts), 
         };
       })
       .sort((a, b) => b.starts.getTime() - a.starts.getTime());
@@ -93,7 +93,7 @@ export default function BookingsTable({ bookings = [] as any[] }) {
     columns,
     data: rows,
     getRowId: (row) => String(row.id ?? ""),
-    autoResetPageIndex: false, // optional: prevents page jump on data changes
+    autoResetPageIndex: false, 
   });
 
   return (

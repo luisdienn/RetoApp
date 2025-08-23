@@ -25,7 +25,6 @@ class Users::SessionsController < Devise::SessionsController
       elsif user.role == "business"
         render json: { success: true, redirect_url: business_path(resource) }
       else
-        # For regular users, redirect to the dashboard.
         render json: { success: true, redirect_url: after_sign_in_path_for(resource) }
       end
     else

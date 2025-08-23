@@ -44,7 +44,6 @@ export default function FilterModal({
   const cityOptions = useMemo<Option[]>(() => {
     if (!country) return [];
     const raw = City.getCitiesOfCountry(country.value) || [];
-    // unique by name
     const seen = new Set<string>();
     return raw
       .map((ci) => ({ label: ci.name, value: ci.name }))

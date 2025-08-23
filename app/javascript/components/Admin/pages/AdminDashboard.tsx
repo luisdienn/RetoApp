@@ -35,7 +35,6 @@ export default function AdminDashboard({ allusers, Favicon, RetoLogo }:any) {
       )}
       <div className="flex-1 overflow-y-auto">
         <div className="min-h-screen bg-gray-100 px-12 py-20">
-          {/* Contenedor flex para h1 y botón */}
           <div className="flex items-center justify-between mb-2">
             <h1 className="text-4xl font-bold text-gray-800">
               Welcome back Administrator!

@@ -90,7 +90,7 @@ export default function AddLocationStepper({ onClose }: any) {
   const center = useMemo(
     () => ({ lat: lat ?? 9.9281, lng: lng ?? -84.0907 }),
     [lat, lng]
-  ); // Default Map
+  ); 
 
   // Validations
   function parseTimeStr(t: any) {
@@ -187,7 +187,7 @@ export default function AddLocationStepper({ onClose }: any) {
 
   return (
     <div className="w-full max-w-full justify-center ">
-      {/* Header del stepper */}
+      {/* Header  stepper */}
       <div className="flex items-center gap-3 mb-6 justify-center">
         {[1, 2, 3].map((n) => (
           <div key={n} className="flex items-center gap-10">
@@ -513,7 +513,7 @@ export default function AddLocationStepper({ onClose }: any) {
           )}
         </AnimatePresence>
 
-        {/* Footer botones */}
+        {/* Footer  */}
         <div className="mt-6 flex items-center justify-between">
           <button
             type="button"

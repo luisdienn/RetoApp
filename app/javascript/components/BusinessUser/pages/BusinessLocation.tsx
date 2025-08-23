@@ -94,7 +94,7 @@ export default function BusinessLocation({
                   ) : (
                     fields.map((field: any) => (
                       <button
-                        key={field.id} // Siempre un key en listas de React
+                        key={field.id} 
                         onClick={() => {
                           setCurrentField(field);
                           setEditModalOpen(true);

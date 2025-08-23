@@ -56,54 +56,6 @@ console.log(bookings)
           </div>
           <p className="mb-8 text-gray-600">Check your bookings</p>
 
-          {/* <div className="flex items-center  py-4 gap-4">
-            <div>
-              <label className=" font-medium">Location</label>
-              <select
-                name="location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                className="w-full p-2 bg-white rounded hover:cursor-pointer"
-                required
-              >
-                <option value="">Select a location</option>
-                {locations.map((loc:any) => (
-                  <option key={loc.id} value={loc.id}>
-                    {loc.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className=" font-medium mb-1">Field</label>
-              <select
-                disabled={location == "" ? true : false}
-                name="field"
-                value={field}
-                onChange={(e) => setField(e.target.value)}
-                className={`w-full p-2  rounded ${
-                  location == ""
-                    ? "cursor-not-allowed bg-gray-200 text-gray-400"
-                    : "bg-white hover:cursor-pointer"
-                }`}
-                required
-                aria-placeholder="Select field"
-              >
-                <option value="">Select field</option>
-                {filterFields.map((f:any) => (
-                  <option key={f.id} value={f.id}>
-                    {f.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div> */}
-
-
-
-
-
           <BookingsTable bookings={bookings}/>
         </div>
       </div>

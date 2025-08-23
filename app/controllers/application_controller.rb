@@ -32,13 +32,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Restricts access to business-only sections.
+  # Redirects to a 401 page if the user is not an business.
+  #
+  # @return [void]
   def auth_business!
     unless current_user.role == "business"
       redirect_to "/401"
     end
   end
 
-
+  # Restricts access to client-only sections.
+  # Redirects to a 401 page if the user is not an client.
+  #
+  # @return [void]
   def auth_user!
     unless current_user.role == "user"
       redirect_to "/401"

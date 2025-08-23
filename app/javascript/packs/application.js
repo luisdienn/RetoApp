@@ -43,11 +43,6 @@ import BusinessLocation from "../components/BusinessUser/pages/BusinessLocation"
 
 
 
-
-
-
-
-// This is how react_on_rails can see the HelloWorld in the browser.
 ReactOnRails.register({
   Login,
   Dashboard,

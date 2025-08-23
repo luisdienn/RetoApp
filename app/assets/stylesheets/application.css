@@ -37,9 +37,8 @@ body {
   font-family: 'PT Sans';
 }
 
-/* Add this in your CSS file */
 .loader {
-  animation: spin 1s linear infinite; /* Rotate the loader */
+  animation: spin 1s linear infinite; 
 }
 
 @keyframes spin {

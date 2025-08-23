@@ -91,7 +91,6 @@ export default function Dashboard({
               <TotalWC world_cups={world_cups} />
             </div>
 
-            {/* <Aichat /> */}
             
           </div>
           <AddMatchModal

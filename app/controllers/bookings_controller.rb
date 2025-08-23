@@ -1,6 +1,24 @@
 class BookingsController < ApplicationController
   before_action :set_field, only: :create
 
+  # Creates a booking for the current user in the selected field.
+  #
+  # @return [JSON] JSON response with:
+  #   - success: [Boolean] Indicates if the booking was successfully created.
+  #   - redirect_url: [String] The referer URL to redirect the user to.
+  #   - errors: [Array<String>] Array of error messages if creation fails.
+  #
+  # @example Successful response
+  #   {
+  #     "success": true,
+  #     "redirect_url": "http://example.com/previous_page"
+  #   }
+  #
+  # @example Failure response
+  #   {
+  #     "success": false,
+  #     "errors": ["Starts at can't be blank"]
+  #   }
   def create
     p = booking_payload 
 
@@ -26,7 +44,24 @@ class BookingsController < ApplicationController
     end
   end
 
-
+  # Destroys a booking by its ID.
+  #
+  # @return [JSON] JSON response with:
+  #   - success: [Boolean] Indicates if the booking was successfully deleted.
+  #   - redirect_url: [String] The referer URL to redirect the user to.
+  #   - errors: [Array<String>] Array of error messages if deletion fails.
+  #
+  # @example Successful response
+  #   {
+  #     "success": true,
+  #     "redirect_url": "http://example.com/previous_page"
+  #   }
+  #
+  # @example Failure response
+  #   {
+  #     "success": false,
+  #     "errors": ["Booking not found"]
+  #   }
   def destroy
     @booking = Booking.find(params[:id])
     if @booking.destroy
@@ -38,11 +73,25 @@ class BookingsController < ApplicationController
 
   private
 
+  # Sets the field associated with the booking payload.
+  #
+  # @return [Field] The field to be used for creating the booking.
   def set_field
     @field = Field.find(booking_payload[:field_id])
   end
 
-
+  # Extracts and normalizes booking parameters.
+  #
+  # @return [ActionController::Parameters, Hash] The booking payload.
+  #   Falls back to `params` if no nested payload is found.
+  #
+  # @example
+  #   {
+  #     "field_id": 1,
+  #     "date": "2025-08-22",
+  #     "hour": "10:00",
+  #     "tz": "America/Chicago"
+  #   }
   def booking_payload
     params.dig(:book, :payload) || params
   end

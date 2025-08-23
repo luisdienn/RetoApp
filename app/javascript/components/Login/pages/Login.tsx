@@ -57,11 +57,9 @@ export default function Login({ CR7, Messi, RetoLogo }:any) {
         playsInline
       />
 
-      {/* ChatBot */}
-      {/* CHANGE: I have to edit the localhost part in the component */}
+
       <BotpressChat />
 
-      {/* Black CoverUp */}
       <div
         className={`${
           window.innerWidth < 768 ? "hidden sm:block" : ""
@@ -70,12 +68,10 @@ export default function Login({ CR7, Messi, RetoLogo }:any) {
         } w-40 h-40 bg-black z-10 transition-all duration-1000 ease-in-out`}
       />
 
-      {/* Logo */}
       <div className="fixed z-50 top-12 justify-center w-full flex px-4">
         <img className="w-40 sm:w-52 md:w-60" src={RetoLogo} />
       </div>
 
-      {/* Form */}
       <div className="relative z-10 w-full flex justify-center pt-12 px-4">
         <SliderRegistroLogin isLogin={isLogin} toggleForm={toggleForm} />
       </div>

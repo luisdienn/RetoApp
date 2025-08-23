@@ -16,7 +16,6 @@ export default function DeleteBookModal({
 }: DeleteBookModalProps) {
   const handleDelete = async () => {
 
-    console.log("ESTOY DENTRO DEL DELETE")
     try {
       const result = await deleteRequest(`/bookings/${book}`, {});
 

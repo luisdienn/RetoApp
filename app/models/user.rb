@@ -53,9 +53,14 @@ class User < ApplicationRecord
   # @return [ActiveRecord::Associations::CollectionProxy<Badge>]
   has_many :badges, through: :user_badges
 
-  
+  # Association to user locations (join model).
+  #
+  # @return [ActiveRecord::Associations::CollectionProxy<Locations>]
   has_many :locations, dependent: :destroy, inverse_of: :user
 
+  # Association to user bookings (join model).
+  #
+  # @return [ActiveRecord::Associations::CollectionProxy<Booking>]
   has_many :bookings, dependent: :destroy
 
 
