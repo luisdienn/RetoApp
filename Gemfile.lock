@@ -86,7 +86,7 @@ GEM
     boxcars (0.2.7)
       google_search_results (~> 2.2)
       ruby-openai (~> 3.0)
-    brakeman (7.0.2)
+    brakeman (7.1.0)
       racc
     builder (3.3.0)
     bullet (8.0.8)
