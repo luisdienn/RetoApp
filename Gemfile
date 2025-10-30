@@ -79,7 +79,7 @@ end
 group :development, :test do
   gem "faker"
   gem "factory_bot_rails"
-  gem 'database_cleaner-active_record', '~> 2.0'
+  gem 'database_cleaner-active_record', '~> 2.2'
 
 end
 
